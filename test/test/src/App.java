@@ -1,5 +1,7 @@
+import glenlib.cosmetic;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        cosmetic.printColor(cosmetic.RED, "Hello, World!");
     }
 }
