@@ -1,5 +1,6 @@
 package glenlib;
 
+
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -66,6 +67,7 @@ public class util {
         style.line(width);
         System.exit(0);
     }
+
 
 
 

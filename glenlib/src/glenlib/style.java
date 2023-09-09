@@ -1,5 +1,6 @@
 package glenlib;
 
+
 public class style {
 
     public static final String RESET = "\u001B[0m";
