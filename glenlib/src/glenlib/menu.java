@@ -53,6 +53,7 @@ public class menu {
                 waitEnter();
             }
         }
+        scanner.close();
     }
 
     public static void clearScreen() {
@@ -67,5 +68,6 @@ public class menu {
         System.out.print("\nPress Enter to continue...");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
+        scanner.close();
     }
 }
