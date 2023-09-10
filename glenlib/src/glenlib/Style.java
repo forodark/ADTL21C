@@ -40,10 +40,11 @@ public class Style {
     }
 
     public static void printCentered(int width, String format, Object... args) {
+
         String formattedText = String.format(format, args);
     
         if (width <= formattedText.length()) {
-            System.out.println(formattedText);
+            System.out.print(formattedText);
         } else {
             int total_padding = width - formattedText.length();
             int left_padding = total_padding / 2;
@@ -66,8 +67,8 @@ public class Style {
         System.out.println();
     }
 
-    public static void print(String text) {
-        System.out.print(text);
+    public static void print(Object value) {
+        System.out.print(value);
     }
 
     public static void printf(String format, Object... args) {

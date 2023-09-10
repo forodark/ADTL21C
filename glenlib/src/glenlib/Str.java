@@ -2,7 +2,7 @@ package glenlib;
 
 
 import java.io.StringWriter;
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class Str {
     public static String convertString(Object value) {
@@ -95,35 +95,54 @@ public class Str {
 
     public static String formatString(Object value, int width, int precision) {
         StringBuilder formatted = new StringBuilder();
-        DecimalFormat decimalFormat = new DecimalFormat();
 
-        if (precision >= 0 && (value instanceof Float || value instanceof Double)) {
-            decimalFormat.setMaximumFractionDigits(precision);
-            decimalFormat.setMinimumFractionDigits(precision);
+        if (value != null) {
+            // Check if the value is a number (Integer, Double, Float, etc.)
+            if (value instanceof Number) {
+                NumberFormat numberFormat = NumberFormat.getNumberInstance();
+                
+                if (precision >= 0 && (value instanceof Float || value instanceof Double)) {
+                    numberFormat.setMaximumFractionDigits(precision);
+                    numberFormat.setMinimumFractionDigits(precision);
+                }
+                
+                formatted.append(numberFormat.format(value));
+            } else {
+                // For non-numeric types, simply convert to a string
+                formatted.append(value.toString());
+            }
+        } else {
+            formatted.append("null"); // Handle null values
         }
-
-        formatted.append(decimalFormat.format(value));
 
         return truncate(formatted.toString(), width);
     }
 
+
     public static int extractNumber(String str) {
         int result = 0;
-        int pos = 0;
-
-        // Skip leading non-digit characters
-        while (pos < str.length() && !Character.isDigit(str.charAt(pos))) {
-            pos++;
+        boolean foundDigit = false;
+    
+        for (char c : str.toCharArray()) {
+            if (Character.isDigit(c)) {
+                result = result * 10 + (c - '0');
+                foundDigit = true;
+            } else if (c == '.' && !foundDigit) {
+                return 0;
+            } else if (foundDigit && c == '.') {
+                break;
+            }
         }
-
-        // Extract the numeric part (integral part only)
-        while (pos < str.length() && Character.isDigit(str.charAt(pos))) {
-            result = result * 10 + (str.charAt(pos) - '0');
-            pos++;
-        }
-
+    
         return result;
     }
+    
+    
+
+    
+    
+    
+    
 
     public static int extractDecimal(String str) {
         int result = 0;
