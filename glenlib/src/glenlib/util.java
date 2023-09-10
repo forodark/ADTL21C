@@ -1,10 +1,12 @@
 package glenlib;
 
-
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class util {
+public class Util {
+
+    //Defaults
+    public static final String INVALID = "Invalid choice.\n";
+    public static final String EXIT = "Exiting Program...";
 
     public final static void clear() {
         try {
@@ -32,39 +34,31 @@ public class util {
     }
 
 
-    public static void waitEnter() {
-        System.out.print("Press Enter to continue...");
-        System.out.flush();
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine(); // Wait for Enter key press
-        scanner.close();
-    }
-
     public static void invalid() {
-        style.printColor(style.RED, "Invalid choice.\n");
-        style.line();
-        waitEnter();
+        Style.printColor(Style.RED, "Invalid choice.\n");
+        Style.line();
+        In.waitEnter();
     }
 
     public static void invalid(String message, int width) {
-        style.printColor(style.RED, message);
-        style.line(width);
-        waitEnter();
+        Style.printColor(Style.RED, message);
+        Style.line(width);
+        In.waitEnter();
     }
 
     public static void exit() {
         clear();
-        style.line();
+        Style.line();
         System.out.println("Exiting Program...");
-        style.line();
+        Style.line();
         System.exit(0);
     }
 
     public static void exit(String message, int width) {
         clear();
-        style.line(width);
+        Style.line(width);
         System.out.println(message);
-        style.line(width);
+        Style.line(width);
         System.exit(0);
     }
 

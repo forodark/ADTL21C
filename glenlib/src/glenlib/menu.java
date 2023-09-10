@@ -1,73 +1,167 @@
 package glenlib;
 
-import java.util.Scanner;
-
 // Define a functional interface for menu functions
 interface MenuFunction {
     void execute();
 }
 
+interface MenuItem {
+    String getText();
+}
+
 // Define a menu item class
-class MenuItem {
+class Option implements MenuItem {
     String text;
     MenuFunction function;
 
-    public MenuItem(String text, MenuFunction function) {
+    public Option(String text, MenuFunction function) {
         this.text = text;
         this.function = function;
+    }
+    public Option(MenuFunction function) {
+        this.text = "";
+        this.function = function;
+    }
+
+    public String getText() {
+        return text;
+    }
+}
+
+class Title implements MenuItem {
+    String text;
+
+    public Title(String text) {
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+}
+
+class Subtitle implements MenuItem {
+    String text;
+
+    public Subtitle(String text) {
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+}
+
+class Line implements MenuItem {
+    public Line() {}
+    
+    public String getText() {
+        return "";
     }
 }
 
 // Create a Menu class for handling menu interactions
-public class menu {
-    public static void showMenu(String title, MenuItem[] menuItems) {
-        Scanner scanner = new Scanner(System.in);
-        int choice;
+public class Menu {
+
+    //Defaults
+    public static final int MENU_WIDTH = 31;
+
+    public static int getPosition(MenuItem[] items, int choice) {
+        int result = 0;
+        int valid_options = 0;
+        while(valid_options != choice) {
+            if (items[result] instanceof Title) {
+                result++;
+            }
+            else if (items[result] instanceof Subtitle) {
+                result++;
+            }
+            else if (items[result] instanceof Line) {
+                result++;
+            }
+            else if (items[result] instanceof Option) {
+                result++; valid_options++;
+            }
+        }
+        return result-1;
+    }
+
+    public static void showMenu(String title, MenuItem[] items) {
+        showMenu(title, items, MENU_WIDTH);
+    }
+    
+    public static int menu_return = 0;
+    
+    public static void showMenu(String title, MenuItem[] items, int menu_width) {
 
         while (true) {
-            clearScreen();
-            System.out.println(title + "\n");
+            Util.clear();
 
-            for (int i = 0; i < menuItems.length; i++) {
-                System.out.println("[" + (i + 1) + "] " + menuItems[i].text);
-            }
+            Style.line(menu_width);
+            Style.printCentered(menu_width, title);
+            Style.nl();
+            Style.line(menu_width);
 
-            System.out.println("[0] Return\n");
-            System.out.print("Enter Choice: ");
             
-            try {
-                choice = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
-            } catch (Exception e) {
-                choice = -1; // Invalid choice
+            int i = 0; int excess = 0;
+            for (; i+excess < items.length;) {
+                if (items[i+excess] instanceof Title) {
+                    Style.line(menu_width);
+                    Style.printCentered(menu_width, items[i+excess].getText());
+                    Style.nl();
+                    Style.line(menu_width);
+                    excess++;
+                } else if (items[i+excess] instanceof Subtitle) {
+                    System.out.println(items[i+excess].getText());
+                    excess++;
+                } else if (items[i+excess] instanceof Line) {
+                    Style.line(menu_width);
+                    excess++;
+                } else {
+                    System.out.println("[" + (i + 1) + "] " + items[i+excess].getText());
+                    i++;
+                }
             }
+
+            System.out.println("[0] Return");
+            Style.line();
+
+            int choice = In.getInt("Enter Choice: ");
 
             if (choice == 0) {
-                break;
-            } else if (choice > 0 && choice <= menuItems.length) {
-                // Execute the selected function
-                menuItems[choice - 1].function.execute();
-                waitEnter();
-            } else {
-                System.out.println("Invalid choice. Please select a valid option.");
-                waitEnter();
+                menu_return = 1;
+                return;
             }
+
+            if (choice < 0 || choice > i) {
+                Util.invalid();
+                continue;
+            } 
+
+            Option selected = (Option) items[getPosition(items, choice)];
+            selected.function.execute();
+
+            if (menu_return != 1) {
+                In.waitEnter();
+                Util.clear();
+            }
+    
+            menu_return = 0;
+
         }
-        scanner.close();
+        
     }
 
-    public static void clearScreen() {
-        // You can implement clearing the screen here, depending on your OS
-        // For simplicity, let's just print some newlines
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
-
-    public static void waitEnter() {
-        System.out.print("\nPress Enter to continue...");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        scanner.close();
-    }
 }
+
+/* Sample Usage:
+    MenuItem[] items = {
+        new Option("Option 1", () -> function1()),
+        new Title("test title"),
+        new Subtitle("test subtitle"),
+        new Line(),
+        new Option("Option 2", () -> function2()),
+    };
+
+    Menu.showMenu("Menu", items);
+ */

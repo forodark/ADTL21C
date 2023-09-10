@@ -3,13 +3,17 @@ package glenlib;
 
 import java.util.Scanner;
 
-public class in {
+public class In {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static final String CHAR_LIB = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ";
     public static final int STR_MIN = 0;
     public static final int STR_MAX = 256;
 
+    public static void waitEnter() {
+        System.out.print("Press Enter to continue...");
+        scanner.nextLine(); // Wait for Enter key press
+    }
 
     // Function for integer input
     public static int getInt(String prompt) {
@@ -18,12 +22,14 @@ public class in {
             String input = scanner.nextLine();
 
             if (input.isEmpty()) {
-                System.out.println("Invalid input. Input must not be empty.");
+                Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
+                Style.line();
             } else {
                 try {
                     return Integer.parseInt(input);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Input must be an integer.");
+                    Style.printColor(Style.RED, "Invalid input. Input must be an integer.%n");
+                    Style.line();
                 }
             }
         }
@@ -36,12 +42,14 @@ public class in {
             String input = scanner.nextLine();
 
             if (input.isEmpty()) {
-                System.out.println("Invalid input. Input must not be empty.");
+                Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
+                Style.line();
             } else {
                 try {
                     return Float.parseFloat(input);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter a valid float.");
+                    Style.printColor(Style.RED, "Invalid input. Please enter a valid float.%n");
+                    Style.line();
                 }
             }
         }
@@ -54,12 +62,14 @@ public class in {
             String input = scanner.nextLine();
 
             if (input.isEmpty()) {
-                System.out.println("Invalid input. Input must not be empty.");
+                Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
+                Style.line();
             } else {
                 try {
                     return Double.parseDouble(input);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter a valid double.");
+                    Style.printColor(Style.RED, "Invalid input. Please enter a valid double.%n");
+                    Style.line();
                 }
             }
         }
@@ -72,9 +82,11 @@ public class in {
             String input = scanner.nextLine();
 
             if (input.isEmpty()) {
-                System.out.println("Invalid input. Input must not be empty.");
+                Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
+                Style.line();
             } else if (input.length() != 1) {
-                System.out.println("Invalid input. Input must be a single character.");
+                Style.printColor(Style.RED, "Invalid input. Input must be a single character.%n");
+                Style.line();
             } else {
                 return input.charAt(0);
             }
@@ -98,9 +110,11 @@ public class in {
             String input = scanner.nextLine();
 
             if (input.isEmpty()) {
-                System.out.println("Invalid input. Input must not be empty.");
+                Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
+                Style.line();
             } else if (input.length() < minLength || input.length() > maxLength) {
-                System.out.printf("Invalid input. Input must be between %d and %d characters.%n", minLength, maxLength);
+                Style.printColor(Style.RED, "Invalid input. Input must be between %d and %d characters.%n", minLength, maxLength);
+                Style.line();
             } else {
                 boolean invalid = false;
                 StringBuilder invalidChars = new StringBuilder();
@@ -117,7 +131,8 @@ public class in {
                 if (!invalid) {
                     return input;
                 } else {
-                    System.out.printf("Invalid input. Input cannot contain '%s'.%n", invalidChars.toString());
+                    Style.printColor(Style.RED, "Invalid input. Input cannot contain '%s'.%n", invalidChars.toString());
+                    Style.line();
                 }
             }
         }
@@ -141,7 +156,8 @@ public class in {
                 }
             }
 
-            System.out.printf("Invalid input. Input must be '%c' or '%c'.%n", trueChoice, falseChoice);
+            Style.printColor(Style.RED, "Invalid input. Input must be '%c' or '%c'.%n", trueChoice, falseChoice);
+            Style.line();
         }
     }
 

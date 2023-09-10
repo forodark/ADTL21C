@@ -1,7 +1,7 @@
 package glenlib;
 
 
-public class file {
+public class File {
     public static String getFileExtension(String filename) {
         // Find the position of the last dot in the filename
         int dotPosition = filename.lastIndexOf(".");

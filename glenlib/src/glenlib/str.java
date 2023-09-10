@@ -4,7 +4,7 @@ package glenlib;
 import java.io.StringWriter;
 import java.text.DecimalFormat;
 
-public class str {
+public class Str {
     public static String convertString(Object value) {
         StringWriter sw = new StringWriter();
         sw.append(String.valueOf(value));

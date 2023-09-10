@@ -16,6 +16,7 @@ Latest changes (v1.0)
         > color
         > line
         > printCentered
+        > nl (newLine)
     - Utility functions (glenlib.util)
         > clear
         > sleep
@@ -42,7 +43,10 @@ Latest changes (v1.0)
         > getChar
         > getString
         > getBool
+    - Menu functions (glenlib.Menu)
+        > showMenu
 Upcoming changes
+    - Change printCentered to accept formatting args
 
 ==================================================================================================================
  
