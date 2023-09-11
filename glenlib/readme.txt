@@ -45,6 +45,9 @@ Latest changes (v1.0)
         > getBool
     - Menu functions (glenlib.Menu)
         > showMenu
+    - Table functions (glenlib.Table)
+        > printFull
+        > printPage
 Upcoming changes
     - Change printCentered to accept formatting args
 

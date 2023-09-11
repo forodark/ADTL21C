@@ -3,13 +3,14 @@ package glenlib;
 import java.lang.reflect.Method;
 import java.util.List;
 
-class TableColumn {
+
+class TableColumn<T> {
     private String header;
-    private TableRow[] data;
+    private List<T> data;
     private String format;
     private String getterMethod;
 
-    public TableColumn(String header, TableRow[] data, String format, String getterMethod) {
+    public TableColumn(String header, List<T> data, String format, String getterMethod) {
         this.header = header;
         this.data = data;
         this.format = format;
@@ -20,7 +21,7 @@ class TableColumn {
         return header;
     }
 
-    public TableRow[] getData() {
+    public List<T> getData() {
         return data;
     }
 
@@ -36,22 +37,22 @@ class TableColumn {
 class Table {
     public static final int TABLE_PAGE_LENGTH = 10;
 
-    private List<TableColumn> columns;
+    private List<TableColumn<?>> columns;
 
-    public Table(List<TableColumn> columns) {
+    public Table(List<TableColumn<?>> columns) {
         this.columns = columns;
     }
 
-    private Object invokeGetter(TableRow row, String getterMethod) {
+    private Object invokeGetter(List<?> data, int index, String getterMethod) {
         try {
-            // Create a Class object for the TableRow class
-            Class<?> rowClass = row.getClass();
+            // Get the class of the object at the specified index
+            Class<?> rowClass = data.get(index).getClass();
 
             // Create a Method object for the getter method based on its name
             Method method = rowClass.getMethod(getterMethod);
 
-            // Invoke the getter method on the given TableRow object
-            return method.invoke(row);
+            // Invoke the getter method on the object at the specified index
+            return method.invoke(data.get(index));
         } catch (Exception e) {
             // Handle any exceptions that may occur during reflection
             e.printStackTrace();
@@ -59,12 +60,13 @@ class Table {
         }
     }
 
+
     public void printFull(String title) {
         int numColumns = columns.size();
         int tableWidth = numColumns + 1;
 
         // Calculate table width based on column formats
-        for (TableColumn column : columns) {
+        for (TableColumn<?> column : columns) {
             tableWidth += Str.extractNumber(column.getFormat());
         }
         
@@ -80,7 +82,7 @@ class Table {
 
         // Print headers
         System.out.print("|");
-        for (TableColumn column : columns) {
+        for (TableColumn<?> column : columns) {
             int columnWidth = Str.extractNumber(column.getFormat());
             Style.printCentered(columnWidth, column.getHeader());
             
@@ -90,11 +92,11 @@ class Table {
         System.out.println();
 
         // Print content
-        for (int i = 0; i < columns.get(0).getData().length; i++) {
+        for (int i = 0; i < columns.get(0).getData().size(); i++) {
             System.out.print("|");
-            for (TableColumn column : columns) {
-                TableRow[] columnData = column.getData();
-                Object value = invokeGetter(columnData[i], column.getGetterMethod());
+            for (TableColumn<?> column : columns) {
+                List<?> columnData = column.getData();
+                Object value = invokeGetter(columnData, i, column.getGetterMethod());
                 String buffer = Str.convertString(value);
 
                 System.out.print(" " + Str.formatString(buffer, Str.extractNumber(column.getFormat())-1) + "|");
@@ -105,13 +107,63 @@ class Table {
     }
 
     /* Sample:
-        List<TableColumn> columns = new ArrayList<>();
-        columns.add(new TableColumn("ID", data, "%4d", "getId"));
-        columns.add(new TableColumn("Fruit", data, "%10s", "getFruit"));
-        columns.add(new TableColumn("Price", data, "%5.2f", "getPrice"));
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Fruit {
+    private int id;
+    private String fruit;
+    private double price;
+
+    public Fruit(int id, String fruit, double price) {
+        this.id = id;
+        this.fruit = fruit;
+        this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getFruit() {
+        return fruit;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+}
+
+public class test {
+    public static void main(String[] args) {
+        Fruit[] fruits = new Fruit[]{
+            new Fruit(1, "Apple", 1.5),
+            new Fruit(2, "Banana", 2.75),
+            new Fruit(3, "Cherry", 3.0),
+            new Fruit(4, "Orange", 3.25),
+            new Fruit(5, "Mango", 3.5),
+            new Fruit(6, "Pineapple", 3.75),
+            new Fruit(7, "Strawberry", 4.0),
+            new Fruit(8, "Watermelon", 4.25),
+            new Fruit(9, "Peach", 4.5),
+            new Fruit(10, "Pear", 4.75),
+            new Fruit(11, "Apricot", 5.0),
+            new Fruit(12, "Lemon", 5.25)
+        };
+
+        List<Fruit> data = Arrays.asList(fruits);
+
+        List<TableColumn<?>> columns = new ArrayList<>();
+        columns.add(new TableColumn<>("ID", data, "%4d", "getId"));
+        columns.add(new TableColumn<>("Fruit", data, "%10s", "getFruit"));
+        columns.add(new TableColumn<>("Price", data, "%5.2f", "getPrice"));
         Table TEST = new Table(columns);
 
         TEST.printFull("Sample Table");
+    }
+}
      */
 
     public void printPage(String title) {
@@ -119,10 +171,10 @@ class Table {
         int tableWidth = numColumns + 1;
 
         // Calculate table width based on column formats
-        for (TableColumn column : columns) {
+        for (TableColumn<?> column : columns) {
             tableWidth += Str.extractNumber(column.getFormat());
         }
-        int content_size = columns.get(0).getData().length;
+        int content_size = columns.get(0).getData().size();
 
         int page = 0;
         int max_page = (content_size / TABLE_PAGE_LENGTH) - 1;
@@ -145,7 +197,7 @@ class Table {
 
             // Print headers
             System.out.print("|");
-            for (TableColumn column : columns) {
+            for (TableColumn<?> column : columns) {
                 int columnWidth = Str.extractNumber(column.getFormat());
                 Style.printCentered(columnWidth, column.getHeader());
                 
@@ -157,9 +209,9 @@ class Table {
             // Print content
             for (; page_row_counter < TABLE_PAGE_LENGTH && table_row_counter < content_size; page_row_counter++, table_row_counter++) {
                 System.out.print("|");
-                for (TableColumn column : columns) {
-                    TableRow[] columnData = column.getData();
-                    Object value = invokeGetter(columnData[table_row_counter], column.getGetterMethod());
+                for (TableColumn<?> column : columns) {
+                    List<?> columnData = column.getData();
+                    Object value = invokeGetter(columnData, table_row_counter, column.getGetterMethod());
                     String buffer = Str.convertString(value);
 
                     System.out.print(" " + Str.formatString(buffer, Str.extractNumber(column.getFormat())-1) + "|");
