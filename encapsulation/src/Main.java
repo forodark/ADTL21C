@@ -1,3 +1,5 @@
+import glenlib.*;
+
 public class Main {
     public static void main(String[] args) {
         Account[] accounts = new Account[3];
@@ -15,9 +17,15 @@ public class Main {
         accounts[2] = new Account("0003", "Aki", 0.0);
         accounts[2].setBalance(2000.0);
 
-        //print account data
+        // print account data
+        Style.line(31);
+        Style.printCentered(31, "Account Data");
+        Style.nl();
+        Style.line(31);
         for (int i = 0; i < accounts.length; i++) {
-                accounts[i].printInfo();
+            accounts[i].printInfo();
+            Style.line(31);
         }
+        
     }
 }

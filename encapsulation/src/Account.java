@@ -43,7 +43,6 @@ public class Account {
         System.out.println("Account Number: " + account_number);
         System.out.println("Account Holder: " + name);
         System.out.println("Balance: " + balance);
-        System.out.println();
     }
 
 }

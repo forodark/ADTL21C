@@ -17,11 +17,11 @@ public class Main {
         for (Employee employee : employees) {
             if (employee instanceof Manager) {
                 Manager manager = (Manager) employee;
-                System.out.printf("%-10s %-15s $%-10.2f %-15d%n",
+                System.out.printf("%-10s %-15s %-10.2f %-15d%n",
                         employee.getName(), employee.getId(), employee.getSalary(),
                         manager.getEmployeeCount());
             } else {
-                System.out.printf("%-10s %-15s $%-10.2f %-15s%n",
+                System.out.printf("%-10s %-15s %-10.2f %-15s%n",
                         employee.getName(), employee.getId(), employee.getSalary(), "");
             }
         }
