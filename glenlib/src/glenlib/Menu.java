@@ -1,64 +1,10 @@
 package glenlib;
 
 // Define a functional interface for menu functions
-interface MenuFunction {
-    void execute();
-}
 
-interface MenuItem {
-    String getText();
-}
 
-// Define a menu item class
-class Option implements MenuItem {
-    String text;
-    MenuFunction function;
 
-    public Option(String text, MenuFunction function) {
-        this.text = text;
-        this.function = function;
-    }
-    public Option(MenuFunction function) {
-        this.text = "";
-        this.function = function;
-    }
 
-    public String getText() {
-        return text;
-    }
-}
-
-class Title implements MenuItem {
-    String text;
-
-    public Title(String text) {
-        this.text = text;
-    }
-
-    public String getText() {
-        return text;
-    }
-}
-
-class Subtitle implements MenuItem {
-    String text;
-
-    public Subtitle(String text) {
-        this.text = text;
-    }
-
-    public String getText() {
-        return text;
-    }
-}
-
-class Line implements MenuItem {
-    public Line() {}
-    
-    public String getText() {
-        return "";
-    }
-}
 
 // Create a Menu class for handling menu interactions
 public class Menu {
