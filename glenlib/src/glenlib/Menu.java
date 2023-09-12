@@ -27,7 +27,6 @@ public class Menu {
 
     public static void returnFromMenu() {
         menu_return = 1;
-        return;
     }
 
     public static void showMenu(String title, MenuItem[] items) {
@@ -78,6 +77,7 @@ public class Menu {
             //this is so that if returned from menu, it doesnt prompt enter to continue
             if (choice == 0) {
                 returnFromMenu();
+                return;
             }
 
             if (choice < 0 || choice > i) {
