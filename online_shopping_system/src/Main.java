@@ -1,3 +1,16 @@
+/*
+ * To do:
+ * create accounts
+ * add product
+ * 
+ */
+
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import glenlib.*;
 
 public class Main {
@@ -8,7 +21,7 @@ public class Main {
     };
 
     public static Customer[] customers = new Customer[] {
-        new Customer("Glen", "glen@example.com", "password1", "C001"),
+        new Customer("Glen", "glen", "1234", "C001"),
         new Customer("Happy", "happy@example.com", "password2", "C002"),
         new Customer("Aki", "aki@example.com", "password3", "C003")
     };
@@ -19,30 +32,46 @@ public class Main {
         new Seller("Seller3", "seller3@example.com", "password3", "S003")
     };
 
-    public static int logged_in = -1;
+    public static int selected = -1;
 
     public static final int INTERFACE_WIDTH = 63;
 
     public static void main(String[] args) {
 
-        loginCustomer();
-        
+        mainMenu();
 
 
     }
 
+    public static void mainMenu() {
+        MenuItem[] main_menu = {
+            new Option("Login as Customer", () -> loginCustomer()),
+            new Option("Login as Seller", () -> loginSeller()),
+            new Option("Exit", () -> Util.exit())
+        };
+
+        Menu.showMenu("Main Menu", main_menu);
+    }
+
     public static void loginCustomer() {
-        logged_in = -1;
-        int i = 0;
+        Util.clear();
+        selected = -1;
+        int i;
+
         while(true) {
             String input_email = In.getString("Enter your email (0 to return): ");
-            for (; i < customers.length; i++) {
+
+            if (input_email == "0") {
+                return;
+            }
+
+            for (i = 0; i < customers.length; i++) {
                 if (customers[i].getEmail().equals(input_email)) {
-                    logged_in = i;
+                    selected = i;
                     break;
                 }
             }
-            if (logged_in == -1) {
+            if (selected == -1) {
                 Style.printColor(Style.RED, "Invalid email.%n");
             }
             else {
@@ -52,30 +81,67 @@ public class Main {
 
         while(true) {
             String input_password = In.getString("Enter your password (0 to return): ");
-            if (customers[i].getPassword().equals(input_password)) {
+            
+            if (input_password == "0") {
+                return;
+            }
+
+            if (customers[selected].getPassword().equals(input_password)) {
                 break;
             }
-            Style.printColor(Style.RED, "Invalid email.%n");
+            Style.printColor(Style.RED, "Incorrect password.%n");
         }
 
         mainMenuCustomer();
 
     }
 
-    public static void loginSeller() {
+    public static void mainMenuCustomer() {
+        Util.clear();
+        Style.line(INTERFACE_WIDTH);
+        Style.printf("Welcome, %s", customers[selected].getName());
+        Style.print("");
 
-        String input_email = In.getString("Enter your email");
-        for (int i = 0; i < customers.length; i++) {
-            if (customers[i].getEmail().equals(input_email)) {
-                logged_in = i;
-                break;
-            }
-        }
+        MenuItem[] main_menu = {
+            new Option("Browse Sellers", () -> browseSellers()),
+            new Option("View Products", () -> viewProducts()),
+            new Option("View Cart", () -> viewCart()),
+            new Option("Logout", () -> logout())
+        };
+
+        Menu.showMenu("", main_menu);
     }
 
-    public static void mainMenuCustomer() {
-        Style.line(INTERFACE_WIDTH);
+    public static void browseSellers() {
+        Util.clear();
+        List<Seller> data = Arrays.asList(sellers);
+
+        List<TableColumn<?>> columns = new ArrayList<>();
+        columns.add(new TableColumn<>("Seller ID", data, "%12s", "getSeller_id"));
+        columns.add(new TableColumn<>("Name", data, "%16s", "getName"));
+        columns.add(new TableColumn<>("# Products", data, "%12f", "getProduct_count"));
+        Table TEST = new Table(columns);
+
+        TEST.printFull("Sample Table");
+    }
+
+    public static void viewProducts() {
         
     }
+
+    public static void viewCart() {
+
+    }
+
+    public static void loginSeller() {
+
+    }
+
+    public static void logout() {
+        selected = -1;
+        mainMenu();
+    }
+
+
     
 }
