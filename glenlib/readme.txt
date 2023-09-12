@@ -17,6 +17,10 @@ Latest changes (v1.0)
         > line
         > printCentered
         > nl (newLine)
+        > Macros for System.out functions
+            - print
+            - printf
+            - println
     - Utility functions (glenlib.util)
         > clear
         > sleep

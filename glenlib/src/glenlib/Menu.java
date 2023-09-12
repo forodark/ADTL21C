@@ -30,15 +30,26 @@ public class Menu {
     }
 
     public static void showMenu(String title, MenuItem[] items) {
-        showMenu(title, items, MENU_WIDTH);
+        showMenu(title, items, MENU_WIDTH, false);
+    }
+
+    public static void showMenu(String title, MenuItem[] items, int menu_width) {
+        showMenu(title, items, menu_width, false);
+    }
+
+    public static void showMenu(String title, MenuItem[] items, Boolean no_clear) {
+        showMenu(title, items, MENU_WIDTH, no_clear);
     }
     
     public static int menu_return = 0;
     
-    public static void showMenu(String title, MenuItem[] items, int menu_width) {
+    public static void showMenu(String title, MenuItem[] items, int menu_width, Boolean no_clear) {
 
         while (true) {
-            Util.clear();
+            if (no_clear == false) {
+                Util.clear();
+            }
+            
 
             Style.line(menu_width);
 
@@ -90,7 +101,6 @@ public class Menu {
 
             if (menu_return != 1) {
                 In.waitEnter();
-                Util.clear();
             }
     
             menu_return = 0;

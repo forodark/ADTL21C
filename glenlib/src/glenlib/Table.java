@@ -128,18 +128,37 @@ public class test {
 }
      */
 
+    public int page;
+    public int max_page;
+    int page_row_counter;
+    int table_row_counter;
+    public int table_width;
+    String saved_title;
+
     public void printPage(String title) {
+        printPage(title, false, false);
+    }
+
+    public void printPage(String title, Boolean no_menu) {
+        printPage(title, no_menu, false);
+    }
+
+    public void printPage(String title, Boolean no_menu, Boolean dont_reset) {
+        saved_title = title;
         int num_columns = columns.size();
-        int table_width = num_columns + 1;
+        table_width = num_columns + 1;
 
         for (TableColumn<?> column : columns) {
             table_width += Str.extractNumber(column.getFormat());
         }
         int content_size = columns.get(0).getData().size();
 
-        int page = 0;
-        int max_page = (content_size / TABLE_PAGE_LENGTH) - 1;
-        int page_row_counter = 0; int table_row_counter = 0;
+        if (dont_reset == false) {
+        page = 0;
+        max_page = (content_size / TABLE_PAGE_LENGTH) - 1;
+        page_row_counter = 0; table_row_counter = 0;  
+        }
+
 
         if (content_size % TABLE_PAGE_LENGTH != 0) {
             max_page++;
@@ -181,56 +200,86 @@ public class test {
             }
             page_row_counter = 0;
             Style.line(table_width);
-            Style.printf(" Page %d of %d   ", page+1, max_page+1);
-            if (page > 0) {
-                Style.print(" [8] Previous   ");
-            }
-            if (table_width < 31) {
-                Style.nl();
-            }
-            if (page != max_page) {
-                Style.print(" [9] Next   ");
-            }
-            Style.printf(" [0] Return%n");
 
-            Style.line(table_width);
+            if (no_menu == false) {
 
-            int choice = In.getInt("Enter Choice: ");
+                Style.printf(" Page %d of %d   ", page+1, max_page+1);
+                if (page > 0) {
+                    Style.print(" [8] Previous   ");
+                }
+                if (table_width < 31) {
+                    Style.nl();
+                }
+                if (page != max_page) {
+                    Style.print(" [9] Next   ");
+                }
+                Style.printf(" [0] Return%n");
 
-            switch (choice) {
-                case 8:
-                    if (page > 0) {
-                        page--;
-                        table_row_counter = page*TABLE_PAGE_LENGTH;
-                        break;
-                    }
-                    else {
+                Style.line(table_width);
+
+                int choice = In.getInt("Enter Choice: ");
+
+                switch (choice) {
+                    case 8:
+                        if (page > 0) {
+                            page--;
+                            table_row_counter = page*TABLE_PAGE_LENGTH;
+                            break;
+                        }
+                        else {
+                            Util.invalid(Util.INVALID, table_width);
+                            table_row_counter = page*TABLE_PAGE_LENGTH;
+                            continue;
+                        }
+                    case 9:
+                        if (page != max_page) {
+                            page++;
+                            table_row_counter = page*TABLE_PAGE_LENGTH;
+                            break;
+                        }
+                        else {
+                            Util.invalid(Util.INVALID, table_width);
+                            table_row_counter = page*TABLE_PAGE_LENGTH;
+                            continue;
+                        }
+                    case 0:
+                        Style.line(table_width);
+                        return;
+                    default:
                         Util.invalid(Util.INVALID, table_width);
                         table_row_counter = page*TABLE_PAGE_LENGTH;
                         continue;
-                    }
-                case 9:
-                    if (page != max_page) {
-                        page++;
-                        table_row_counter = page*TABLE_PAGE_LENGTH;
-                        break;
-                    }
-                    else {
-                        Util.invalid(Util.INVALID, table_width);
-                        table_row_counter = page*TABLE_PAGE_LENGTH;
-                        continue;
-                    }
-                case 0:
-                    Style.line(table_width);
-                    return;
-                default:
-                    Util.invalid(Util.INVALID, table_width);
-                    table_row_counter = page*TABLE_PAGE_LENGTH;
-                    continue;
-                
+                    
+                }
+            }
+            else {
+                break;
             }
         }
+    }
 
+    public void nextPage() {
+        if (page != max_page) {
+            page++;
+            table_row_counter = page*TABLE_PAGE_LENGTH;
+            printPage(saved_title, true, true);
+        }
+        else {
+            Util.invalid("Page does not exist", table_width);
+            table_row_counter = page*TABLE_PAGE_LENGTH;
+        }
+    }
+
+    public void prevPage() {
+        if (page > 0) {
+            page--;
+            table_row_counter = page*TABLE_PAGE_LENGTH;
+            printPage(saved_title, true, true);
+        }
+        else {
+            Util.invalid("Page does not exist", table_width);
+            table_row_counter = page*TABLE_PAGE_LENGTH;
+        }
     }
 
 }

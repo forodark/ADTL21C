@@ -75,5 +75,8 @@ public class Style {
         System.out.printf(format, args);
     }
 
+    public static void println(Object value) {
+        System.out.println(value);
+    }
 }
 
