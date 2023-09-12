@@ -45,6 +45,7 @@ Latest changes (v1.0)
         > getBool
     - Menu functions (glenlib.Menu)
         > showMenu
+        > returnFromMenu
     - Table functions (glenlib.Table)
         > printFull
         > printPage
