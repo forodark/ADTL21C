@@ -28,7 +28,6 @@ public class Str {
         }
 
         if (start > end) {
-            // Handle the case where the string is all whitespace
             return "";
         }
 
@@ -45,21 +44,17 @@ public class Str {
         if (decimalPointPos != -1) {
             int lastNonZeroDigit = numStr.length() - 1;
 
-            // Find the last non-zero digit after the decimal point.
             while (lastNonZeroDigit > decimalPointPos && numStr.charAt(lastNonZeroDigit) == '0') {
                 lastNonZeroDigit--;
             }
 
             if (lastNonZeroDigit == decimalPointPos) {
-                // If there are no non-zero digits after the decimal point, remove it too.
                 return numStr.substring(0, decimalPointPos);
             } else {
-                // Remove trailing zeros after the decimal point.
                 return numStr.substring(0, lastNonZeroDigit + 1);
             }
         }
 
-        // If there's no decimal point, no action is needed.
         return numStr;
     }
 
@@ -97,7 +92,6 @@ public class Str {
         StringBuilder formatted = new StringBuilder();
 
         if (value != null) {
-            // Check if the value is a number (Integer, Double, Float, etc.)
             if (value instanceof Number) {
                 NumberFormat numberFormat = NumberFormat.getNumberInstance();
                 
@@ -108,11 +102,10 @@ public class Str {
                 
                 formatted.append(numberFormat.format(value));
             } else {
-                // For non-numeric types, simply convert to a string
                 formatted.append(value.toString());
             }
         } else {
-            formatted.append("null"); // Handle null values
+            formatted.append("null");
         }
 
         return truncate(formatted.toString(), width);
@@ -148,7 +141,6 @@ public class Str {
         int result = 0;
         int decimalPos = -1;
 
-        // Find the position of the decimal point
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '.') {
                 decimalPos = i;
@@ -157,16 +149,13 @@ public class Str {
         }
 
         if (decimalPos == -1) {
-            // No decimal point found, return 0
             return 0;
         }
 
-        // Extract the digits after the decimal point
         for (int i = decimalPos + 1; i < str.length(); i++) {
             if (Character.isDigit(str.charAt(i))) {
                 result = result * 10 + (str.charAt(i) - '0');
             } else {
-                // If a non-digit character is encountered, stop extracting
                 break;
             }
         }

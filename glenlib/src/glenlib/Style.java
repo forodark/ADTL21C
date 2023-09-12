@@ -17,8 +17,8 @@ public class Style {
     public static final String WHITE = "\u001B[37m";
 
     public static void printColor(String color, String format, Object... args) {
-        String formattedText = String.format(format, args);
-        System.out.print(color + formattedText + RESET);
+        String formatted_text = String.format(format, args);
+        System.out.print(color + formatted_text + RESET);
     }
     
     public static void color(String color) {
@@ -41,25 +41,25 @@ public class Style {
 
     public static void printCentered(int width, String format, Object... args) {
 
-        String formattedText = String.format(format, args);
+        String formatted_text = String.format(format, args);
     
-        if (width <= formattedText.length()) {
-            System.out.print(formattedText);
+        if (width <= formatted_text.length()) {
+            System.out.print(formatted_text);
         } else {
-            int total_padding = width - formattedText.length();
+            int total_padding = width - formatted_text.length();
             int left_padding = total_padding / 2;
             int right_padding = total_padding - left_padding;
     
-            StringBuilder centeredText = new StringBuilder();
+            StringBuilder centered_text = new StringBuilder();
             for (int i = 0; i < left_padding; i++) {
-                centeredText.append(" ");
+                centered_text.append(" ");
             }
-            centeredText.append(formattedText);
+            centered_text.append(formatted_text);
             for (int i = 0; i < right_padding; i++) {
-                centeredText.append(" ");
+                centered_text.append(" ");
             }
     
-            System.out.print(centeredText.toString());
+            System.out.print(centered_text.toString());
         }
     }
     

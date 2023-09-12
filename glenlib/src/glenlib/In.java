@@ -12,7 +12,7 @@ public class In {
 
     public static void waitEnter() {
         System.out.print("Press Enter to continue...");
-        scanner.nextLine(); // Wait for Enter key press
+        scanner.nextLine();
     }
 
     // Function for integer input

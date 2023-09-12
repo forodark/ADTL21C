@@ -1,12 +1,5 @@
 package glenlib;
 
-// Define a functional interface for menu functions
-
-
-
-
-
-// Create a Menu class for handling menu interactions
 public class Menu {
 
     //Defaults
@@ -44,9 +37,12 @@ public class Menu {
             Util.clear();
 
             Style.line(menu_width);
-            Style.printCentered(menu_width, title);
-            Style.nl();
-            Style.line(menu_width);
+
+            if (!title.isEmpty()) {
+                Style.printCentered(menu_width, title);
+                System.out.println();
+                Style.line(menu_width);
+            }
 
             
             int i = 0; int excess = 0;
@@ -70,7 +66,7 @@ public class Menu {
             }
 
             System.out.println("[0] Return");
-            Style.line();
+            Style.line(menu_width);
 
             int choice = In.getInt("Enter Choice: ");
 

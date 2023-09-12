@@ -14,46 +14,39 @@ public class Table {
 
     private Object invokeGetter(List<?> data, int index, String getterMethod) {
         try {
-            // Get the class of the object at the specified index
             Class<?> rowClass = data.get(index).getClass();
-
-            // Create a Method object for the getter method based on its name
             Method method = rowClass.getMethod(getterMethod);
-
-            // Invoke the getter method on the object at the specified index
             return method.invoke(data.get(index));
         } catch (Exception e) {
-            // Handle any exceptions that may occur during reflection
             e.printStackTrace();
-            return null; // Return null in case of an error
+            return null;
         }
     }
 
 
     public void printFull(String title) {
-        int numColumns = columns.size();
-        int tableWidth = numColumns + 1;
+        int num_columns = columns.size();
+        int table_width = num_columns + 1;
 
-        // Calculate table width based on column formats
         for (TableColumn<?> column : columns) {
-            tableWidth += Str.extractNumber(column.getFormat());
+            table_width += Str.extractNumber(column.getFormat());
         }
         
         Util.clear();
         // Print title
-        Style.line(tableWidth);
+        Style.line(table_width);
 
         if (!title.isEmpty()) {
-            Style.printCentered(tableWidth, title);
+            Style.printCentered(table_width, title);
             System.out.println();
-            Style.line(tableWidth);
+            Style.line(table_width);
         }
 
         // Print headers
         System.out.print("|");
         for (TableColumn<?> column : columns) {
-            int columnWidth = Str.extractNumber(column.getFormat());
-            Style.printCentered(columnWidth, column.getHeader());
+            int column_width = Str.extractNumber(column.getFormat());
+            Style.printCentered(column_width, column.getHeader());
             
             System.out.print("|");  
         }
@@ -64,15 +57,15 @@ public class Table {
         for (int i = 0; i < columns.get(0).getData().size(); i++) {
             System.out.print("|");
             for (TableColumn<?> column : columns) {
-                List<?> columnData = column.getData();
-                Object value = invokeGetter(columnData, i, column.getGetterMethod());
+                List<?> column_data = column.getData();
+                Object value = invokeGetter(column_data, i, column.getGetterMethod());
                 String buffer = Str.convertString(value);
 
                 System.out.print(" " + Str.formatString(buffer, Str.extractNumber(column.getFormat())-1) + "|");
             }
             System.out.println();
         }
-        Style.line(tableWidth);
+        Style.line(table_width);
     }
 
     /* Sample:
@@ -136,12 +129,11 @@ public class test {
      */
 
     public void printPage(String title) {
-        int numColumns = columns.size();
-        int tableWidth = numColumns + 1;
+        int num_columns = columns.size();
+        int table_width = num_columns + 1;
 
-        // Calculate table width based on column formats
         for (TableColumn<?> column : columns) {
-            tableWidth += Str.extractNumber(column.getFormat());
+            table_width += Str.extractNumber(column.getFormat());
         }
         int content_size = columns.get(0).getData().size();
 
@@ -156,19 +148,19 @@ public class test {
         while(true) {
             Util.clear();
             // Print title
-            Style.line(tableWidth);
+            Style.line(table_width);
 
             if (!title.isEmpty()) {
-                Style.printCentered(tableWidth, title);
+                Style.printCentered(table_width, title);
                 System.out.println();
-                Style.line(tableWidth);
+                Style.line(table_width);
             }
 
             // Print headers
             System.out.print("|");
             for (TableColumn<?> column : columns) {
-                int columnWidth = Str.extractNumber(column.getFormat());
-                Style.printCentered(columnWidth, column.getHeader());
+                int column_width = Str.extractNumber(column.getFormat());
+                Style.printCentered(column_width, column.getHeader());
                 
                 System.out.print("|");  
             }
@@ -179,8 +171,8 @@ public class test {
             for (; page_row_counter < TABLE_PAGE_LENGTH && table_row_counter < content_size; page_row_counter++, table_row_counter++) {
                 System.out.print("|");
                 for (TableColumn<?> column : columns) {
-                    List<?> columnData = column.getData();
-                    Object value = invokeGetter(columnData, table_row_counter, column.getGetterMethod());
+                    List<?> column_data = column.getData();
+                    Object value = invokeGetter(column_data, table_row_counter, column.getGetterMethod());
                     String buffer = Str.convertString(value);
 
                     System.out.print(" " + Str.formatString(buffer, Str.extractNumber(column.getFormat())-1) + "|");
@@ -188,12 +180,12 @@ public class test {
                 System.out.println();
             }
             page_row_counter = 0;
-            Style.line(tableWidth);
+            Style.line(table_width);
             Style.printf(" Page %d of %d   ", page+1, max_page+1);
             if (page > 0) {
                 Style.print(" [8] Previous   ");
             }
-            if (tableWidth < 31) {
+            if (table_width < 31) {
                 Style.nl();
             }
             if (page != max_page) {
@@ -201,7 +193,7 @@ public class test {
             }
             Style.printf(" [0] Return%n");
 
-            Style.line(tableWidth);
+            Style.line(table_width);
 
             int choice = In.getInt("Enter Choice: ");
 
@@ -213,7 +205,7 @@ public class test {
                         break;
                     }
                     else {
-                        Util.invalid(Util.INVALID, tableWidth);
+                        Util.invalid(Util.INVALID, table_width);
                         table_row_counter = page*TABLE_PAGE_LENGTH;
                         continue;
                     }
@@ -224,15 +216,15 @@ public class test {
                         break;
                     }
                     else {
-                        Util.invalid(Util.INVALID, tableWidth);
+                        Util.invalid(Util.INVALID, table_width);
                         table_row_counter = page*TABLE_PAGE_LENGTH;
                         continue;
                     }
                 case 0:
-                    Style.line(tableWidth);
+                    Style.line(table_width);
                     return;
                 default:
-                    Util.invalid(Util.INVALID, tableWidth);
+                    Util.invalid(Util.INVALID, table_width);
                     table_row_counter = page*TABLE_PAGE_LENGTH;
                     continue;
                 

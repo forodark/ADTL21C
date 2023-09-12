@@ -13,10 +13,8 @@ public class Util {
             final String os = System.getProperty("os.name");
 
             if (os.contains("Windows")) {
-                // For Windows, use "cls" command
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
-                // For Unix-like systems, use "clear" command
                 new ProcessBuilder("clear").inheritIO().start().waitFor();
             }
         } catch (final Exception e) {
@@ -29,7 +27,7 @@ public class Util {
         try {
             TimeUnit.SECONDS.sleep(seconds);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); // Restore the interrupted status
+            Thread.currentThread().interrupt();
         }
     }
 
