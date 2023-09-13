@@ -20,7 +20,10 @@ public class Style {
         String formatted_text = String.format(format, args);
         System.out.print(color + formatted_text + RESET);
     }
-    
+    public static String color(String color, String format, Object... args) {
+        String formatted_text = String.format(format, args);
+        return (color + formatted_text + RESET);
+    }
     public static void color(String color) {
         System.out.print(color);
     }
@@ -61,6 +64,14 @@ public class Style {
     
             System.out.print(centered_text.toString());
         }
+    }
+
+    public static void printTitle(int width, String title) {
+        Style.line(width);
+        Style.printCentered(width, title);
+        Style.nl();
+        Style.line(width);
+
     }
     
     public static void nl() {

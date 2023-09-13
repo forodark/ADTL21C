@@ -22,6 +22,16 @@ public class Util {
         }
     }
 
+    public static void clear(int num_lines) {
+        for (int i = 0; i < num_lines; i++) {
+            System.out.print("\u001b[2K");
+            if (i < num_lines - 1) {
+                System.out.print("\u001b[1A"); 
+            }
+        }
+        System.out.flush(); 
+    }
+
 // Using a utility function
     public static void sleep(int seconds) {
         try {

@@ -40,6 +40,7 @@ Latest changes (v1.0)
         > extractDecimal
         > isNumericChar
         > isEmpty
+        > paragraph
     - Input functions (glenlib.in)
         > getInt
         > getFloat
@@ -53,6 +54,9 @@ Latest changes (v1.0)
     - Table functions (glenlib.Table)
         > printFull
         > printPage
+            - nextPage
+            - prevPage
+            - dontWait()
 Upcoming changes
     - Change printCentered to accept formatting args
 

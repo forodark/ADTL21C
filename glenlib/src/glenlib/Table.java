@@ -23,8 +23,15 @@ public class Table {
         }
     }
 
+    public void printFull() {
+        printFull("", "");
+    }
 
     public void printFull(String title) {
+        printFull(title, "");
+    }
+
+    public void printFull(String title, String caption) {
         int num_columns = columns.size();
         int table_width = num_columns + 1;
 
@@ -39,6 +46,11 @@ public class Table {
         if (!title.isEmpty()) {
             Style.printCentered(table_width, title);
             System.out.println();
+            Style.line(table_width);
+        }
+
+        if(!caption.isEmpty()) {
+            Style.println(Str.paragraph(caption, table_width));
             Style.line(table_width);
         }
 
@@ -59,9 +71,7 @@ public class Table {
             for (TableColumn<?> column : columns) {
                 List<?> column_data = column.getData();
                 Object value = invokeGetter(column_data, i, column.getGetterMethod());
-                String buffer = Str.convertString(value);
-
-                System.out.print(" " + Str.formatString(buffer, Str.extractNumber(column.getFormat())-1) + "|");
+                System.out.print(" " + Str.formatString(value, Str.extractNumber(column.getFormat())-1, Str.extractDecimal(column.getFormat())) + "|");
             }
             System.out.println();
         }
@@ -135,6 +145,10 @@ public class test {
     public int table_width;
     String saved_title;
 
+    public int getTable_width() {
+        return table_width;
+    }
+
     public void printPage(String title) {
         printPage(title, false, false);
     }
@@ -192,9 +206,8 @@ public class test {
                 for (TableColumn<?> column : columns) {
                     List<?> column_data = column.getData();
                     Object value = invokeGetter(column_data, table_row_counter, column.getGetterMethod());
-                    String buffer = Str.convertString(value);
 
-                    System.out.print(" " + Str.formatString(buffer, Str.extractNumber(column.getFormat())-1) + "|");
+                    System.out.print(" " + Str.formatString(value, Str.extractNumber(column.getFormat())-1, Str.extractDecimal(column.getFormat())) + "|");
                 }
                 System.out.println();
             }
@@ -268,6 +281,7 @@ public class test {
             Util.invalid("Page does not exist", table_width);
             table_row_counter = page*TABLE_PAGE_LENGTH;
         }
+        Menu.dontWait();
     }
 
     public void prevPage() {
@@ -280,6 +294,7 @@ public class test {
             Util.invalid("Page does not exist", table_width);
             table_row_counter = page*TABLE_PAGE_LENGTH;
         }
+        Menu.dontWait();
     }
 
 }

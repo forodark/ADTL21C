@@ -10,6 +10,15 @@ public class In {
     public static final int STR_MIN = 0;
     public static final int STR_MAX = 256;
 
+    public static final int INT_MIN = -2147483648;
+    public static final int INT_MAX = 2147483647;
+
+    public static final int FLOAT_MIN = -2147483648;
+    public static final int FLOAT_MAX = 2147483647;
+
+    public static final int DOUBLE_MIN = -2147483648;
+    public static final int DOUBLE_MAX = 2147483647;
+
     public static void waitEnter() {
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
@@ -17,6 +26,10 @@ public class In {
 
     // Function for integer input
     public static int getInt(String prompt) {
+        return getInt(prompt, INT_MIN, INT_MAX);
+    }
+
+    public static int getInt(String prompt, int min, int max) {
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine();
@@ -26,7 +39,13 @@ public class In {
                 Style.line();
             } else {
                 try {
-                    return Integer.parseInt(input);
+                    int temp = Integer.parseInt(input);
+                    if (temp < min || temp > max) {
+                        Style.printColor(Style.RED, "Invalid input. Input length must be between " + min + " and " + max + ".%n");
+                        Style.line();
+                        continue;
+                    }
+                    return temp;
                 } catch (NumberFormatException e) {
                     Style.printColor(Style.RED, "Invalid input. Input must be an integer.%n");
                     Style.line();
@@ -37,6 +56,10 @@ public class In {
 
     // Function for float input
     public static float getFloat(String prompt) {
+        return getFloat(prompt, FLOAT_MIN, FLOAT_MAX);
+    }
+
+    public static float getFloat(String prompt, float min, float max) {
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine();
@@ -46,7 +69,13 @@ public class In {
                 Style.line();
             } else {
                 try {
-                    return Float.parseFloat(input);
+                    float temp = Float.parseFloat(input);
+                    if (temp < min || temp > max) {
+                        Style.printColor(Style.RED, "Invalid input. Input length must be between " + min + " and " + max + ".%n");
+                        Style.line();
+                        continue;
+                    }
+                    return temp;
                 } catch (NumberFormatException e) {
                     Style.printColor(Style.RED, "Invalid input. Please enter a valid float.%n");
                     Style.line();
@@ -57,6 +86,10 @@ public class In {
 
     // Function for double input
     public static double getDouble(String prompt) {
+        return getDouble(prompt, DOUBLE_MIN, DOUBLE_MAX);
+    }
+
+    public static double getDouble(String prompt, double min, double max) {
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine();
@@ -66,7 +99,13 @@ public class In {
                 Style.line();
             } else {
                 try {
-                    return Double.parseDouble(input);
+                    double temp = Double.parseDouble(input);
+                    if (temp < min || temp > max) {
+                        Style.printColor(Style.RED, "Invalid input. Input length must be between " + min + " and " + max + ".%n");
+                        Style.line();
+                        continue;
+                    }
+                    return temp;
                 } catch (NumberFormatException e) {
                     Style.printColor(Style.RED, "Invalid input. Please enter a valid double.%n");
                     Style.line();

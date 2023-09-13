@@ -63,7 +63,10 @@ public class Str {
             return inputString;
         }
 
-        String inputBuffer = trimZeros(inputString);
+        String inputBuffer = inputString;
+        
+        // String inputBuffer = trimZeros(inputString);
+
 
         if (inputBuffer.length() > width) {
             String truncated = inputBuffer.substring(0, width - 2) + "..";
@@ -88,6 +91,11 @@ public class Str {
         return formatString(value, width, -1);
     }
 
+    public static String setPrecision(Object value, int precision) {
+        return formatString(value, 0, precision);
+    }
+
+
     public static String formatString(Object value, int width, int precision) {
         StringBuilder formatted = new StringBuilder();
 
@@ -95,10 +103,12 @@ public class Str {
             if (value instanceof Number) {
                 NumberFormat numberFormat = NumberFormat.getNumberInstance();
                 
-                if (precision >= 0 && (value instanceof Float || value instanceof Double)) {
-                    numberFormat.setMaximumFractionDigits(precision);
-                    numberFormat.setMinimumFractionDigits(precision);
-                }
+                // Set precision for all numbers
+                numberFormat.setMaximumFractionDigits(precision);
+                numberFormat.setMinimumFractionDigits(precision);
+                
+                // Set grouping separator (e.g., comma in 1,000)
+                numberFormat.setGroupingUsed(true);
                 
                 formatted.append(numberFormat.format(value));
             } else {
@@ -176,5 +186,33 @@ public class Str {
             }
         }
         return true;
+    }
+
+    public static String paragraph(String input, int width) {
+        if (input == null || input.isEmpty() || width <= 0) {
+            return input;
+        }
+
+        StringBuilder result = new StringBuilder();
+        int lineLength = 0;
+        String[] words = input.split(" ");
+
+        for (String word : words) {
+            // Check if adding the word to the current line exceeds the width
+            if (lineLength + word.length() + 1 > width) {
+                result.append("\n");
+                lineLength = 0;
+            }
+
+            // Append the word with a space
+            if (lineLength > 0) {
+                result.append(" ");
+                lineLength++;
+            }
+            result.append(word);
+            lineLength += word.length();
+        }
+
+        return result.toString();
     }
 }

@@ -18,6 +18,9 @@ public class Menu {
             else if (items[result] instanceof Line) {
                 result++;
             }
+            else if (items[result] instanceof Custom) {
+                result++;
+            }
             else if (items[result] instanceof Option) {
                 result++; valid_options++;
             }
@@ -25,7 +28,7 @@ public class Menu {
         return result-1;
     }
 
-    public static void returnFromMenu() {
+    public static void dontWait() {
         menu_return = 1;
     }
 
@@ -48,10 +51,11 @@ public class Menu {
         while (true) {
             if (no_clear == false) {
                 Util.clear();
+                Style.line(menu_width);
             }
             
 
-            Style.line(menu_width);
+
 
             if (!title.isEmpty()) {
                 Style.printCentered(menu_width, title);
@@ -74,10 +78,21 @@ public class Menu {
                 } else if (items[i+excess] instanceof Line) {
                     Style.line(menu_width);
                     excess++;
+                } else if (items[i+excess] instanceof Custom) {
+                    if (!items[i+excess].getText().equals("/hide")) {
+                        System.out.println(items[i+excess].getText());
+                    }
+                    Custom custom = (Custom) items[i+excess];
+                    custom.function.execute();
+                    excess++;
                 } else {
-                    System.out.println("[" + (i + 1) + "] " + items[i+excess].getText());
+                    if (!items[i+excess].getText().equals("/hide")) {
+                        System.out.println("[" + (i + 1) + "] " + items[i+excess].getText());
+                    }
                     i++;
                 }
+                
+
             }
 
             System.out.println("[0] Return");
@@ -87,12 +102,12 @@ public class Menu {
 
             //this is so that if returned from menu, it doesnt prompt enter to continue
             if (choice == 0) {
-                returnFromMenu();
+                dontWait();
                 return;
             }
 
             if (choice < 0 || choice > i) {
-                Util.invalid();
+                Util.invalid(Util.INVALID, menu_width);
                 continue;
             } 
 
