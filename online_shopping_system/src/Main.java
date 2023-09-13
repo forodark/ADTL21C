@@ -1,147 +1,121 @@
 /*
  * To do:
- * create accounts
- * add product
- * 
+ * create accounts //
+ * add product / remove products //
+ * query products //
+ * check out //
+ * sorting?
+ * total price//
+ * seller menu //
+ * change all names of items sellers customers tables menus
+ * preview of item count in cart//
+ * remove from cart//
+ * shipping fee?
+ * vouchers?
+ * make interface wider maybe//
+ * store data in txt file //
+ * add .00 to all prices and values //
+ * transac history?
+ * glencrypt?
+ * store description //
+ * money paid gets transferred to seller //
  */
 
-
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import glenlib.*;
 
 public class Main {
-    public static Product[] all_products = new Product[] {
-        new Product("P001", "Apple", 100.00),
-        new Product("P002", "Banana", 200.00),
-        new Product("P003", "Orange", 300.00)
-    };
 
-    public static Customer[] customers = new Customer[] {
-        new Customer("Glen", "glen", "1234", "C001"),
-        new Customer("Happy", "happy@example.com", "password2", "C002"),
-        new Customer("Aki", "aki@example.com", "password3", "C003")
-    };
+    public static Seller[] sellers = new Seller[Data.countSellers()];
+    public static Customer[] customers = new Customer[Data.countCustomers()];
 
-    public static Seller[] sellers = new Seller[] {
-        new Seller("Seller1", "seller1@example.com", "password1", "S001"),
-        new Seller("Seller2", "seller2@example.com", "password2", "S002"),
-        new Seller("Seller3", "seller3@example.com", "password3", "S003")
-    };
+    public static int account_type = -1; // 0 for seller, 1 for customer
 
-    public static int selected = -1;
-
-    public static final int INTERFACE_WIDTH = 63;
+    public static final int INTERFACE_WIDTH = 79;
 
     public static void main(String[] args) {
-
+        Data.load();
         mainMenu();
-
-
+        Data.save();
+        Util.exit("Thanks for shopping!", INTERFACE_WIDTH);
     }
 
     public static void mainMenu() {
         MenuItem[] main_menu = {
-            new Option("Login as Customer", () -> loginCustomer()),
-            new Option("Login as Seller", () -> loginSeller()),
-            new Option("Exit", () -> Util.exit())
+            new Option("Login as Seller", () -> SellMenu.login()),
+            new Option("Login as Customer", () -> CustMenu.login()),
+            new Option("Register", () -> createAccount()),
         };
-
-        Menu.showMenu("Main Menu", main_menu);
+        Menu.showMenu("Main Menu", main_menu, INTERFACE_WIDTH);
     }
 
-    public static void loginCustomer() {
-        Util.clear();
-        selected = -1;
-        int i;
 
+    public static void createAccount() {
         while(true) {
-            String input_email = In.getString("Enter your email (0 to return): ");
+            Util.clear();
+            Style.printTitle(INTERFACE_WIDTH, "Register an Account");
+            int type = In.getInt("Are you a [1] Seller or a [2] Customer? (0 to return): ", 0 , 2);
 
-            if (input_email == "0") {
-                return;
-            }
-
-            for (i = 0; i < customers.length; i++) {
-                if (customers[i].getEmail().equals(input_email)) {
-                    selected = i;
+            switch(type) {
+                case 1:
+                    createAccount_Seller();
                     break;
-                }
+                case 2:
+                    createAccount_Customer();
+                    break;
+                case 0:
+                    Menu.dontWait();
+                    return;
+                default:
+                    Util.invalid("Invalid selection\n", INTERFACE_WIDTH);
+                    continue;
             }
-            if (selected == -1) {
-                Style.printColor(Style.RED, "Invalid email.%n");
-            }
-            else {
-                break;
-            }
+            break;
         }
-
-        while(true) {
-            String input_password = In.getString("Enter your password (0 to return): ");
-            
-            if (input_password == "0") {
-                return;
-            }
-
-            if (customers[selected].getPassword().equals(input_password)) {
-                break;
-            }
-            Style.printColor(Style.RED, "Incorrect password.%n");
-        }
-
-        mainMenuCustomer();
-
     }
 
-    public static void mainMenuCustomer() {
-        Util.clear();
-        Style.line(INTERFACE_WIDTH);
-        Style.printf("Welcome, %s", customers[selected].getName());
-        Style.print("");
+    public static void createAccount_Seller() {
 
-        MenuItem[] main_menu = {
-            new Option("Browse Sellers", () -> browseSellers()),
-            new Option("View Products", () -> viewProducts()),
-            new Option("View Cart", () -> viewCart()),
-            new Option("Logout", () -> logout())
-        };
-
-        Menu.showMenu("", main_menu);
-    }
-
-    public static void browseSellers() {
-        Util.clear();
-        List<Seller> data = Arrays.asList(sellers);
-
-        List<TableColumn<?>> columns = new ArrayList<>();
-        columns.add(new TableColumn<>("Seller ID", data, "%12s", "getSeller_id"));
-        columns.add(new TableColumn<>("Name", data, "%16s", "getName"));
-        columns.add(new TableColumn<>("# Products", data, "%12f", "getProduct_count"));
-        Table TEST = new Table(columns);
-
-        TEST.printFull("Sample Table");
-    }
-
-    public static void viewProducts() {
         
+        String name = In.getString("Enter name: ");
+        String email = In.getString("Enter email: ");
+        String password = In.getString("Enter password: ");
+        double balance = 0.0;
+
+        String seller_id = String.format("S%03d", sellers.length+1);
+
+
+        sellers = Arrays.copyOf(sellers, sellers.length + 1);
+        sellers[sellers.length - 1] = new Seller(name, email, password, balance, seller_id);
+
+        Style.printColor(Style.GREEN, "Successfully created account.%n");
     }
 
-    public static void viewCart() {
+    public static void createAccount_Customer() {
+        String name = In.getString("Enter name: ");
+        String email = In.getString("Enter email: ");
+        String password = In.getString("Enter password: ");
+        double balance = 0.0;
 
+        String customer_id = String.format("C%03d", customers.length+1);
+
+
+        customers = Arrays.copyOf(customers, customers.length + 1);
+        customers[customers.length - 1] = new Customer(name, email, password, balance, customer_id);
+
+        Style.printColor(Style.GREEN, "Successfully created account.%n");
     }
 
-    public static void loginSeller() {
-
-    }
 
     public static void logout() {
-        selected = -1;
+        SellMenu.selected_account = -1;
+        CustMenu.selected_account = -1;
+        account_type = -1;
         mainMenu();
     }
 
+    
 
     
 }

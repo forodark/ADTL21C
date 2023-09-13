@@ -2,13 +2,17 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private double balance;
 
     //constructor
-    public User(String name, String email, String password){
+    public User(String name, String email, String password, double balance){
         this.name = name;
         this.email = email;
         this.password = password;
+        this.balance = balance;
     }
+
+
 
     //getters
     public String getName(){
@@ -20,6 +24,9 @@ public class User {
     public String getPassword(){
         return password;
     }
+    public double getBalance(){
+        return balance;
+    }
     
     //setters
     public void setName(String name){
@@ -30,6 +37,9 @@ public class User {
     }
     public void setPassword(String password){
         this.password = password;
+    }
+    public void setBalance(double balance){
+        this.balance = balance;
     }
 
 

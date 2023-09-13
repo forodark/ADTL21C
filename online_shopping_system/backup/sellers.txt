@@ -1,0 +1,3 @@
+PokeMart,snips,123,1000.0,S001,/P001,Apple,100.0,;P002,Banana,200.0,;P003,Orange,300.0,;
+Seller2,seller2@example.com,password2,1500.0,S002,/P004,Mango,400.0,;P005,Watermelon,500.0,;P006,Pineapple,600.0,;
+Seller3,seller3@example.com,password3,2000.0,S003,/P007,Strawberry,700.0,;P008,Cherry,800.0,;P009,Grape,900.0,;P010,TEST,10.0;
