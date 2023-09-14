@@ -1,31 +1,62 @@
 import glenlib.*;
 
 public class Main {
+    static Account[] accounts = new Account[] {
+        new Account("0001", "Glen Bautista", 1000.0),
+        new Account("0002", "Happy", 1500.0),
+        new Account("0003", "Aki", 2000.0)
+    };
+    
     public static void main(String[] args) {
-        Account[] accounts = new Account[3];
-
-        //account data management using constructor
-        accounts[0] = new Account("0001", "Glen Bautista", 0.0);
-
-        //or using public methods
-        accounts[1] = new Account();
-        accounts[1].setAccount_number("0002");
-        accounts[1].setName("Happy");
-        accounts[1].setBalance(1500.0);
-
-        //or both
-        accounts[2] = new Account("0003", "Aki", 0.0);
-        accounts[2].setBalance(2000.0);
-
-        // print account data
-        Style.line(31);
-        Style.printCentered(31, "Account Data");
-        Style.nl();
-        Style.line(31);
-        for (int i = 0; i < accounts.length; i++) {
-            accounts[i].printInfo();
-            Style.line(31);
-        }
-        
+        mainMenu();
     }
+
+    public static void mainMenu() {
+        MenuItem[] main_menu = new MenuItem[] {
+            new Option("List accounts", () -> listAccounts()), //list accounts to demonstrate getters
+            new Option("Edit account", () -> editAccount()) //edit details to demonstrate setters
+        };
+        Menu.showMenu("Main Menu", main_menu, 44);
+    }
+
+    public static void listAccounts() {
+        new Tbl<Account>()
+        .Array(accounts)
+        .Col("Acc No.", "%10s", "getAccount_number")
+        .Col("Name", "%20s", "getName")
+        .Col("Balancee", "%12.2f", "getBalance")
+        .Title("Accounts")
+        .build();
+    }
+
+    public static void editAccount() {
+        Util.clear();
+        Style.printTitle(44, "Edit Account");
+        Account account;
+        if ((account = Account.getAccByNum(In.getString("Enter account number: "), accounts)) == null) {
+            Style.printColor(Style.RED, "Account not found."); return;
+        }
+        MenuItem[] edit_menu = new MenuItem[] {
+            new Option("Change Name", () -> {
+                account.setName(In.getString("Enter Name: "));
+                Style.printColor(Style.GREEN, "Successfully updated name.%n");
+            }),
+            new Option("Withdraw", () -> {
+                double amount = In.getDouble("Enter Amount: ");
+                if (account.getBalance() < amount) {
+                    Style.printColor(Style.RED, "Insufficient funds.%n"); return;
+                } 
+                account.setBalance(account.getBalance() - amount);
+                Style.printColor(Style.GREEN, "Successfully withdrawn %.2lf.%n", amount);
+            }),
+            new Option("Deposit", () -> {
+                double amount = In.getDouble("Enter Amount: ");
+                account.setBalance(amount);
+                Style.printColor(Style.GREEN, "Successfully deposited %.2lf.%n", amount);
+            })
+        };
+        Menu.showMenu("Editing Account - " + account.getAccount_number(), edit_menu, 44);
+    }
+
 }
+

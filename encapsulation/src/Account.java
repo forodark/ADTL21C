@@ -16,33 +16,32 @@ public class Account {
     public double getBalance() {
         return balance;
     }
-
     public String getAccount_number() {
         return account_number;
     }
-
     public String getName() {
         return name;
     }
-
     public void setBalance(double balance) {
         this.balance = balance;
     }
-
     public void setAccount_number(String account_number) {
         this.account_number = account_number;
     }
-
     public void setName(String name) {
         this.name = name;
     }
 
-
-    // for displaying account information
-    public void printInfo() {
-        System.out.println("Account Number: " + account_number);
-        System.out.println("Account Holder: " + name);
-        System.out.println("Balance: " + balance);
+    //method for retrieving an account from the account number (and source array)
+    public static Account getAccByNum(String account_number, Account[] accounts) {
+        for (Account account : accounts) {
+            if (account.getAccount_number().equals(account_number)) {
+                return account;
+            }
+        }
+        return null;
     }
+
+    
 
 }
