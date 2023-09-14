@@ -99,7 +99,7 @@ public class Str {
     public static String formatString(Object value, int width, int precision) {
         StringBuilder formatted = new StringBuilder();
 
-        if (value != null) {
+        if (value != null && precision != -1) {
             if (value instanceof Number) {
                 NumberFormat numberFormat = NumberFormat.getNumberInstance();
                 

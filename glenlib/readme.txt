@@ -9,8 +9,12 @@
  This is my header file containing a bunch of useful functions that I made to make my life easier. The features
  available aren't limited to encryption though. Please explore the file to learn more.
 ==================================================================================================================
-Latest changes (v1.0)
-    - Now remade for Java (still indev)
+Latest changes (pre2)
+    - Added new way to build tables with Tbl class
+    - Add handling to print empty if null
+
+Changes (pre1)
+    - Now remade for Java (from glenlib.hpp v1.1)
     - Style functions (glenlib.style)
         > printColor
         > color
