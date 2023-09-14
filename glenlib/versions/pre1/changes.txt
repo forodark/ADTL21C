@@ -59,7 +59,6 @@ Latest changes (v1.0)
             - dontWait()
 Upcoming changes
     - Change printCentered to accept formatting args
-    - separate into separate packages like a core lib, then for menus, tables.
 
 ==================================================================================================================
  

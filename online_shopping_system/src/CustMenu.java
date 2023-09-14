@@ -169,7 +169,11 @@ public class CustMenu {
             switch(choice) {
                 case 1:
 
-                    int quantity = In.getInt("Enter quantity: ", 1, 99);
+                    int quantity = In.getInt("Enter quantity: ", 0, 99);
+                    if (quantity == 0) {
+                        Menu.dontWait();
+                        break;
+                    }
                     Main.customers[selected_account].addToCart(product.getProduct_id(), quantity);
                     Main.customers[selected_account].setProduct_count(Main.customers[selected_account].getProduct_count() + quantity);
                     Style.line(Main.INTERFACE_WIDTH);
