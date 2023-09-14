@@ -9,6 +9,10 @@
  This is my header file containing a bunch of useful functions that I made to make my life easier. The features
  available aren't limited to encryption though. Please explore the file to learn more.
 ==================================================================================================================
+Latest changes (pre3)
+    - fixed default precision for formatWidth
+    - table now shows N/A if getter method doesnt exist
+
 Latest changes (pre2)
     - Added new way to build tables with Tbl class
     - Add handling to print empty if null

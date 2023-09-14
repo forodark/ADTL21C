@@ -98,9 +98,10 @@ public class Str {
 
     public static String formatString(Object value, int width, int precision) {
         StringBuilder formatted = new StringBuilder();
-
-        if (value != null && precision != -1) {
-            if (value instanceof Number) {
+        
+        if (value != null) {
+        
+            if (value instanceof Number && precision != -1) {
                 NumberFormat numberFormat = NumberFormat.getNumberInstance();
                 
                 // Set precision for all numbers
@@ -114,8 +115,9 @@ public class Str {
             } else {
                 formatted.append(value.toString());
             }
-        } else {
-            formatted.append("null");
+        } 
+        else {
+            formatted.append("N/A");
         }
 
         return truncate(formatted.toString(), width);

@@ -1,5 +1,3 @@
-package inheritance_exercise;
-
 public class Manager extends Employee {
     private int employee_count;
 

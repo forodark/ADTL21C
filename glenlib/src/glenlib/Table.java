@@ -18,8 +18,7 @@ public class Table {
             Method method = rowClass.getMethod(getterMethod);
             return method.invoke(data.get(index));
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            return "N/A";
         }
     }
 

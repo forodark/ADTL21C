@@ -1,5 +1,3 @@
-package inheritance_exercise;
-
 public class Employee {
     private String name;
     private String id;

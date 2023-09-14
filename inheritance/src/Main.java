@@ -1,5 +1,3 @@
-package inheritance_exercise;
-
 import glenlib.*;
 
 public class Main {

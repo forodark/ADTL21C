@@ -8,7 +8,6 @@ public class Tbl<T> {
     private List<T> data;
     private List<TableColumn<?>> columns;
     private String title;
-    private String id;
 
     public Tbl<T> Array(T[] data) {
         this.data = Arrays.asList(data);

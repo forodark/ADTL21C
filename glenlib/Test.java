@@ -53,14 +53,13 @@ public class Test {
         //     .Title("List of Fruits")
         //     .build();
 
-        int test = 100;
-        String test2 = "hello";
-        double test3 = 200.25;
+        int test;
+        String test2;
+        double test3;
 
         Style.println(Str.formatString(test, 10));
         Style.println(Str.formatString(test2, 10));
         Style.println(Str.formatString(test3, 10));
-
 
         // List<Fruit> data = Arrays.asList(fruits);
 
