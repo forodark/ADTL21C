@@ -57,7 +57,13 @@ public class Table {
         System.out.print("|");
         for (TableColumn<?> column : columns) {
             int column_width = Str.extractNumber(column.getFormat());
+
+            if (column.getHeader().length() > column_width) {
+                Style.print(Str.truncate(column.getHeader(), column_width));
+            }
+            else {
             Style.printCentered(column_width, column.getHeader());
+            }
             
             System.out.print("|");  
         }

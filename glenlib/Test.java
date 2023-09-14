@@ -45,21 +45,21 @@ public class Test {
             new Fruit(12, "Lemon", 5.25)
         };
 
-        // new Tbl<Fruit>()
-        //     .Array(fruits)
-        //     .Col("ID", "%4d", "getId")
-        //     .Col("Fruit", "%10s", "getFruit")
-        //     .Col("Price", "%5.2f", "getPrice")
-        //     .Title("List of Fruits")
-        //     .build();
+        new Tbl<Fruit>()
+            .Array(fruits)
+            .Col("IDDDDD", "%4d", "getId")
+            .Col("Fruit", "%10s", "getFruit")
+            .Col("Price", "%6.2f", "getPrice")
+            .Title("List of Fruits")
+            .build();
 
-        int test;
-        String test2;
-        double test3;
+        // int test = 10;
+        // String test2 = "Hello";
+        // double test3 = 10.00;
 
-        Style.println(Str.formatString(test, 10));
-        Style.println(Str.formatString(test2, 10));
-        Style.println(Str.formatString(test3, 10));
+        // Style.println(Str.formatString(test, 10));
+        // Style.println(Str.formatString(test2, 10));
+        // Style.println(Str.formatString(test3, 10));
 
         // List<Fruit> data = Arrays.asList(fruits);
 
