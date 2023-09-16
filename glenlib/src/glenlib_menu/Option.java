@@ -1,4 +1,4 @@
-package glenlib;
+package glenlib_menu;
 
 public class Option implements MenuItem {
     String text;

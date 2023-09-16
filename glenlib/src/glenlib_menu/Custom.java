@@ -1,4 +1,4 @@
-package glenlib;
+package glenlib_menu;
 
 public class Custom implements MenuItem {
     String text;

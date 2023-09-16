@@ -1,4 +1,4 @@
-package glenlib;
+package glenlib_table;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +39,16 @@ public class Tbl<T> {
         Table table = new Table(columns);
         table.printFull(title);
     }
+
+    public void buildPage() {
+        if (data == null || columns == null) {
+            throw new IllegalStateException("Data and columns must be initialized.");
+        }
+        PageTable table = new PageTable(columns);
+        table.printFull(title);
+    }
+
+
 }
 /*
  * This introduces a new way to build tables

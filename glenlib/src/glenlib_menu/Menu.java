@@ -1,4 +1,8 @@
-package glenlib;
+package glenlib_menu;
+
+import glenlib.In;
+import glenlib.Style;
+import glenlib.Util;
 
 public class Menu {
 

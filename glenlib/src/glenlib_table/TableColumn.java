@@ -1,4 +1,4 @@
-package glenlib;
+package glenlib_table;
 
 import java.util.List;
 

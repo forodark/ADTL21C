@@ -9,12 +9,18 @@
  This is my header file containing a bunch of useful functions that I made to make my life easier. The features
  available aren't limited to encryption though. Please explore the file to learn more.
 ==================================================================================================================
-Latest changes (pre3)
+Latest changes (v1.0)
+    - Separated menus and tables into their own packages
+        > glenlib_menu (needs glenlib)
+        > glenlib_table (needs glenlib)
+        > glenlib_table_page (needs glenlib, glenlib_table, and glenlib_menu)
+    - Moved glenlib.File to glenlib.Str
+Changes (pre3)
     - fixed default precision for formatWidth
     - table now shows N/A if getter method doesnt exist
     - table now truncates header if it exceeds the column width
 
-Latest changes (pre2)
+Changes (pre2)
     - Added new way to build tables with Tbl class
     - Add handling to print empty if null
 
@@ -70,6 +76,5 @@ Upcoming changes
     - Change printCentered to accept formatting args
     - separate into separate packages like a core lib, then for menus, tables.
     - make everything look nice, fix formatting and names before release
-
 ==================================================================================================================
  
