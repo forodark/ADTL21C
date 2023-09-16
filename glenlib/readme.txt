@@ -6,8 +6,8 @@
  ╚██████╔╝███████╗███████╗██║ ╚████║███████╗██║██████╔╝  v1.0
   ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝╚═════╝   by Glen Angelo Bautista          
 ==================================================================================================================
- This is my header file containing a bunch of useful functions that I made to make my life easier. The features
- available aren't limited to encryption though. Please explore the file to learn more.
+ This is my header file containing a bunch of useful functions that I made to make my life easier.
+ Please explore the file to learn more.
 ==================================================================================================================
 Latest changes (v1.0)
     - Separated menus and tables into their own packages
@@ -15,6 +15,7 @@ Latest changes (v1.0)
         > glenlib_table (needs glenlib)
         > glenlib_table_page (needs glenlib, glenlib_table, and glenlib_menu)
     - Moved glenlib.File to glenlib.Str
+    
 Changes (pre3)
     - fixed default precision for formatWidth
     - table now shows N/A if getter method doesnt exist
@@ -39,12 +40,8 @@ Changes (pre1)
     - Utility functions (glenlib.util)
         > clear
         > sleep
-        > waitEnter
         > invalid
         > exit
-    - File related functions (glenlib.file)
-        > getFileExtension
-        > getFileName
     - String related functions (glenlib.str)
         > convertString
         > trim
@@ -56,6 +53,8 @@ Changes (pre1)
         > isNumericChar
         > isEmpty
         > paragraph
+        > getFileExtension
+        > getFileName
     - Input functions (glenlib.in)
         > getInt
         > getFloat
@@ -63,6 +62,7 @@ Changes (pre1)
         > getChar
         > getString
         > getBool
+        > waitEnter
     - Menu functions (glenlib.Menu)
         > showMenu
         > returnFromMenu
@@ -71,10 +71,8 @@ Changes (pre1)
         > printPage
             - nextPage
             - prevPage
-            - dontWait()
+            - dontWait
 Upcoming changes
-    - Change printCentered to accept formatting args
-    - separate into separate packages like a core lib, then for menus, tables.
-    - make everything look nice, fix formatting and names before release
+    - None so far
 ==================================================================================================================
  

@@ -34,53 +34,47 @@ public class Str {
         return str.substring(start, end + 1);
     }
 
-    public static String trimZeros(String numStr) {
-        if (numStr == null || numStr.isEmpty()) {
-            return numStr;
+    public static String trimZeros(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
         }
 
-        int decimalPointPos = numStr.indexOf('.');
+        int decimal_pos = input.indexOf('.');
         
-        if (decimalPointPos != -1) {
-            int lastNonZeroDigit = numStr.length() - 1;
+        if (decimal_pos != -1) {
+            int non_zero_digit_pos = input.length() - 1;
 
-            while (lastNonZeroDigit > decimalPointPos && numStr.charAt(lastNonZeroDigit) == '0') {
-                lastNonZeroDigit--;
+            while (non_zero_digit_pos > decimal_pos && input.charAt(non_zero_digit_pos) == '0') {
+                non_zero_digit_pos--;
             }
 
-            if (lastNonZeroDigit == decimalPointPos) {
-                return numStr.substring(0, decimalPointPos);
+            if (non_zero_digit_pos == decimal_pos) {
+                return input.substring(0, decimal_pos);
             } else {
-                return numStr.substring(0, lastNonZeroDigit + 1);
+                return input.substring(0, non_zero_digit_pos + 1);
             }
         }
 
-        return numStr;
+        return input;
     }
 
-    public static String truncate(String inputString, int width) {
+    public static String truncate(String input, int width) {
         if (width == 0) {
-            return inputString;
+            return input;
         }
-
-        String inputBuffer = inputString;
-        
-        // String inputBuffer = trimZeros(inputString);
-
-
-        if (inputBuffer.length() > width) {
-            String truncated = inputBuffer.substring(0, width - 2) + "..";
+        if (input.length() > width) {
+            String truncated = input.substring(0, width - 2) + "..";
             return truncated;
-        } else if (inputBuffer.length() < width) {
-            String truncated = inputBuffer;
-            int spacesToAdd = width - inputBuffer.length();
-            for (int i = 0; i < spacesToAdd; i++) {
+        } else if (input.length() < width) {
+            String truncated = input;
+            int spaces = width - input.length();
+            for (int i = 0; i < spaces; i++) {
                 truncated += " ";
             }
             return truncated;
         }
 
-        return inputBuffer;
+        return input;
     }
     
     public static String formatString(Object value) {
@@ -102,16 +96,16 @@ public class Str {
         if (value != null) {
         
             if (value instanceof Number && precision != -1) {
-                NumberFormat numberFormat = NumberFormat.getNumberInstance();
+                NumberFormat number_format = NumberFormat.getNumberInstance();
                 
                 // Set precision for all numbers
-                numberFormat.setMaximumFractionDigits(precision);
-                numberFormat.setMinimumFractionDigits(precision);
+                number_format.setMaximumFractionDigits(precision);
+                number_format.setMinimumFractionDigits(precision);
                 
                 // Set grouping separator (e.g., comma in 1,000)
-                numberFormat.setGroupingUsed(true);
+                number_format.setGroupingUsed(true);
                 
-                formatted.append(numberFormat.format(value));
+                formatted.append(number_format.format(value));
             } else {
                 formatted.append(value.toString());
             }
@@ -126,15 +120,15 @@ public class Str {
 
     public static int extractNumber(String str) {
         int result = 0;
-        boolean foundDigit = false;
+        boolean found_digit = false;
     
         for (char c : str.toCharArray()) {
             if (Character.isDigit(c)) {
                 result = result * 10 + (c - '0');
-                foundDigit = true;
-            } else if (c == '.' && !foundDigit) {
+                found_digit = true;
+            } else if (c == '.' && !found_digit) {
                 return 0;
-            } else if (foundDigit && c == '.') {
+            } else if (found_digit && c == '.') {
                 break;
             }
         }
@@ -142,29 +136,23 @@ public class Str {
         return result;
     }
     
-    
-
-    
-    
-    
-    
 
     public static int extractDecimal(String str) {
         int result = 0;
-        int decimalPos = -1;
+        int decimal_pos = -1;
 
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '.') {
-                decimalPos = i;
+                decimal_pos = i;
                 break;
             }
         }
 
-        if (decimalPos == -1) {
+        if (decimal_pos == -1) {
             return 0;
         }
 
-        for (int i = decimalPos + 1; i < str.length(); i++) {
+        for (int i = decimal_pos + 1; i < str.length(); i++) {
             if (Character.isDigit(str.charAt(i))) {
                 result = result * 10 + (str.charAt(i) - '0');
             } else {
@@ -196,23 +184,23 @@ public class Str {
         }
 
         StringBuilder result = new StringBuilder();
-        int lineLength = 0;
+        int line_length = 0;
         String[] words = input.split(" ");
 
         for (String word : words) {
             // Check if adding the word to the current line exceeds the width
-            if (lineLength + word.length() + 1 > width) {
+            if (line_length + word.length() + 1 > width) {
                 result.append("\n");
-                lineLength = 0;
+                line_length = 0;
             }
 
             // Append the word with a space
-            if (lineLength > 0) {
+            if (line_length > 0) {
                 result.append(" ");
-                lineLength++;
+                line_length++;
             }
             result.append(word);
-            lineLength += word.length();
+            line_length += word.length();
         }
 
         return result.toString();

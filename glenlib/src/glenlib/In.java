@@ -138,12 +138,12 @@ public class In {
     public static String getString(String prompt, String accepted) {
         return getString(prompt, accepted, STR_MIN, STR_MAX);
     }
-    public static String getString(String prompt, int minLength, int maxLength) {
-        return getString(prompt, CHAR_LIB, minLength, maxLength);
+    public static String getString(String prompt, int min_length, int max_length) {
+        return getString(prompt, CHAR_LIB, min_length, max_length);
     }
 
     // Function for string input
-    public static String getString(String prompt, String accepted, int minLength, int maxLength) {
+    public static String getString(String prompt, String accepted, int min_length, int max_length) {
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine();
@@ -151,18 +151,18 @@ public class In {
             if (input.isEmpty()) {
                 Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
                 Style.line();
-            } else if (input.length() < minLength || input.length() > maxLength) {
-                Style.printColor(Style.RED, "Invalid input. Input must be between %d and %d characters.%n", minLength, maxLength);
+            } else if (input.length() < min_length || input.length() > max_length) {
+                Style.printColor(Style.RED, "Invalid input. Input must be between %d and %d characters.%n", min_length, max_length);
                 Style.line();
             } else {
                 boolean invalid = false;
-                StringBuilder invalidChars = new StringBuilder();
+                StringBuilder invalid_chars = new StringBuilder();
 
                 for (char c : input.toCharArray()) {
                     if (accepted.indexOf(c) == -1) {
                         invalid = true;
-                        if (invalidChars.indexOf(String.valueOf(c)) == -1) {
-                            invalidChars.append(c);
+                        if (invalid_chars.indexOf(String.valueOf(c)) == -1) {
+                            invalid_chars.append(c);
                         }
                     }
                 }
@@ -170,7 +170,7 @@ public class In {
                 if (!invalid) {
                     return input;
                 } else {
-                    Style.printColor(Style.RED, "Invalid input. Input cannot contain '%s'.%n", invalidChars.toString());
+                    Style.printColor(Style.RED, "Invalid input. Input cannot contain '%s'.%n", invalid_chars.toString());
                     Style.line();
                 }
             }
@@ -181,21 +181,21 @@ public class In {
         return getBool(prompt, '1', '0');
     }
     // Function for boolean input
-    public static boolean getBool(String prompt, char trueChoice, char falseChoice) {
+    public static boolean getBool(String prompt, char true_choice, char false_choice) {
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine();
 
             if (input.length() == 1) {
                 char ch = input.charAt(0);
-                if (ch == trueChoice || ch == 'y' || ch == 'Y' || ch == '1' || ch == 't' || ch == 'T') {
+                if (ch == true_choice || ch == 'y' || ch == 'Y' || ch == '1' || ch == 't' || ch == 'T') {
                     return true;
-                } else if (ch == falseChoice || ch == 'n' || ch == 'N' || ch == '0' || ch == 'f' || ch == 'F') {
+                } else if (ch == false_choice || ch == 'n' || ch == 'N' || ch == '0' || ch == 'f' || ch == 'F') {
                     return false;
                 }
             }
 
-            Style.printColor(Style.RED, "Invalid input. Input must be '%c' or '%c'.%n", trueChoice, falseChoice);
+            Style.printColor(Style.RED, "Invalid input. Input must be '%c' or '%c'.%n", true_choice, false_choice);
             Style.line();
         }
     }
