@@ -10,6 +10,9 @@
  Please explore the file to learn more.
 ==================================================================================================================
 Latest changes (v1.0)
+    - auto() for table columns
+    - fixed extractDecimal to return -1 if none found
+Changes (v1.0)
     - Separated menus and tables into their own packages
         > glenlib_menu (needs glenlib)
         > glenlib_table (needs glenlib)
@@ -73,6 +76,7 @@ Changes (pre1)
             - prevPage
             - dontWait
 Upcoming changes
-    - None so far
+    - Object sorting
+    - File processing
 ==================================================================================================================
  

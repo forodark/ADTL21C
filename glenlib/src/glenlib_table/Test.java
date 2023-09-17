@@ -1,8 +1,4 @@
-package glenlib;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+package glenlib_table;
 
 class Fruit {
     private int id;
@@ -47,11 +43,7 @@ public class Test {
 
         new Tbl<Fruit>()
             .Array(fruits)
-            .Col("IDDDDD", "%4d", "getId")
-            .Col("Fruit", "%10s", "getFruit")
-            .Col("Price", "%6.2f", "getPrice")
-            .Title("List of Fruits")
-            .build();
+            .auto(Fruit.class);
 
         // int test = 10;
         // String test2 = "Hello";

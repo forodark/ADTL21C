@@ -1,5 +1,6 @@
 package glenlib_table;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +49,17 @@ public class Tbl<T> {
         table.printFull(title);
     }
 
+    public void auto(Class<?> clazz) {
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            String field_name = field.getName();
+            String formatted_name = field_name.substring(0, 1).toUpperCase() + field_name.substring(1);
+            Col(formatted_name, "%" + (field_name.length()+8) + "s", "get" + formatted_name);
+        }
+        this.title = "* " + clazz.getSimpleName() + " Table *";
+        build();
+    }
+
 
 }
 /*
@@ -60,4 +72,9 @@ public class Tbl<T> {
             .Col("Price", "%5.2f", "getPrice")
             .Title("List of Fruits")
             .build();
+    OR
+            new Tbl<Fruit>()
+            .Array(fruits)
+            .auto(Fruit.class);
+    
  */

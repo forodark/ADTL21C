@@ -149,7 +149,7 @@ public class Str {
         }
 
         if (decimal_pos == -1) {
-            return 0;
+            return -1;
         }
 
         for (int i = decimal_pos + 1; i < str.length(); i++) {
