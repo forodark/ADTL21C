@@ -56,7 +56,11 @@ public class Tbl<T> {
             String formatted_name = field_name.substring(0, 1).toUpperCase() + field_name.substring(1);
             Col(formatted_name, "%" + (field_name.length()+8) + "s", "get" + formatted_name);
         }
-        this.title = "* " + clazz.getSimpleName() + " Table *";
+
+        if (title == null) {
+            this.title = "* " + clazz.getSimpleName() + " Table *";
+        }
+
         build();
     }
 

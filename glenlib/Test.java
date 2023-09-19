@@ -43,6 +43,7 @@ public class Test {
 
         new Tbl<Fruit>()
             .Array(fruits)
+            .Title("Test")
             .auto(Fruit.class);
 
         // int test = 10;

@@ -3,15 +3,25 @@
  ██╔════╝ ██║     ██╔════╝████╗  ██║██║     ██║██╔══██╗ ▄▄  ▄  █  █▄▄█  █▄▄▀ 
  ██║  ███╗██║     █████╗  ██╔██╗ ██║██║     ██║██████╔╝ ▀▀  █▄▄█  █  █  █  █
  ██║   ██║██║     ██╔══╝  ██║╚██╗██║██║     ██║██╔══██╗
- ╚██████╔╝███████╗███████╗██║ ╚████║███████╗██║██████╔╝  v1.1
+ ╚██████╔╝███████╗███████╗██║ ╚████║███████╗██║██████╔╝  v1.2
   ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝╚═════╝   by Glen Angelo Bautista          
 ==================================================================================================================
  This is my header file containing a bunch of useful functions that I made to make my life easier.
  Please explore the file to learn more.
 ==================================================================================================================
-Latest changes (v1.1)
+Latest changes (v1.2)
+    - revamped invalid inputs for In class
+        > now clears the error message after enter
+    - unified invalid and exit methods
+    - added accepted chars parameter to getChar
+    - added support for adding title to auto table
+    - added default width attribute to the Util class
+        > use Util.setWidth to change the width of the line in invalid and exit messages
+
+Changes (v1.1)
     - auto() for table columns
     - fixed extractDecimal to return -1 if none found
+
 Changes (v1.0)
     - Separated menus and tables into their own packages
         > glenlib_menu (needs glenlib)

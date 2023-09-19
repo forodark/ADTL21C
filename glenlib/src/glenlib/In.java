@@ -35,20 +35,17 @@ public class In {
             String input = scanner.nextLine();
 
             if (input.isEmpty()) {
-                Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
-                Style.line();
+                Util.invalid("Invalid input. Input must not be empty.%n");
             } else {
                 try {
                     int temp = Integer.parseInt(input);
                     if (temp < min || temp > max) {
-                        Style.printColor(Style.RED, "Invalid input. Input length must be between " + min + " and " + max + ".%n");
-                        Style.line();
+                        Util.invalid("Invalid input. Input length must be between " + min + " and " + max + ".%n");
                         continue;
                     }
                     return temp;
                 } catch (NumberFormatException e) {
-                    Style.printColor(Style.RED, "Invalid input. Input must be an integer.%n");
-                    Style.line();
+                    Util.invalid("Invalid input. Input must be an integer.%n");
                 }
             }
         }
@@ -65,20 +62,17 @@ public class In {
             String input = scanner.nextLine();
 
             if (input.isEmpty()) {
-                Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
-                Style.line();
+                Util.invalid("Invalid input. Input must not be empty.%n");
             } else {
                 try {
                     float temp = Float.parseFloat(input);
                     if (temp < min || temp > max) {
-                        Style.printColor(Style.RED, "Invalid input. Input length must be between " + min + " and " + max + ".%n");
-                        Style.line();
+                        Util.invalid("Invalid input. Input length must be between " + min + " and " + max + ".%n");
                         continue;
                     }
                     return temp;
                 } catch (NumberFormatException e) {
-                    Style.printColor(Style.RED, "Invalid input. Please enter a valid float.%n");
-                    Style.line();
+                    Util.invalid("Invalid input. Please enter a valid float.%n");
                 }
             }
         }
@@ -95,20 +89,17 @@ public class In {
             String input = scanner.nextLine();
 
             if (input.isEmpty()) {
-                Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
-                Style.line();
+                Util.invalid("Invalid input. Input must not be empty.%n");
             } else {
                 try {
                     double temp = Double.parseDouble(input);
                     if (temp < min || temp > max) {
-                        Style.printColor(Style.RED, "Invalid input. Input length must be between " + min + " and " + max + ".%n");
-                        Style.line();
+                        Util.invalid("Invalid input. Input length must be between " + min + " and " + max + ".%n");
                         continue;
                     }
                     return temp;
                 } catch (NumberFormatException e) {
-                    Style.printColor(Style.RED, "Invalid input. Please enter a valid double.%n");
-                    Style.line();
+                    Util.invalid("Invalid input. Please enter a valid double.%n");
                 }
             }
         }
@@ -116,18 +107,25 @@ public class In {
 
     // Function for character input
     public static char getChar(String prompt) {
+        return getChar(prompt, CHAR_LIB);
+    }
+
+    public static char getChar(String prompt, String accepted) {
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine();
 
             if (input.isEmpty()) {
-                Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
-                Style.line();
+                Util.invalid("Invalid input. Input must not be empty.%n");
             } else if (input.length() != 1) {
-                Style.printColor(Style.RED, "Invalid input. Input must be a single character.%n");
-                Style.line();
+                Util.invalid("Invalid input. Input must be a single character.%n");
             } else {
-                return input.charAt(0);
+                char temp = input.charAt(0);
+                if (accepted.indexOf(temp) == -1) {
+                    Util.invalid("Invalid input. Input cannot be '" + temp + "'.%n");
+                    continue;
+                }
+                return temp;
             }
         }
     }
@@ -149,11 +147,9 @@ public class In {
             String input = scanner.nextLine();
 
             if (input.isEmpty()) {
-                Style.printColor(Style.RED, "Invalid input. Input must not be empty.%n");
-                Style.line();
+                Util.invalid("Invalid input. Input must not be empty.%n");
             } else if (input.length() < min_length || input.length() > max_length) {
-                Style.printColor(Style.RED, "Invalid input. Input must be between %d and %d characters.%n", min_length, max_length);
-                Style.line();
+                Util.invalid("Invalid input. Input must be between " + min_length + " and " + max_length + " characters.%n");
             } else {
                 boolean invalid = false;
                 StringBuilder invalid_chars = new StringBuilder();
@@ -170,8 +166,7 @@ public class In {
                 if (!invalid) {
                     return input;
                 } else {
-                    Style.printColor(Style.RED, "Invalid input. Input cannot contain '%s'.%n", invalid_chars.toString());
-                    Style.line();
+                    Util.invalid("Invalid input. Input cannot contain '" + invalid_chars.toString() + "'.%n");
                 }
             }
         }
@@ -195,8 +190,7 @@ public class In {
                 }
             }
 
-            Style.printColor(Style.RED, "Invalid input. Input must be '%c' or '%c'.%n", true_choice, false_choice);
-            Style.line();
+            Util.invalid("Invalid input. Input must be '" + true_choice + "' or '" + false_choice + "'.%n");
         }
     }
 

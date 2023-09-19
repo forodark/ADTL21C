@@ -7,6 +7,12 @@ public class Util {
     //Defaults
     public static final String INVALID = "Invalid choice.\n";
     public static final String EXIT = "Exiting Program...";
+     public static final int invalid_clear = 5;
+    private static int default_width = 31;
+
+    public static void setWidth(int width) {
+        default_width = width;
+    }
 
     public final static void clear() {
         try {
@@ -32,7 +38,6 @@ public class Util {
         System.out.flush(); 
     }
 
-// Using a utility function
     public static void sleep(int seconds) {
         try {
             TimeUnit.SECONDS.sleep(seconds);
@@ -43,23 +48,22 @@ public class Util {
 
 
     public static void invalid() {
-        Style.printColor(Style.RED, "Invalid choice.\n");
-        Style.line();
-        In.waitEnter();
+        invalid(INVALID, default_width);
+    }
+
+    public static void invalid(String message) {
+        invalid(message, default_width);
     }
 
     public static void invalid(String message, int width) {
         Style.printColor(Style.RED, message);
         Style.line(width);
         In.waitEnter();
+        clear(invalid_clear);
     }
 
     public static void exit() {
-        clear();
-        Style.line();
-        System.out.println("Exiting Program...");
-        Style.line();
-        System.exit(0);
+        exit(EXIT, default_width);
     }
 
     public static void exit(String message, int width) {
