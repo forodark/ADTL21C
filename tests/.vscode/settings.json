@@ -3,6 +3,7 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/workspaces/ADTL21C/glenlib/versions/v1.2/glenlib_v1.2.jar"
+        "/workspaces/ADTL21C/glenlib/versions/v1.2/glenlib_v1.2.jar",
+        "m:\\GitHub\\ADTL21C\\glenlib\\versions\\v1.2\\glenlib_v1.2.jar"
     ]
 }
