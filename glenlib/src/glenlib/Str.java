@@ -62,19 +62,22 @@ public class Str {
         if (width == 0) {
             return input;
         }
-        if (input.length() > width) {
-            String truncated = input.substring(0, width - 2) + "..";
+
+        String input_buffer = input;
+
+        if (input_buffer.length() > width) {
+            String truncated = input_buffer.substring(0, width - 2) + "..";
             return truncated;
-        } else if (input.length() < width) {
-            String truncated = input;
-            int spaces = width - input.length();
+        } else if (input_buffer.length() < width) {
+            String truncated = input_buffer;
+            int spaces = width - input_buffer.length();
             for (int i = 0; i < spaces; i++) {
                 truncated += " ";
             }
             return truncated;
         }
 
-        return input;
+        return input_buffer;
     }
     
     public static String formatString(Object value) {

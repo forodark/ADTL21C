@@ -66,6 +66,10 @@ public class Util {
         exit(EXIT, default_width);
     }
 
+    public static void exit(String message) {
+        exit(message, default_width);
+    }
+
     public static void exit(String message, int width) {
         clear();
         Style.line(width);

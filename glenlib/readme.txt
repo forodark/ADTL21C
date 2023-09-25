@@ -3,12 +3,16 @@
  ██╔════╝ ██║     ██╔════╝████╗  ██║██║     ██║██╔══██╗ ▄▄  ▄  █  █▄▄█  █▄▄▀ 
  ██║  ███╗██║     █████╗  ██╔██╗ ██║██║     ██║██████╔╝ ▀▀  █▄▄█  █  █  █  █
  ██║   ██║██║     ██╔══╝  ██║╚██╗██║██║     ██║██╔══██╗
- ╚██████╔╝███████╗███████╗██║ ╚████║███████╗██║██████╔╝  v1.2
+ ╚██████╔╝███████╗███████╗██║ ╚████║███████╗██║██████╔╝  v1.3
   ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝╚═════╝   by Glen Angelo Bautista          
 ==================================================================================================================
  This is my header file containing a bunch of useful functions that I made to make my life easier.
  Please explore the file to learn more.
 ==================================================================================================================
+Latest changes (v1.3)
+    - added overloaded function for printTitle
+    - added overloaded function for exit
+    - fixed bug regarding input buffer in truncate
 Latest changes (v1.2)
     - revamped invalid inputs for In class
         > now clears the error message after enter
