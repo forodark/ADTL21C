@@ -134,6 +134,8 @@ public class test {
             new Fruit(12, "Lemon", 5.25)
         };
 
+        //NEW WAY OF CREATING TABLE SEE TBL.JAVA
+
         List<Fruit> data = Arrays.asList(fruits);
 
         List<TableColumn<?>> columns = new ArrayList<>();

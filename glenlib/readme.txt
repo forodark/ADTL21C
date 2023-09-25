@@ -13,6 +13,17 @@ Latest changes (v1.3)
     - added overloaded function for printTitle
     - added overloaded function for exit
     - fixed bug regarding input buffer in truncate
+    - added new Sort class under new package glenlib_objects
+        > selection
+        > insertion
+        > bubble
+        > invert
+        > other supporting functions
+            - swap
+            - compare
+            - isAscending
+            - isDescending
+        > search
 Latest changes (v1.2)
     - revamped invalid inputs for In class
         > now clears the error message after enter
