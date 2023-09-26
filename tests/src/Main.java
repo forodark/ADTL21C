@@ -25,7 +25,7 @@ public class Main {
         // Style.println(Sort.checkAsc(Sort.selection(students, "getAge"), "getAge"));
 
         new Tbl<Student>()
-        .Array(Search.search(students, "getName", "ge"))
+        .Array(Sort.selection(students, "getName"))
         .auto(Student.class);
 
     }
