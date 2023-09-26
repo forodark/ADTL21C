@@ -9,7 +9,9 @@
  This is my header file containing a bunch of useful functions that I made to make my life easier.
  Please explore the file to learn more.
 ==================================================================================================================
-Latest changes (v1.3)
+Latest changes (v1.4)
+    - added search function for multiple getter methods
+Changes (v1.3)
     - added overloaded function for printTitle
     - added overloaded function for exit
     - fixed bug regarding input buffer in truncate

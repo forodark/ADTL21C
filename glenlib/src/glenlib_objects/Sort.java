@@ -121,4 +121,20 @@ public class Sort {
     
         return results;
     }
+
+    public static <T> T[] search(T[] objects, String[] getter_methods, String query) {
+        T[] results = Arrays.copyOf(objects, 0);
+    
+        for (int i = 0; i < objects.length; i++) {
+            for (int j = 0; j < getter_methods.length; j++) {
+                if (invokeGetter(objects[i], getter_methods[j]).toString().toLowerCase().contains(query.toLowerCase())) {
+                    results = Arrays.copyOf(results, results.length + 1);
+                    results[results.length - 1] = objects[i];
+                    break;
+                }       
+            }
+        }
+    
+        return results;
+    }
 }

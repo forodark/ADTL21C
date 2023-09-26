@@ -23,9 +23,9 @@ public class Main {
 // Style.println(Sort.compareStr(students[0], students[3], "getName"));
 
         // Style.println(Sort.checkAsc(Sort.selection(students, "getAge"), "getAge"));
-
+        String search[] = {"getName", "getAge"};
         new Tbl<Student>()
-        .Array(Sort.selection(students, "getName"))
+        .Array(Sort.search(students, search, "4"))
         .auto(Student.class);
 
     }
