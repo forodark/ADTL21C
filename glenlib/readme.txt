@@ -11,6 +11,11 @@
 ==================================================================================================================
 Latest changes (v1.4)
     - added search function for multiple getter methods
+    - reorganized classes in glenlib_objects
+    - new Obj class
+        > moved some of the Sort methods header
+        > append and remove methods
+    - random sort function
 Changes (v1.3)
     - added overloaded function for printTitle
     - added overloaded function for exit

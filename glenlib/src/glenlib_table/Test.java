@@ -1,5 +1,8 @@
 package glenlib_table;
 
+import glenlib_objects.Obj;
+import glenlib_objects.Sort;
+
 class Fruit {
     private int id;
     private String fruit;
@@ -40,6 +43,8 @@ public class Test {
             new Fruit(11, "Apricot", 5.0),
             new Fruit(12, "Lemon", 5.25)
         };
+
+        fruits = Sort.random(fruits);
 
         new Tbl<Fruit>()
             .Array(fruits)
