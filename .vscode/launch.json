@@ -5,6 +5,13 @@
       "type": "java",
       "name": "Test",
       "request": "launch",
+      "mainClass": "glenlib_table.Test",
+      "projectName": "ADTL21C_13da60bf"
+    },
+    {
+      "type": "java",
+      "name": "Test",
+      "request": "launch",
       "mainClass": "glenlib.Test",
       "projectName": "ADTL21C_1f7f6f36"
     },
