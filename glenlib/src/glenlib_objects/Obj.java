@@ -8,12 +8,12 @@ public class Obj {
         try {
             Class<?> rowClass = data.getClass();
             Method method = rowClass.getMethod(getter_method);
+            method.setAccessible(true);
             return method.invoke(data);
         } catch (Exception e) {
             return "N/A";
         }
     }
-
 
     public static <T> T[] swap(T[] objects, int index_a, int index_b) {
         T temp = objects[index_a];
@@ -51,6 +51,24 @@ public class Obj {
         return results;
     }
 
+    public static <T> T select(T[] objects, String getter_method, String query) {
+        for (int i = 0; i < objects.length; i++) {
+            if (invokeGetter(objects[i], getter_method).toString().toLowerCase().equals(query.toLowerCase())) {
+                return objects[i];
+            }
+        }
+        return null;
+    }
+
+    public static <T> T select(T[] objects, String getter_method, String query, Boolean case_sensitive) {
+        for (int i = 0; i < objects.length; i++) {
+            if (invokeGetter(objects[i], getter_method).toString() == (query)) {
+                return objects[i];
+            }
+        }
+        return null;
+    }
+
     public static <T> T[] remove(T[] objects, int index) {
         for (; index < objects.length - 1; index++) {
             objects[index] = objects[index+1];
@@ -63,5 +81,33 @@ public class Obj {
         objects = Arrays.copyOf(objects, objects.length + 1);
         objects[objects.length - 1] = object;
         return objects;
+    }
+
+    public static <T, U> Object[] extractCol(T[] objects, String getter_method) {
+        Object[] results = new Object[objects.length];
+        
+        for (int i = 0; i < objects.length; i++) {
+            results[i] = invokeGetter(objects[i], getter_method);
+        }
+
+        return results;
+    }
+
+    public static <T> Boolean exists(T[] objects, String getter_method, String query) {
+        for (int i = 0; i < objects.length; i++) {
+            if (invokeGetter(objects[i], getter_method).toString().toLowerCase().equals(query.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <T> Boolean exists(T[] objects, String getter_method, String query, Boolean case_sensitive) {
+        for (int i = 0; i < objects.length; i++) {
+            if (invokeGetter(objects[i], getter_method).toString().equals(query)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

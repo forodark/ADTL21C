@@ -12,10 +12,28 @@
 Latest changes (v1.4)
     - added search function for multiple getter methods
     - reorganized classes in glenlib_objects
-    - new Obj class
+    - new Obj class under glenlib_objects
         > moved some of the Sort methods header
         > append and remove methods
-    - random sort function
+        > select function (like search but single object return and query must be exact)
+            - case-sensitive and non-case sensitive variations
+        > exists function
+        > extractCol function
+    - new functions under Sort class
+        > shuffle
+        > filter & exclude
+    - fixed bug where private members cannot be accessed by invokeGetter
+    - improved compare function to be able to handle numeric strings and filter special characters
+    - fixed bug in compare function where number variables would get sorted incorrectly
+    - new Calc class under new package glenlib_math
+        > rand
+        > mean
+        > variance
+        > sd
+        > median
+        > mode
+    todo:
+        - expression class that can store mathematical expressions
 Changes (v1.3)
     - added overloaded function for printTitle
     - added overloaded function for exit
@@ -108,7 +126,6 @@ Changes (pre1)
             - prevPage
             - dontWait
 Upcoming changes
-    - Object sorting
     - File processing
 ==================================================================================================================
  

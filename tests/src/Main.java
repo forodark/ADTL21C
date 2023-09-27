@@ -20,12 +20,12 @@ public class Main {
 
         // sort(students);
 
-// Style.println(Sort.compareStr(students[0], students[3], "getName"));
+Style.println(Sort.compare(students[0], students[3], "getName"));
 
         // Style.println(Sort.checkAsc(Sort.selection(students, "getAge"), "getAge"));
-        String search[] = {"getName", "getAge"};
+        // String search[] = {"getName", "getAge"};
         new Tbl<Student>()
-        .Array(Sort.search(students, search, "4"))
+        .Array(Sort.selection(students, "getAge"))
         .auto(Student.class);
 
     }

@@ -1,8 +1,9 @@
 package glenlib_objects;
 import java.util.Arrays;
+import java.util.function.Predicate;
+
 
 public class Sort {
-
     
     public static <T> T[] selection(T[] objects, String getter_method) {
         T[] buffer = Arrays.copyOf(objects, objects.length);
@@ -67,7 +68,7 @@ public class Sort {
         return buffer;
     }
 
-    public static <T> T[] random(T[] objects) {
+    public static <T> T[] shuffle(T[] objects) {
         T[] buffer = Arrays.copyOf(objects, objects.length);
 
         for (int i = 0; i < buffer.length; i++) {
@@ -82,9 +83,26 @@ public class Sort {
 
     //returns true if student a is alphabetically before student b
     public static Boolean compare(Object a, Object b, String getter_method) {
-        return Obj.invokeGetter(a, getter_method).toString().compareTo(Obj.invokeGetter(b, getter_method).toString()) <= 0;
+        return compare(Obj.invokeGetter(a, getter_method), Obj.invokeGetter(b, getter_method));
     }
-
+    
+    public static Boolean compare(Object a, Object b) {
+        String strA = a.toString();
+        String strB = b.toString();
+        
+        try {
+            strA = strA.replaceAll("[^a-zA-Z0-9]", "");
+            strB = strB.replaceAll("[^a-zA-Z0-9]", "");
+            
+            Double numA = Double.parseDouble(strA);
+            Double numB = Double.parseDouble(strB);
+            
+            return numA <= numB;
+        } catch (NumberFormatException e) {
+            int result = strA.compareTo(strB);
+            return result <= 0;
+        }
+    }
 
     public static <T> Boolean isAscending(T[] objects, String getter_method) {
         for(int i = 0; i < objects.length - 1; i++) {
@@ -104,5 +122,21 @@ public class Sort {
         return true;
     }
 
+    //Sample: Student[] filtered = Sort.filter(students, s -> s.getAge() <= 22); 
+    public static <T> T[] filter(T[] objects, Predicate<T> condition) {
+        T[] results = Arrays.copyOf(objects, 0);
 
+        for (T object : objects) {
+            if (condition.test(object)) {
+                results = Arrays.copyOf(results, results.length + 1);
+                results[results.length - 1] = object;
+            }
+        }
+
+        return results;
+    }
+
+    public static <T> T[] exclude(T[] objects, Predicate<T> condition) {
+        return filter(objects, condition.negate());
+    }
 }
