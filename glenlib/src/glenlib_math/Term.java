@@ -1,24 +1,32 @@
 package glenlib_math;
 
+import glenlib.Str;
+
 // TODO: add separate coefficient and variable to store data
 public class Term {
-    private String term;
+    private int coefficient;
+    private Variable[] variables;
 
     public Term(String term) {
-        this.term = term;
+        this.coefficient = parseCoefficient(term);
+        this.variables = parseVariable(term);
     }
 
     public String getTerm() {
-        return term;
+        String buffer = Str.convertString(coefficient);
+        for 
     }
-    public int getCoefficient() {
+    public static int parseCoefficient(String term) {
         String buffer = term.replaceAll("[^\\d]", "");
         int coefficient = Integer.parseInt(buffer);
         return coefficient;
     }
 
-    public String getVariable() {
-        return term.replaceAll("\\d", "");
+    public static Variable[] parseVariable(String term) {
+        String buffer = term.replaceAll("\\d", "");
+        return buffer.toCharArray()
     }
+
+
 
 }

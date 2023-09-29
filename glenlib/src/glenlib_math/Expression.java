@@ -7,6 +7,8 @@ import glenlib.Style;
 public class Expression {
     private Component numerator;
     private Component denominator;
+    private int exponent;
+    private int radical;
 
     public Expression(Component numerator, Component denominator) {
         this.numerator = numerator;
@@ -24,6 +26,14 @@ public class Expression {
 
     public Component getDenominator() {
         return denominator;
+    }
+
+    public int getExponent() {
+        return exponent;
+    }
+
+    public int getRadical() {
+        return radical;
     }
 
     public void print() {
