@@ -236,4 +236,18 @@ public class Str {
             return filename;
         }
     }
+
+    public static int countSubstr(String input, String substr) {
+        int count = 0;
+        int index = 0;
+    
+        while ((index = input.indexOf(substr, index)) != -1) {
+            count++;
+            index += substr.length();
+        }
+    
+        return count;
+    }
+    
+    
 }

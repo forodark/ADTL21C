@@ -22,7 +22,7 @@ public class Variable {
         this.radical = 1;
     }
 
-    public String getVariable() {
+    public String toString() {
         if(exponent == 1 && radical == 1)
             return base + "";
         if(radical == 1)

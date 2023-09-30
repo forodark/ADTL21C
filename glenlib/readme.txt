@@ -32,10 +32,12 @@ Latest changes (v1.4)
         > sd
         > median
         > mode
+    - added a countSubstr method to glenlib.Str
     todo:
         - expression class that can store mathematical expressions
         - allow for exponents and radicals to be expressions or terms
         - add advanced functions for manipulating expressions
+        - add handling for subtraction and division
 Changes (v1.3)
     - added overloaded function for printTitle
     - added overloaded function for exit

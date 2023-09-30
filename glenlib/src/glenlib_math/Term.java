@@ -3,8 +3,8 @@ package glenlib_math;
 import java.util.Arrays;
 
 import glenlib.Str;
+import glenlib.Style;
 
-// TODO: add separate coefficient and variable to store data
 public class Term {
     private int coefficient;
     private Variable[] variables;
@@ -14,12 +14,16 @@ public class Term {
         this.variables = parseVariable(term);
     }
 
-    public String getTerm() {
+    public String toString() {
         String buffer = Str.convertString(coefficient);
         for (Variable variable : variables) {
-            buffer += variable.getVariable();
+            buffer += variable.toString();
         }
         return buffer;
+    }
+
+    public void print() {
+        Style.print(toString());
     }
 
     public int getCoefficient() {

@@ -3,6 +3,7 @@ package glenlib_math;
 import java.util.ArrayList;
 import java.util.List;
 
+import glenlib.Str;
 import glenlib.Style;
 
 public class Component {
@@ -19,33 +20,37 @@ public class Component {
     public void print() {
         if(content.length == 1) {
             if (content[0] instanceof Term)
-                Style.println(((Term) content[0]).getTerm());
+                Style.println(((Term) content[0]).toString());
             else if (content[0] instanceof Expression)
                 ((Expression) content[0]).print();
         } else {
             for(int i = 0; i < content.length; i++) {
                 if (content[i] instanceof Term) {
-                    
                     if (this instanceof Add) {
-                        Style.print(((Term) content[i]).getTerm());
-                        if (i != content.length - 1) {
-                            Style.print(" + ");
+                        if (((Term) content[i]).toString().toCharArray()[0] != '-') {
+                            Style.print(((Term) content[i]).toString());
+                            if (i != content.length - 1) {
+                                Style.print(" + ");
+                            }
+                        }
+                        else {
+                            Style.print(((Term) content[i]).toString().substring(1, ((Term) content[i]).toString().length()));
+                            if (i != content.length - 1) {
+                                Style.print(" - ");
+                            }
                         }
 
                     }
                     else if (this instanceof Multiply) {
-                        Style.print(((Term) content[i]).getTerm());
+                        Style.print(((Term) content[i]).toString());
                     }
                     
                 }
                 else if (content[i] instanceof Expression) {
                     if (this instanceof Add) {
-                        if (content[i] instanceof Add)
                         Style.print("(");
                         ((Expression) content[i]).print();
-                        if (content[i] instanceof Add)
                         Style.print(")");
-
 
                         if (i != content.length - 1) {
                             Style.print(" + ");
@@ -61,61 +66,75 @@ public class Component {
             }
         }
     }
-    // TODO: fix this
+
+    // TODO: add handling for subtract and divide, make sure signs are handled by all objects esp. Term
     public static Component parse(String input) {
-        List<Object> partialObjects = new ArrayList<>();
-        List<Object> multiplicationObjects = new ArrayList<>(); // To hold multiply operations
-    
-        StringBuilder termBuilder = new StringBuilder();
-        int parenthesesCount = 0;
-    
-        for (int i = 0; i < input.length(); i++) {
-            char c = input.charAt(i);
-    
-            if (c == '(') {
-                if (termBuilder.length() > 0) {
-                    partialObjects.add(new Term(termBuilder.toString().trim()));
-                    termBuilder.setLength(0);
+        Object[] buffer;
+
+        String[] analyzed = analyze(input);
+        if(analyzed[0].contains("+") || analyzed[0].contains("-")) {
+            buffer = new Object[Str.countSubstr(analyzed[0], "+") + Str.countSubstr(analyzed[0], "-") + 1];
+            String[] parts = analyzed[0].split("\\+");
+            int expr_count = 1;
+            for(int i = 0; i < parts.length; i++) {
+                if(parts[i].equals("()")) {
+                    buffer[i] = new Expression(analyzed[expr_count]);
+                    expr_count++;
                 }
-                parenthesesCount++;
-                termBuilder.append(c);
-            } else if (c == ')') {
-                parenthesesCount--;
-                termBuilder.append(c);
-                if (parenthesesCount == 0) {
-                    String termString = termBuilder.toString().trim();
-                    if (termString.startsWith("(") && termString.endsWith(")")) {
-                        // Remove outer parentheses
-                        termString = termString.substring(1, termString.length() - 1);
-                    }
-                    multiplicationObjects.add(new Term(termString));
-                    termBuilder.setLength(0);
+                else {
+                    buffer[i] = new Term(parts[i]);
                 }
-            } else if (c == '*' && parenthesesCount == 0) {
-                if (termBuilder.length() > 0) {
-                    partialObjects.add(new Term(termBuilder.toString().trim()));
-                    termBuilder.setLength(0);
-                }
-            } else if (c == '+' && parenthesesCount == 0) {
-                if (termBuilder.length() > 0) {
-                    partialObjects.add(new Term(termBuilder.toString().trim()));
-                    termBuilder.setLength(0);
-                }
-            } else {
-                termBuilder.append(c);
             }
+            return new Add(buffer);
         }
-    
-        if (termBuilder.length() > 0) {
-            partialObjects.add(new Term(termBuilder.toString().trim()));
+        else {
+            buffer = new Object[Str.countSubstr(analyzed[0], ")(") + 1];
         }
+
     
-        // If there are multiplicationObjects, add them as a Multiply object
-        if (!multiplicationObjects.isEmpty()) {
-            partialObjects.add(new Multiply(multiplicationObjects.toArray()));
-        }
-    
-        return new Component(partialObjects.toArray());
+        return null;
     }
+
+    // TODO: add handling for nested groupings like (2x + (3x + 4z))
+    public static String[] analyze(String input) {
+        int grouping_count = Str.countSubstr(input, "(");
+        // Style.println(grouping_count);
+
+        String[] buffer = new String[grouping_count + 1];
+        int opening_indexes[] = new int[grouping_count];
+        int closing_indexes[] = new int[grouping_count];
+    
+        // Iterating through all parentheses pairs
+        for (int i = 0; i < grouping_count; i++) {
+            if (i == 0) {
+                opening_indexes[i] = input.indexOf('(');
+            } else {
+                opening_indexes[i] = input.indexOf('(', opening_indexes[i]+1);
+
+            }
+            closing_indexes[i] = input.indexOf(')', opening_indexes[i]);
+
+    
+            // Extracting the contents inside the current pair of parentheses
+            String insideParentheses = input.substring(opening_indexes[i] + 1, closing_indexes[i]);
+            buffer[i+1] = insideParentheses;
+    
+            // Creating the output string with removed contents inside current parentheses
+            input = input.substring(0, opening_indexes[i]+1) + input.substring(closing_indexes[i]);
+        }
+        buffer[0] = input;
+
+
+        return buffer;
+    }
+    
+    
+
+    
+    
+    
+    
+    
+    
 
 }
