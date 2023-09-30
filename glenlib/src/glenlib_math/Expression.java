@@ -46,29 +46,29 @@ public class Expression {
     }
     
 
-    // public static Expression parse(String input) {
-    //     Component numeratorObjects;
-    //     Component denominatorObjects;
+    public static Expression parse(String input) {
+        Component numeratorObjects;
+        Component denominatorObjects;
     
-    //     if (input.contains("/")) {
-    //         String[] parts = input.split("/");
-    //         String numeratorString = parts[0].trim();
-    //         String denominatorString = parts[1].trim();
+        if (input.contains("/")) {
+            String[] parts = input.split("/");
+            String numeratorString = parts[0].trim();
+            String denominatorString = parts[1].trim();
     
-    //         numeratorObjects = parsePartial(numeratorString);
-    //         denominatorObjects = parsePartial(denominatorString);
-    //     } else {
-    //         String numeratorString = input.trim();
-    //         numeratorObjects = parsePartial(numeratorString);
-    //         denominatorObjects = null;
-    //     }
+            numeratorObjects = Component.parse(numeratorString);
+            denominatorObjects = Component.parse(denominatorString);
+        } else {
+            String numeratorString = input.trim();
+            numeratorObjects = Component.parse(numeratorString);
+            denominatorObjects = null;
+        }
     
-    //     Expression expression = new Expression(numeratorObjects, denominatorObjects);
+        Expression expression = new Expression(numeratorObjects, denominatorObjects);
     
-    //     return expression;
-    // }
+        return expression;
+    }
     
-    // public static Component parsePartial(String input) {
+    // public static Component Component.parse(String input) {
     //     List<Object> partialObjects = new ArrayList<>();
     //     List<Object> multiplicationObjects = new ArrayList<>(); // To hold multiply operations
     

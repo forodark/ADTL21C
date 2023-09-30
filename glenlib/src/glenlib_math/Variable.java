@@ -22,6 +22,14 @@ public class Variable {
         this.radical = 1;
     }
 
+    public String getVariable() {
+        if(exponent == 1 && radical == 1)
+            return base + "";
+        if(radical == 1)
+            return base + "^" + exponent;
+        return base + "^(" + exponent + "/" + radical + ")";
+    }
+
     public char getBase() {
         return base;
     }

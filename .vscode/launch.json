@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ExprTest",
+      "request": "launch",
+      "mainClass": "glenlib_math.ExprTest",
+      "projectName": "ADTL21C_13da60bf"
+    },
+    {
+      "type": "java",
       "name": "Main",
       "request": "launch",
       "mainClass": "Main",

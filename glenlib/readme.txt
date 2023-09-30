@@ -34,6 +34,8 @@ Latest changes (v1.4)
         > mode
     todo:
         - expression class that can store mathematical expressions
+        - allow for exponents and radicals to be expressions or terms
+        - add advanced functions for manipulating expressions
 Changes (v1.3)
     - added overloaded function for printTitle
     - added overloaded function for exit
