@@ -249,5 +249,22 @@ public class Str {
         return count;
     }
     
+    public static int findNthOccurrence(String input, String target, int occurrence) {
+        int index = -1;
+    
+        for (int i = 0; i < occurrence; i++) {
+            // Start the search from the index right after the last occurrence
+            index = input.indexOf(target, index + 1);
+    
+            if (index == -1) {
+                // Couldn't find the Nth occurrence
+                return -1;
+            }
+        }
+    
+        // Return the index of the Nth occurrence
+        return index;
+    }
+    
     
 }

@@ -19,11 +19,18 @@ public class ExprTest {
         // // Style.println(test.getVariables)
         // test.print();
 
-        // String test2[] = Component.analyze("(2x+3y)+(4z+3x)-6y");
-        Component test1 = Component.parse("(2x+3y)+(4z+3x)-6y");
+        // String test = Component.trimGroupings("((2x+3y-4z+3x)");
+        // Style.println(test);
+
+        // String test2[] = Component.analyze("((2x+3y)/(4z+3x))/(5z+6x)");
+        // int test4 = Expression.getFractionBar("((2x+3y)/(4z+3x))/(5z+6x)");
+        Expression test1 = Expression.parse("((2x+3y)/(4z+3x))/(5z+6x)");
+        // // test1.getDenominator().print();
+
         Style.line();
+        // Style.println(test4);
         // Style.println(test2[0]);
-        test1.print();
+        // test1.print();
         Style.nl();
         // char[] test3 = Component.getOperations(test2[0]);
         // for(int i = 0; i < test3.length; i++)
@@ -31,7 +38,13 @@ public class ExprTest {
         // Style.nl();
         // Style.line();
 
-        // Style.println(Component.analyze("(2x+4z+3y)+6y")[0]);
+        // Style.println("Analysis: " + Component.analyze("(2x+3y)+(4z+3x)-6y")[0]);
+        // Style.line();
+        // Style.println("Analysis: " + Component.analyze("(2x+4z+3y)+6y")[0]); 
+        // Style.line();
+
+        // int test = Str.findNthOccurrence("1231231123", "1", 3);
+        // Style.println(test);
 
         // String test2[] = Component.analyze("-(2x+3y)+(4z+3x)-6y");
         // Style.println(test2.length);

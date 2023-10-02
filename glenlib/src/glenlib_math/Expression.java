@@ -52,18 +52,26 @@ public class Expression {
         return negative;
     }
 
+    // TODO: refine string to use multiple grouping types {[()]}
     public String toString() {
         String expression = "";
-        if (negative) {
-            expression += "-(";
+
+        if (!negative && denominator != null && numerator.getContent().length > 1) {
+            expression += "(" + numerator.toString() + ")";
         }
-        expression += numerator.toString();
+        else expression += numerator.toString();
+
         if (denominator != null) {
             expression += " / ";
-            expression += denominator.toString();
+            if (denominator.getContent().length > 1) {
+                expression += "(" + denominator.toString() + ")";
+            }
+            else expression += denominator.toString();
+
         }
+
         if (negative) {
-            expression += ")";
+            expression = "-(" + expression + ")";
         }
         return expression;
     }
@@ -84,10 +92,12 @@ public class Expression {
         }
     
         try {
-            if (input.contains("/")) {
-                String[] parts = input.split("/");
-                String numeratorString = parts[0].trim();
-                String denominatorString = parts[1].trim();
+            if (Component.analyze(input)[0].contains("/")) {
+
+                String numeratorString = input.substring(0, getFractionBar(input)).trim();
+                String denominatorString = input.substring(getFractionBar(input)+1, input.length()).trim();
+                Style.println(numeratorString);
+                Style.println(denominatorString);
         
                 numeratorObjects = Component.parse(numeratorString);
                 denominatorObjects = Component.parse(denominatorString);
@@ -105,6 +115,26 @@ public class Expression {
         }
     }
     
-    
+    public static int getFractionBar(String input) {
+        int index = 0;
+
+        int depth = 0;
+
+        for(int i = 0; i < input.length(); i++) {
+
+            if (input.charAt(i) == '(') {
+                depth++;
+            }
+            if (input.charAt(i) == ')') {
+                depth--;
+            }
+            
+            if (input.charAt(i) == '/' && depth == 0) {
+                index = i;
+            }
+        }
+
+        return index;
+    }
     
 }

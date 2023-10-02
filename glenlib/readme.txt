@@ -33,6 +33,7 @@ Latest changes (v1.4)
         > median
         > mode
     - added a countSubstr method to glenlib.Str
+    - added a findNthOccurence method to glenlib.Str
     todo:
         - expression class that can store mathematical expressions
         - allow for exponents and radicals to be expressions or terms
