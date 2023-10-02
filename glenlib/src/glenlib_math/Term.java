@@ -39,12 +39,26 @@ public class Term {
     }
 
     public static int parseCoefficient(String term) {
-        String buffer = term.replaceAll("[^\\d]", "");
-        int coefficient = Integer.parseInt(buffer);
+        int signMultiplier = 1;
+    
+        if (term.startsWith("-")) {
+            signMultiplier = -1;  // Set the multiplier to -1 if the term starts with a negative sign.
+            term = term.substring(1);  // Trim off that negative sign.
+        }
+    
+        String buffer = term.replaceAll("[^\\d]", "");  // Now, let's proceed with the digit grab.
+        int coefficient = Integer.parseInt(buffer) * signMultiplier;  // Apply the sign multiplier.
         return coefficient;
     }
+    
+    
 
     public static Variable[] parseVariable(String term) {
+        if (term.startsWith("-")) {
+            term = term.substring(1);  // Trim off that negative sign.
+        }
+
+
         String[] variableChunks = term.split("(?=[a-zA-Z])");
     
         variableChunks = Arrays.stream(variableChunks)

@@ -7,6 +7,7 @@ public class Expression {
     private Component denominator;
     private int exponent = 1;
     private int radical = 1;
+    private Boolean negative = false;
 
     public Expression(Component numerator, Component denominator) {
         this.numerator = numerator;
@@ -19,8 +20,16 @@ public class Expression {
     }
 
     public Expression(String input) {
-        this.numerator = Expression.parse(input).getNumerator();
-        this.denominator = Expression.parse(input).getDenominator();
+        Expression expression = Expression.parse(input);
+        this.numerator = expression.getNumerator();
+        this.denominator = expression.getDenominator();
+    }
+
+    public Expression(String input, Boolean negative) {
+        Expression expression = Expression.parse(input);
+        this.numerator = expression.getNumerator();
+        this.denominator = expression.getDenominator();
+        this.negative = expression.getNegative();
     }
 
     public Component getNumerator() {
@@ -39,19 +48,40 @@ public class Expression {
         return radical;
     }
 
+    public Boolean getNegative() {
+        return negative;
+    }
+
+    public String toString() {
+        String expression = "";
+        if (negative) {
+            expression += "-(";
+        }
+        expression += numerator.toString();
+        if (denominator != null) {
+            expression += " / ";
+            expression += denominator.toString();
+        }
+        if (negative) {
+            expression += ")";
+        }
+        return expression;
+    }
+
     public void print() {
-        numerator.print();
-        if(denominator == null)
-            return;
-        else
-            Style.print(" / ");
-        denominator.print();
+        Style.print(toString());
     }
     
 
     public static Expression parse(String input) {
         Component numeratorObjects;
         Component denominatorObjects;
+        Boolean negative = false;
+
+        if (input.toCharArray()[0] == '-') {
+            input = input.substring(1);
+            negative = true;
+        }
     
         try {
             if (input.contains("/")) {
@@ -71,7 +101,7 @@ public class Expression {
         
             return expression;
         } catch (Exception e) {
-            return new Expression(input);
+            return new Expression(input, negative);
         }
     }
     

@@ -14,20 +14,35 @@ public class ExprTest {
         // test.print();
         // Style.nl();
 
-        // Component test2 = Component.parse("2x+3y");
-        // Style.line();
-        // test2.print();
+        // Term test = new Term("-6y");
+        // Style.println(test.getCoefficient());
+        // // Style.println(test.getVariables)
+        // test.print();
+
+        // String test2[] = Component.analyze("(2x+3y)+(4z+3x)-6y");
+        Component test1 = Component.parse("(2x+3y)+(4z+3x)-6y");
+        Style.line();
+        // Style.println(test2[0]);
+        test1.print();
+        Style.nl();
+        // char[] test3 = Component.getOperations(test2[0]);
+        // for(int i = 0; i < test3.length; i++)
+        //     Style.println(test3[i]);
         // Style.nl();
         // Style.line();
 
         // Style.println(Component.analyze("(2x+4z+3y)+6y")[0]);
 
-        Component test2 = Component.parse("(2x+3y)+(4z+3x)+6y");
-        Style.println(test2.getContent().length);
-        Style.line();
-        test2.print();
-        Style.nl();
-        Style.line();
+        // String test2[] = Component.analyze("-(2x+3y)+(4z+3x)-6y");
+        // Style.println(test2.length);
+        // Style.line();
+        // char[] test3 = Component.getOperations(test2[0]);
+        // Style.println(test2[0]);
+        // Style.println(test3.length);
+        // for(int i = 0; i < test3.length; i++)
+        //     Style.println(test3[i]);
+        // Style.nl();
+        // Style.line();
         
 
         // Style.println(Str.countSubstr("1231231123", "1"));
