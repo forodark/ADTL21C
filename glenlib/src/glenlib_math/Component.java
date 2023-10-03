@@ -36,13 +36,10 @@ public class Component {
                         }
                         if (i != content.length - 1) {
                             if (content[i+1] instanceof Term && ((Term) content[i+1]).getCoefficient() >= 0) {
-                                
                                 component += (" + ");
                             } else if (content[i+1] instanceof Expression && !(((Expression) content[i+1]).getNegative())) {
-                                
                                 component += (" + ");
                             } else {
-                                
                                 component += (" - ");
                             }
 
@@ -51,6 +48,16 @@ public class Component {
                     }
                     else if (this instanceof Multiply) {
                         component += (((Term) content[i]).toString());
+                        if (i != content.length - 1) {
+                            if (content[i+1] instanceof Term && !((Term) content[i+1]).getInverted()) {
+                                component += ("*");
+                            } else if (content[i+1] instanceof Expression && !((Expression) content[i+1]).getInverted()) {
+                                component += ("*");
+                            } else {
+                                component += ("/");
+                            }
+                            
+                        }
                     }
                     
                 }
@@ -83,6 +90,17 @@ public class Component {
                     }
                     else if (this instanceof Multiply) {
                         component += expr_string;
+                        if (i != content.length - 1) {
+                            if (content[i+1] instanceof Term && !((Term) content[i+1]).getInverted()) {
+                                component += ("*..");
+                            } else if (content[i+1] instanceof Expression && !((Expression) content[i+1]).getInverted()) {
+                                Style.println("Inverted: " + ((Expression) content[i+1]).getInverted());
+                                component += ("*");
+                            } else {
+                                component += ("/");
+                            }
+                            
+                        }
                     }
                 }
 
@@ -95,17 +113,30 @@ public class Component {
         Style.print(toString());
     }
 
-    // TODO: add handling for divide
     public static Component parse(String input) {
         Object[] buffer;
 
         String[] analyzed = analyze(trimGroupings(input));
         Style.println("Analyzed: " + analyzed[0]);
 
-        if(analyzed[0].contains("*") || analyzed[0].contains(")(")) {
-            buffer = new Object[Str.countSubstr(analyzed[0], "*") + Str.countSubstr(analyzed[0], ")(") + 1];
+        //multiple types of operations
+        if((analyzed[0].contains("*") || analyzed[0].contains(")(") || analyzed[0].contains("/"))
+        && (analyzed[0].contains("+") || analyzed[0].contains("-"))) {
+            Style.println("TEST");
+            regroup(input, analyzed[0]);
+        }
 
-            String[] parts = analyzed[0].split("(?=(\\()|\\))");
+        if(analyzed[0].contains("*") || analyzed[0].contains(")(") || analyzed[0].contains("/")) {
+            buffer = new Object[Str.countSubstr(analyzed[0], "*") + Str.countSubstr(analyzed[0], ")(") + Str.countSubstr(analyzed[0], "/") + 1];
+
+            String[] parts = analyzed[0].split("(?=(\\()|\\)|\\*)");
+            char[] operations = getMultiplyOperations(analyzed[0]);
+
+            Style.println(Style.color(Style.GREEN, operations.length + ""));
+            for (char operation : operations) {
+                Style.println(Style.color(Style.GREEN, operation + ""));
+            }
+
 
             // Adjust the result to keep the parenthesis with the content
             for (int i = 0; i < parts.length - 1; i++) {
@@ -115,28 +146,58 @@ public class Component {
                 }
             }
             parts = Arrays.stream(parts)
-                        .filter(s -> !s.isEmpty())
-                        .toArray(String[]::new);
+            .filter(s -> !s.isEmpty())
+            .filter(s -> !s.equals("*"))
+            .toArray(String[]::new);
+
+
 
             for (int i = 0 ; i < parts.length; i++) {
 
                 if (parts[i].contains("()") && !parts[i].equals("()")) {
-                    parts = Arrays.copyOf(parts, parts.length + 1);
-                    buffer = Arrays.copyOf(buffer, buffer.length + 1);
-                    parts[parts.length - 1] = parts[i].substring(2, parts[i].length());
+
+                    String excess = parts[i].substring(2, parts[i].length());
+
+                    if (!excess.contains("/") && !excess.contains("*")) {
+                        parts = Arrays.copyOf(parts, parts.length + 1);
+                        buffer = Arrays.copyOf(buffer, buffer.length + 1);
+                        parts[parts.length - 1] = excess;
+                    }
                     parts[i] = ("()");
+
                 }
             }
+
+            // for (String part : parts) {
+            //     Style.printColor(Style.RED, part + "\n");
+            // }
 
 
             int expr_count = 1;
             for(int i = 0; i < parts.length; i++) {
                 if(parts[i].equals("()")) {
-                    buffer[i] = new Expression(analyzed[expr_count]);
-                    expr_count++;
+                    if (operations[i] == '*') {
+                        Style.println(Style.color(Style.BLUE, "Multiplying"));
+                        buffer[i] = new Expression(analyzed[expr_count]);
+                        expr_count++;
+                    }
+                    else if (operations[i] == '/') {
+                        Style.println(Style.color(Style.BLUE, "Dividing"));
+                        buffer[i] = new Expression(true ,analyzed[expr_count]);
+                        Style.println("Inverted: " + ((Expression) buffer[i]).getInverted());
+                        expr_count++;
+                    }
+
                 }
                 else {
-                    buffer[i] = new Term(parts[i]);
+                    if (operations[i] == '+') {
+                        buffer[i] = new Term(parts[i]);
+                    }
+                    else if (operations[i] == '-') {
+                        // Style.printColor(Style.GREEN, "-" + parts[i]);
+                        buffer[i] = new Term(true, parts[i]);
+                    }
+
                 }
             }
             return new Multiply(buffer);
@@ -146,7 +207,10 @@ public class Component {
             buffer = new Object[Str.countSubstr(analyzed[0], "+") + Str.countSubstr(analyzed[0], "-") + 1];
             String[] parts = analyzed[0].split("[\\+\\-]");
 
-            char[] operations = getOperations(analyzed[0]);
+            char[] operations = getAddOperations(analyzed[0]);
+
+
+
             int expr_count = 1;
             // Style.println(parts.length);
             for(int i = 0; i < parts.length; i++) {
@@ -182,7 +246,7 @@ public class Component {
         }
     }
 
-    // TODO: add handling for nested groupings like (2x + (3x + 4z)) or multiple operations like (2x + 3y)(3z) + 4x
+    // TODO: add handling for multiple operations like (2x + 3y)(3z) + 4x
     public static String[] analyze(String input) {
         int grouping_count = getGroupingCount(input);
     
@@ -236,7 +300,7 @@ public class Component {
     }
     
 
-    public static char[] getOperations(String input) {
+    public static char[] getAddOperations(String input) {
         int length = input.length();
         int count = 0;
     
@@ -264,6 +328,41 @@ public class Component {
                 operations[arrayIndex++] = '+';
             } else if (currentChar == '+' || currentChar == '-') {
                 operations[arrayIndex++] = currentChar;
+            }
+        }
+    
+        return operations;
+    }
+
+    public static char[] getMultiplyOperations(String input) {
+        int length = input.length();
+        int count = 1;
+    
+        // Counting the number of + and - signs
+        for (int i = 0; i < length; i++) {
+            if (i < input.length()-1 && (input.charAt(i) == ')' && input.charAt(i+1) == '(')) {
+                count++;
+            }
+            else if (input.charAt(i) == '*' || input.charAt(i) == '/') {
+                count++;
+            }
+
+        }
+    
+        // Creating the array with the right size
+        char[] operations = new char[count];
+    
+        // Assigning the signs to the array
+        int arrayIndex = 0;
+        for (int i = 0; i < length; i++) {
+            if (i == 0) {
+                operations[arrayIndex++] = '*';
+            }
+            if (i < input.length()-1 && input.charAt(i) == ')' && input.charAt(i+1) == '(') {
+                operations[arrayIndex++] = '*';
+            }
+            if (input.charAt(i) == '*' || input.charAt(i) == '/') {
+                operations[arrayIndex++] = input.charAt(i);
             }
         }
     
@@ -303,6 +402,9 @@ public class Component {
             if(buffer.toCharArray()[0] != '(' || buffer.toCharArray()[buffer.length()-1] != ')') {
                 return buffer;   
             }
+            // if (analyze(buffer)[0] == "()/()") {
+            //     return buffer;
+            // }
 
             int depth = 1;
 
@@ -329,7 +431,81 @@ public class Component {
 
     }
     
-    
+    //TODO: fix this, it doesnt work
+    public static String regroup(String input, String analyzed) {
+        int depth = 0;
+
+        int count = 0;
+
+        for(int i = 0; i < analyzed.length(); i++) {
+            // Style.println(i + " " + analyzed.charAt(i)); 
+
+            if (analyzed.charAt(i) == '(') {
+                depth++;
+            }
+            if (analyzed.charAt(i) == ')') {
+                depth--;
+            }
+
+            if (depth == 0) {
+
+                if (i < analyzed.length()-1 && (analyzed.charAt(i) == ')' && analyzed.charAt(i+1) == '(')) {
+                    count++; Style.printColor(Style.GREEN, "ADDED TO COUNT1: " + "\n");
+                }
+                else if (analyzed.charAt(i) == '*' || analyzed.charAt(i) == '/') {
+                    count++; Style.printColor(Style.GREEN, "ADDED TO COUNT2: " + "\n");
+                }
+                else if (i == 0 && analyzed.charAt(i) != '-') {
+                    count++; Style.printColor(Style.GREEN, "ADDED TO COUNT3: " + "\n");
+                }
+                else if (analyzed.charAt(i) == '+' || analyzed.charAt(i) == '-') {
+                    count++; Style.printColor(Style.GREEN, "ADDED TO COUNT4: " + "\n");
+                }
+            }
+        }
+
+        Style.printColor(Style.RED, "Count: " + count);
+        char[] operations = new char[count+1];
+
+
+        for (int i = 0; i < analyzed.length(); i++) {
+            int arrayIndex = 0;
+
+            if (i == 0 && analyzed.charAt(i) == '-') {
+                operations[arrayIndex++] = '-';
+                Style.printColor(Style.BLUE, "char at index " + i + ": " + analyzed.charAt(i) + "\n");
+            } 
+            else if (analyzed.charAt(i) == '+' || analyzed.charAt(i) == '-') {
+                operations[arrayIndex++] = analyzed.charAt(i);
+                Style.printColor(Style.RED, "char at index " + i + ": " + analyzed.charAt(i) + "\n");
+            }
+            else if (i < analyzed.length()-1 && analyzed.charAt(i) == ')' && analyzed.charAt(i+1) == '(') {
+                Style.println(arrayIndex);
+                operations[arrayIndex++] = '*';
+                Style.printColor(Style.GREEN, "char at index " + i + ": " + analyzed.charAt(i) + "\n");
+            }
+            else if (analyzed.charAt(i) == '*' || analyzed.charAt(i) == '/') {
+                operations[arrayIndex++] = analyzed.charAt(i);
+                Style.printColor(Style.YELLOW, "char at index " + i + ": " + analyzed.charAt(i) + "\n");
+            }
+
+            // if (analyzed.charAt(i) != '-') {
+            //     if (operations[1] == '*' || operations[1] == '/') {
+            //         operations[0] = '*';
+            //     } else if (operations[1] == '+' || operations[1] == '-') {
+            //         operations[0] = '+';
+            //     }
+            // } 
+        }
+
+
+        Style.println(operations.length);
+        for (int j = 0; j < operations.length; j++) {
+            Style.println(operations[j]);
+        }
+
+        return null;
+    }
 
     
     

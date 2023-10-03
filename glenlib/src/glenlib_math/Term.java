@@ -8,8 +8,15 @@ import glenlib.Style;
 public class Term {
     private int coefficient;
     private Variable[] variables;
+    private Boolean inverted = false;
 
     public Term(String term) {
+        this.coefficient = parseCoefficient(term);
+        this.variables = parseVariable(term);
+    }
+
+    public Term(Boolean inverted, String term) {
+        this.inverted = inverted;
         this.coefficient = parseCoefficient(term);
         this.variables = parseVariable(term);
     }
@@ -32,6 +39,10 @@ public class Term {
     
     public Variable[] getVariables() {
         return variables;
+    }
+
+    public Boolean getInverted() {
+        return inverted;
     }
 
     public static Term parse(String input) {

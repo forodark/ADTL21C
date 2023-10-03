@@ -19,17 +19,35 @@ public class ExprTest {
         // // Style.println(test.getVariables)
         // test.print();
 
-        // String test = Component.trimGroupings("((2x+3y-4z+3x)");
+        // String test = Component.trimGroupings("((2x+3y)/(4z+3x))/(5z+6x)");
         // Style.println(test);
 
-        // String test2[] = Component.analyze("((2x+3y)/(4z+3x))/(5z+6x)");
-        // int test4 = Expression.getFractionBar("((2x+3y)/(4z+3x))/(5z+6x)");
-        Expression test1 = Expression.parse("((2x+3y)/(4z+3x))/(5z+6x)");
-        // // test1.getDenominator().print();
 
-        Style.line();
-        // Style.println(test4);
-        // Style.println(test2[0]);
+        Expression test1 = Expression.parse("(2x+3y)(4z+3x)+(5z+6x)");
+        test1.print();
+
+        // Expression test1 = Expression.parse("(5z+6x)");
+        // test1.print();
+
+        // String[] test3 = Component.analyze("((2x+3y)/(4z+3x))/((5z+6x))");
+        // char[] test2 = Component.getMultiplyOperations(test3[0]);
+        // for (int i = 0; i < test2.length; i++) {
+        //     Style.println(test2[i]);
+        // }
+
+        // // int test4 = Expression.getFractionBar("((2x+3y)/(4z+3x))/(5z+6x)");
+        // // Expression test1 = Expression.parse("((2x+3y)/(4z+3x))/(5z+6x)");
+        // // // test1.getDenominator().print();
+
+        // Style.line();
+        // // Style.println(test4);
+        // for (int i = 0; i < test2.length; i++) {
+        //     Style.println(test2[i]);
+        // }
+        // for (int i = 0; i < test3.length; i++) {
+        //     Style.println(test3[i]);
+        // }           
+        // Style.println(test2);
         // test1.print();
         Style.nl();
         // char[] test3 = Component.getOperations(test2[0]);
