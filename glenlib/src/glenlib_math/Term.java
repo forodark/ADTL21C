@@ -11,8 +11,11 @@ public class Term {
     private Boolean inverted = false;
 
     public Term(String term) {
+        Style.println("PARSING TERM: " + term);
         this.coefficient = parseCoefficient(term);
         this.variables = parseVariable(term);
+        Style.println("FINiSHED PARSING: " + term);
+        Style.line();
     }
 
     public Term(Boolean inverted, String term) {
@@ -22,7 +25,9 @@ public class Term {
     }
 
     public String toString() {
-        String buffer = Str.convertString(coefficient);
+        String buffer = "";
+        if (coefficient != 1)
+            buffer += Str.convertString(coefficient);
         for (Variable variable : variables) {
             buffer += variable.toString();
         }
@@ -56,9 +61,17 @@ public class Term {
             signMultiplier = -1;  // Set the multiplier to -1 if the term starts with a negative sign.
             term = term.substring(1);  // Trim off that negative sign.
         }
-    
-        String buffer = term.replaceAll("[^\\d]", "");  // Now, let's proceed with the digit grab.
-        int coefficient = Integer.parseInt(buffer) * signMultiplier;  // Apply the sign multiplier.
+
+        int coefficient = 1;
+
+        try {
+            String buffer = term.split("[a-zA-Z^]")[0];  
+            coefficient = Integer.parseInt(buffer) * signMultiplier;  // Apply the sign multiplier.
+        }
+        catch (Exception e) {
+            return 1;
+        }
+        // Style.println("coefficient: " + coefficient);
         return coefficient;
     }
     
@@ -75,13 +88,18 @@ public class Term {
         variableChunks = Arrays.stream(variableChunks)
                                 .filter(chunk -> !chunk.matches("\\d+"))
                                 .toArray(String[]::new);
+
+        Style.println("TERM: " + term);
+        for (String chunk : variableChunks) {
+            Style.println("CHUNK: " + chunk);
+        }
     
         Variable[] variables = new Variable[variableChunks.length];
     
         for (int i = 0; i < variableChunks.length; i++) {
             variables[i] = createVariable(variableChunks[i]);
         }
-    
+
         return variables;
     }
     
@@ -95,6 +113,7 @@ public class Term {
         if (chunk.length() > 1) {
             if (chunk.contains("^")) {
                 String[] parts = chunk.split("\\^");
+                Style.println("TEST" + parts[1]);
                 int[] indexes = parseIndex(parts[1]);
                 exponent = indexes[0];
                 if(indexes.length > 1)

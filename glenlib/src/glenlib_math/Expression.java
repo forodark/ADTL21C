@@ -1,13 +1,14 @@
 package glenlib_math;
 
 import glenlib.In;
+import glenlib.Str;
 import glenlib.Style;
 import glenlib.Util;
 
 public class Expression {
     private Component numerator;
     private Component denominator;
-    private Expression exponent = null;
+    private Expression exponent;
     private Boolean negative = false;
     private Boolean inverted = false;
 
@@ -15,6 +16,7 @@ public class Expression {
         this.numerator = numerator;
         this.denominator = denominator;
         this.negative = negative;
+        this.inverted = inverted;
         this.exponent = exponent;
     }
 
@@ -22,6 +24,7 @@ public class Expression {
         Expression expression = Expression.parse(input);
         this.numerator = expression.getNumerator();
         this.denominator = expression.getDenominator();
+        this.exponent = expression.getExponent();
     }
 
     public Expression(String input, Boolean negative) {
@@ -81,15 +84,17 @@ public class Expression {
         }
 
         if(exponent != null) {
+
             expression = "(" + expression + ")^";
             if (exponent.getDenominator() == null && exponent.getExponent() == null && exponent.getNumerator().getContent().length <= 1) {
                 expression += exponent.toString();
             }
             else {
-                expression += "(" + exponent.getNumerator().toString() + ")";
+                expression += "(" + exponent.toString() + ")";
             }
 
         }
+
 
         return expression;
     }
@@ -100,8 +105,8 @@ public class Expression {
     
 
     public static Expression parse(String input) {
-
-        String buffer = Component.trimGroupings(input);
+        Style.printColor(Style.RED, "PARSING: " + input + "\n");
+        String buffer = Component.trimGroupings(Str.removeSpaces(input));
         Component numeratorObjects;
         Component denominatorObjects;
         Expression exponent;
@@ -115,12 +120,11 @@ public class Expression {
 
             if (getExponentOperator(buffer) != -1) {
                 String exponent_string = buffer.substring(getExponentOperator(buffer)+1, buffer.length()).trim();
-                Style.println(exponent_string);
-
-                Style.printColor(Style.BLUE, exponent_string);
+                // Style.printColor(Style.GREEN, exponent_string + "\n");
                 exponent = new Expression(exponent_string);
             }
             else {
+                // Style.printColor(Style.YELLOW, exponent_string);
                 exponent = null;
             }
 
@@ -156,6 +160,13 @@ public class Expression {
             denominatorObjects = null;
         }
 
+        // exponent = new Expression("4z");
+
+        // Style.line();
+        // exponent.print();
+        // Style.nl();
+        // Style.line();
+
         Expression expression = new Expression(numeratorObjects, denominatorObjects, negative, inverted, exponent);
 
         return expression;
@@ -171,10 +182,18 @@ public class Expression {
     }
 
     public static int getMainOperation(String input, char operation) {
+        return getMainOperation(input, operation, false, 0);
+    }
+
+    public static int getMainOperation(String input, char operation, Boolean multiple, int start_index) {
         int index = -1;
 
         int depth = 0;
-        int i = 0;
+        int i = start_index;
+
+        if (input.length() <= 1) {
+            return -1;
+        }
 
         for(; i < input.length(); i++) {
             // Style.println(i + " " + input.charAt(i)); 
@@ -190,7 +209,7 @@ public class Expression {
                 index = i;
                 break;
             }
-            if (depth == 0) {
+            if (depth == 0 && !multiple) {
                 return -1;
             }
         }
@@ -208,7 +227,7 @@ public class Expression {
             if (i == input.length() - 1 && depth == 0) {
                 break;
             }
-            if (depth == 0) {
+            if (depth == 0 && !multiple) {
                 return -1;
             }
 

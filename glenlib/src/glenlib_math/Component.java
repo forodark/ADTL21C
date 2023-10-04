@@ -1,9 +1,12 @@
 package glenlib_math;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import glenlib.Str;
 import glenlib.Style;
+import glenlib.Charrays;
 
 public class Component {
     private Object[] content;
@@ -92,7 +95,7 @@ public class Component {
                         component += expr_string;
                         if (i != content.length - 1) {
                             if (content[i+1] instanceof Term && !((Term) content[i+1]).getInverted()) {
-                                component += ("*..");
+                                component += ("*");
                             } else if (content[i+1] instanceof Expression && !((Expression) content[i+1]).getInverted()) {
                                 Style.println("Inverted: " + ((Expression) content[i+1]).getInverted());
                                 component += ("*");
@@ -116,20 +119,24 @@ public class Component {
     public static Component parse(String input) {
         Object[] buffer;
 
+        input = appendMultiply(input);
+
         String[] analyzed = analyze(trimGroupings(input));
         Style.println("Analyzed: " + analyzed[0]);
+        Style.println("Has Exponent: " + hasExponent(analyzed[0]));
 
         //multiple types of operations
-        if((analyzed[0].contains("*") || analyzed[0].contains(")(") || analyzed[0].contains("/"))
-        && (analyzed[0].contains("+") || analyzed[0].contains("-"))) {
+        if((analyzed[0].contains("*") || analyzed[0].contains("/") || hasExponent(analyzed[0]))
+        && (analyzed[0].contains("+") || hasSubtract(analyzed[0]) || hasExponent(analyzed[0]))) {
             Style.println("TEST");
-            regroup(input, analyzed[0]);
+            analyzed = analyze(regroup(input, analyzed[0]));
+            Style.printColor(Style.YELLOW, "Analyzed: " + analyzed[0] + "\n");
         }
 
-        if(analyzed[0].contains("*") || analyzed[0].contains(")(") || analyzed[0].contains("/")) {
+        if(analyzed[0].contains("*") || analyzed[0].contains("/")) {
             buffer = new Object[Str.countSubstr(analyzed[0], "*") + Str.countSubstr(analyzed[0], ")(") + Str.countSubstr(analyzed[0], "/") + 1];
 
-            String[] parts = analyzed[0].split("(?=(\\()|\\)|\\*)");
+            String[] parts = analyzed[0].split("[\\*\\/]");
             char[] operations = getMultiplyOperations(analyzed[0]);
 
             Style.println(Style.color(Style.GREEN, operations.length + ""));
@@ -138,35 +145,34 @@ public class Component {
             }
 
 
+            // old code from previous handling of terms next to expressions
             // Adjust the result to keep the parenthesis with the content
-            for (int i = 0; i < parts.length - 1; i++) {
-                if (parts[i].endsWith("(")) {
-                    parts[i] += parts[i + 1];
-                    parts[i + 1] = "";
-                }
-            }
-            parts = Arrays.stream(parts)
-            .filter(s -> !s.isEmpty())
-            .filter(s -> !s.equals("*"))
-            .toArray(String[]::new);
+            // for (int i = 0; i < parts.length - 1; i++) {
+            //     if (parts[i].endsWith("(")) {
+            //         parts[i] += parts[i + 1];
+            //         parts[i + 1] = "";
+            //     }
+            // }
+            // parts = Arrays.stream(parts)
+            // .filter(s -> !s.isEmpty())
+            // .filter(s -> !s.equals("*"))
+            // .toArray(String[]::new);
 
+            // for (int i = 0 ; i < parts.length; i++) {
 
+            //     if (parts[i].contains("()") && !parts[i].equals("()")) {
 
-            for (int i = 0 ; i < parts.length; i++) {
+            //         String excess = parts[i].substring(2, parts[i].length());
 
-                if (parts[i].contains("()") && !parts[i].equals("()")) {
+            //         if (!excess.contains("/") && !excess.contains("*")) {
+            //             parts = Arrays.copyOf(parts, parts.length + 1);
+            //             buffer = Arrays.copyOf(buffer, buffer.length + 1);
+            //             parts[parts.length - 1] = excess;
+            //         }
+            //         parts[i] = ("()");
 
-                    String excess = parts[i].substring(2, parts[i].length());
-
-                    if (!excess.contains("/") && !excess.contains("*")) {
-                        parts = Arrays.copyOf(parts, parts.length + 1);
-                        buffer = Arrays.copyOf(buffer, buffer.length + 1);
-                        parts[parts.length - 1] = excess;
-                    }
-                    parts[i] = ("()");
-
-                }
-            }
+            //     }
+            // }
 
             // for (String part : parts) {
             //     Style.printColor(Style.RED, part + "\n");
@@ -190,10 +196,10 @@ public class Component {
 
                 }
                 else {
-                    if (operations[i] == '+') {
+                    if (operations[i] == '*') {
                         buffer[i] = new Term(parts[i]);
                     }
-                    else if (operations[i] == '-') {
+                    else if (operations[i] == '/') {
                         // Style.printColor(Style.GREEN, "-" + parts[i]);
                         buffer[i] = new Term(true, parts[i]);
                     }
@@ -430,88 +436,264 @@ public class Component {
         }
 
     }
+
+    
     
     //TODO: fix this, it doesnt work
     public static String regroup(String input, String analyzed) {
-        int depth = 0;
 
-        int count = 0;
-
-        for(int i = 0; i < analyzed.length(); i++) {
-            // Style.println(i + " " + analyzed.charAt(i)); 
-
-            if (analyzed.charAt(i) == '(') {
-                depth++;
-            }
-            if (analyzed.charAt(i) == ')') {
-                depth--;
-            }
-
-            if (depth == 0) {
-
-                if (i < analyzed.length()-1 && (analyzed.charAt(i) == ')' && analyzed.charAt(i+1) == '(')) {
-                    count++; Style.printColor(Style.GREEN, "ADDED TO COUNT1: " + "\n");
-                }
-                else if (analyzed.charAt(i) == '*' || analyzed.charAt(i) == '/') {
-                    count++; Style.printColor(Style.GREEN, "ADDED TO COUNT2: " + "\n");
-                }
-                else if (i == 0 && analyzed.charAt(i) != '-') {
-                    count++; Style.printColor(Style.GREEN, "ADDED TO COUNT3: " + "\n");
-                }
-                else if (analyzed.charAt(i) == '+' || analyzed.charAt(i) == '-') {
-                    count++; Style.printColor(Style.GREEN, "ADDED TO COUNT4: " + "\n");
-                }
-            }
-        }
-
-        Style.printColor(Style.RED, "Count: " + count);
-        char[] operations = new char[count+1];
-
-
+        char[] operations = new char[0];
+        Boolean minus_found = false;
+        int array_index = 0;
         for (int i = 0; i < analyzed.length(); i++) {
-            int arrayIndex = 0;
 
             if (i == 0 && analyzed.charAt(i) == '-') {
-                operations[arrayIndex++] = '-';
-                Style.printColor(Style.BLUE, "char at index " + i + ": " + analyzed.charAt(i) + "\n");
+                minus_found = true;
             } 
-            else if (analyzed.charAt(i) == '+' || analyzed.charAt(i) == '-') {
-                operations[arrayIndex++] = analyzed.charAt(i);
-                Style.printColor(Style.RED, "char at index " + i + ": " + analyzed.charAt(i) + "\n");
+            else if (analyzed.charAt(i) == '+' || analyzed.charAt(i) == '-' 
+            || analyzed.charAt(i) == '*' || analyzed.charAt(i) == '/' || analyzed.charAt(i) == '^') {
+                operations = Charrays.insertChar(operations, analyzed.charAt(i), array_index);
+                array_index++;
             }
-            else if (i < analyzed.length()-1 && analyzed.charAt(i) == ')' && analyzed.charAt(i+1) == '(') {
-                Style.println(arrayIndex);
-                operations[arrayIndex++] = '*';
-                Style.printColor(Style.GREEN, "char at index " + i + ": " + analyzed.charAt(i) + "\n");
+        }
+        
+        for(int i = 0; i < operations.length; i++) {
+            if (i == 0) {
+                if (operations[i] == '*' || operations[i] == '/') {
+                    operations = Charrays.insertChar(operations, '*', i);
+                }
+                else if (minus_found) {
+                    operations = Charrays.insertChar(operations, '-', i);
+                } 
+                else if (operations[i] == '+' || operations[i] == '-') {
+                    operations = Charrays.insertChar(operations, '+', i);
+                }
+                else if (operations[i] == '^') {
+                    operations = Charrays.insertChar(operations, '^', i);
+                }
+                i++;
             }
-            else if (analyzed.charAt(i) == '*' || analyzed.charAt(i) == '/') {
-                operations[arrayIndex++] = analyzed.charAt(i);
-                Style.printColor(Style.YELLOW, "char at index " + i + ": " + analyzed.charAt(i) + "\n");
+            else if (operations[i] == '*' || operations[i] == '/') {
+                operations = Charrays.insertChar(operations, '*', i);
+                i++;
             }
-
-            // if (analyzed.charAt(i) != '-') {
-            //     if (operations[1] == '*' || operations[1] == '/') {
-            //         operations[0] = '*';
-            //     } else if (operations[1] == '+' || operations[1] == '-') {
-            //         operations[0] = '+';
-            //     }
-            // } 
+            else if (operations[i] == '^') {
+                operations = Charrays.insertChar(operations, '^', i);
+                i++;
+            }
         }
 
+        operations = Charrays.filterEmpty(operations);
 
-        Style.println(operations.length);
+        Style.println("OPERATION LENGTH: " + operations.length);
         for (int j = 0; j < operations.length; j++) {
-            Style.println(operations[j]);
+            Style.println(Style.color(Style.RED, (operations[j]) + ""));
         }
 
-        return null;
+        // String[] buffer = new String[multiply_group_count+1];
+        // Style.println("MULTIPLY GROUP: " + multiply_group_count);
+        // int buffer_index = 1;
+
+
+
+        // * main regrouping happens here
+        for (int cycle = 0; cycle < 2; cycle++) {
+            int new_open = 0;
+            int new_close = 0;
+            Boolean found_add = false;
+
+            
+
+            for(int i = 0; i < operations.length; i++) {
+                Style.println("CURRENTLY CHECKING: " + i);
+
+                if (found_add == false && (operations[i] == '+' || operations[i] == '-')) {
+                    found_add = true;
+                    Style.printColor(Style.RED, "FOUND FIRST ADD: " + "\n");
+                    if (operations[i] == '+') {
+                        Style.println("OPEN For i: " + i + " New open: " + new_open);
+                        new_open = Expression.getMainOperation(input, '+', true, new_open)+1;
+                    }
+                    else if (operations[i] == '-') {
+                        new_open = Expression.getMainOperation(input, '-', true, new_open)+1;
+                    }
+                }
+                else if (i < operations.length-1 && (operations[i] == '+' || operations[i] == '-') && (operations[i+1] == '*' || operations[i+1] == '/')) {
+                    if (operations[i] == '+') {
+                        new_open = Expression.getMainOperation(input, '+', true, new_open)+1;
+                    }
+                    else if (operations[i] == '-') {
+                        new_open = Expression.getMainOperation(input, '-', true, new_open)+1;
+                    }
+                    Style.println("SET OPEN For i: " + i + " New open: " + new_open);
+                    // i++;
+                }
+                else if (cycle == 0 && i < operations.length-1 && (operations[i] == '*' || operations[i] == '/' || operations[i] == '+' || operations[i] == '-') && (operations[i+1] == '^')) {
+                    if (operations[i] == '*') {
+                        new_open = Expression.getMainOperation(input, '*', true, new_open)+1;
+                    }
+                    else if (operations[i] == '/') {
+                        new_open = Expression.getMainOperation(input, '/', true, new_open)+1;
+                    }
+                    else if (operations[i] == '+') {
+                        new_open = Expression.getMainOperation(input, '+', true, new_open)+1;
+                    }
+                    else if (operations[i] == '-') {
+                        new_open = Expression.getMainOperation(input, '-', true, new_open)+1;
+                    }
+                    Style.println("SET OPEN For i: " + i + " New open: " + new_open);
+                    // i++;
+                }
+
+                if ((cycle == 1 && (operations[i] == '*' || operations[i] == '/')) || 
+                (cycle == 0 && operations[i] == '^')) {
+                    // Style.println("Found * at" + i);
+
+                    if (cycle == 0 && operations[i] == '^') {
+                        for(i = i+1; i < operations.length; i++) {
+                            if (operations[i] == '-') {
+                                new_close = Expression.getMainOperation(input, '-', true, new_open);
+                                Style.println("Found - at" + i);
+                                break;
+                            }
+                            else if (operations[i] == '+') {
+                                new_close = Expression.getMainOperation(input, '+', true, new_open);
+                                Style.println("Found + at" + i);
+                                break;
+                            }
+                            else if (operations[i] == '*') {
+                                new_close = Expression.getMainOperation(input, '*', true, new_open);
+                                Style.println("Found * at" + i);
+                                break;
+                            }
+                            else if (operations[i] == '/') {
+                                new_close = Expression.getMainOperation(input, '/', true, new_open);
+                                Style.println("Found / at" + i);
+                                break;
+                            }
+                            else if (i == operations.length-1) {
+                                new_close = input.length();
+                                Style.println("Found END at" + i);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (cycle == 1 && (operations[i] == '*' || operations[i] == '/')) {
+                        for(i = i+1; i < operations.length; i++) {
+                            if (operations[i] == '-') {
+                                new_close = Expression.getMainOperation(input, '-', true, new_open);
+                                Style.println("Found - at" + i);
+                                break;
+                            }
+                            else if (operations[i] == '+') {
+                                new_close = Expression.getMainOperation(input, '+', true, new_open);
+                                Style.println("Found + at" + i);
+                                break;
+                            }
+                            else if (operations[i] == '^') {
+                                new_close = Expression.getMainOperation(input, '^', true, new_open);
+                                Style.println("Found ^ at" + i);
+                                break;
+                            }
+                            else if (i == operations.length-1) {
+                                new_close = input.length();
+                                Style.println("Found END at" + i);
+                                break;
+                            }
+                        }
+                    }
+
+                    Style.println("New open: " + new_open);
+                    Style.println("New close: " + new_close);
+                    // String new_sub_expression = input.substring(new_open, new_close);
+                    // buffer[buffer_index++] = new_sub_expression;
+                    // Style.printColor(Style.BLUE, new_sub_expression + "\n");
+
+                    StringBuilder grouper = new StringBuilder(input);
+                    grouper.insert(new_open, '(');
+                    grouper.insert(new_close+1, ')');
+
+                    new_open = new_close+3;
+                    input = grouper.toString();
+                    Style.printColor(Style.GREEN, "Cycle: " + cycle + " Updated string to: " + input + "\n");
+                }
+            }
+        }
+
+        input = trimGroupings(input);
+
+        Style.printColor(Style.GREEN, "Regrouped String: " + input + "\n");
+
+        return input;
     }
 
-    
-    
-    
-    
-    
+    public static String appendMultiply(String input) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < input.length(); i++) {
+            char currentChar = input.charAt(i);
+            result.append(currentChar);
+
+            if (i < input.length() - 1) {
+                char nextChar = input.charAt(i + 1);
+
+                if ((Character.isDigit(currentChar) || currentChar == ')' || Character.isLetter(currentChar)) &&
+                    (nextChar == '(')) {
+                    result.append('*');
+                } else if (currentChar == ')' &&
+                        (Character.isDigit(nextChar) || Character.isLetter(nextChar))) {
+                    result.append('*');
+                }
+            }
+        }
+
+        return result.toString();
+    }
     
 
+
+
+
+
+
+    public static boolean hasSubtract(String input) {
+        boolean hasSubtract = false;
+
+        // Loop through the string
+        for (int i = 0; i < input.length(); i++) {
+            char currentChar = input.charAt(i);
+
+            // Check for a standalone '-'
+            if (currentChar == '-' && i > 0 && i < input.length() - 1) {
+                char prevChar = input.charAt(i - 1);
+                char nextChar = input.charAt(i + 1);
+
+                // If it's not part of '*-' or '/-', set hasSubtract to true
+                if (prevChar != '*' && prevChar != '/' && nextChar != '-') {
+                    hasSubtract = true;
+                    break;
+                }
+            }
+        }
+
+        return hasSubtract;
+    }
+    
+    public static boolean hasExponent(String input) {
+        for (int i = 1; i < input.length() - 1; i++) {
+            char currentChar = input.charAt(i);
+
+            if (currentChar == '^') {
+                char leftChar = input.charAt(i - 1);
+                char rightChar = input.charAt(i + 1);
+
+                if (!(Character.isLetter(leftChar) && Character.isDigit(rightChar))) {
+                    return true; // Found "^" but not between a letter and a digit.
+                }
+            }
+        }
+
+        return false; // If we reached here, no such pattern found.
+    }
 }

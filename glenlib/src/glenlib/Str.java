@@ -266,5 +266,26 @@ public class Str {
         return index;
     }
     
+    public static String removeSpaces(String input) {
+        if (input == null) {
+            return null; // Can't remove spaces from nothing, right?
+        }
+        
+        // Time to work the magic!
+        StringBuilder result = new StringBuilder();
+        
+        for (int i = 0; i < input.length(); i++) {
+            char currentChar = input.charAt(i);
+            
+            // Abracadabra! No space? Into the result it goes!
+            if (currentChar != ' ') {
+                result.append(currentChar);
+            }
+        }
+        
+        // Ta-da! The string with spaces vanished.
+        return result.toString();
+    }
+    
     
 }

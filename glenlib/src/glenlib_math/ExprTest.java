@@ -22,9 +22,38 @@ public class ExprTest {
         // String test = Component.trimGroupings("((2x+3y)/(4z+3x))/(5z+6x)");
         // Style.println(test);
 
+        // char[] test = {'a', 'b', 'c'};
+        // test = Str.insertChar(test, 'd', 1);
+        // Style.println(new String(test));
 
-        Expression test1 = Expression.parse("(2x+3y)(4z+3x)+(5z+6x)");
+        // String test = Component.appendMultiply("(2x+3y)5y");
+        // Style.println(test);
+
+        // Boolean test = Component.hasSubtract("()*-()-()");
+        // Style.println(test);
+
+        // Boolean test = Component.hasExponent("2x^3+4y^2");
+        // Style.println(test);
+
+        // test = Component.hasExponent("(2x^3)+(4y^2)");
+        // Style.println(test);
+
+        // test = Component.hasExponent("(2x^3)^(4y^2)");
+        // Style.println(test);
+
+        // test = Component.hasExponent("(2x-2)^(4y+3x)");
+        // Style.println(test);
+
+        // String test = Str.removeSpaces("1 1 2 3x3 324 51 sd asd d");
+        // Style.println(test);
+
+        Expression test1 = Expression.parse("2x^3 + 4y^2");
+        // Expression test1 = Expression.parse("(3z) / (2x) ^ (4z)");
         test1.print();
+        // Style.printColor(Style.RED, ((Expression) test1.getNumerator().getContent()[0]).getExponent().toString());
+
+        // int test = Expression.getMainOperation("((2z)(5x))+(3x)+(4x)(5x)", '+', true, 11);
+        // Style.println(test);
 
         // Expression test1 = Expression.parse("(5z+6x)");
         // test1.print();

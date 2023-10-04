@@ -1,5 +1,7 @@
 package glenlib_math;
 
+import glenlib.Style;
+
 public class Variable {
     private char base;
     private int exponent;
@@ -28,6 +30,10 @@ public class Variable {
         if(radical == 1)
             return base + "^" + exponent;
         return base + "^(" + exponent + "/" + radical + ")";
+    }
+
+    public void print() {
+        Style.print(toString());
     }
 
     public char getBase() {
