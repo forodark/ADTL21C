@@ -36,9 +36,12 @@ Latest changes (v1.4)
         > added countSubstr
         > added findNthOccurence 
         > added removeSpaces
+        > added insertChar
+        > added containsAny
     - Added a new class glenlib.Charrays
-        > added an insertChar
+        > added insertChar
         > added filterEmpty
+    - For now, expressions will be halted for a future update
     todo:
         - expression class that can store mathematical expressions
         - allow for exponents and radicals to be expressions or terms

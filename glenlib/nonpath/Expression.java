@@ -12,6 +12,8 @@ public class Expression {
     private Boolean negative = false;
     private Boolean inverted = false;
 
+    public static String valid_operators = "+-*/^";
+
     public Expression(Component numerator, Component denominator, Boolean negative, Boolean inverted, Expression exponent) {
         this.numerator = numerator;
         this.denominator = denominator;
@@ -31,6 +33,7 @@ public class Expression {
         Expression expression = Expression.parse(input);
         this.numerator = expression.getNumerator();
         this.denominator = expression.getDenominator();
+        this.exponent = expression.getExponent();
         this.negative = negative;
     }
 
@@ -38,7 +41,21 @@ public class Expression {
         Expression expression = Expression.parse(input);
         this.numerator = expression.getNumerator();
         this.denominator = expression.getDenominator();
+        this.exponent = expression.getExponent();
         this.inverted = inverted;
+    }
+
+    public Expression(String input, Boolean negative, Boolean inverted) {
+        Expression expression = Expression.parse(input);
+        this.numerator = expression.getNumerator();
+        this.denominator = expression.getDenominator();
+        this.exponent = expression.getExponent();
+        this.inverted = inverted;
+        this.negative = negative;
+    }
+
+    public Expression() {
+        this.numerator = null;
     }
 
     public Component getNumerator() {
@@ -65,13 +82,17 @@ public class Expression {
     public String toString() {
         String expression = "";
 
+        if (denominator == null && numerator.getContent().length == 1 && negative) {
+            expression += "-";
+        }
+
         if (!negative && denominator != null && numerator.getContent().length > 1) {
             expression += "(" + numerator.toString() + ")";
         }
         else expression += numerator.toString();
 
         if (denominator != null) {
-            expression += " / ";
+            expression += "/";
             if (denominator.getContent().length > 1) {
                 expression += "(" + denominator.toString() + ")";
             }
@@ -79,13 +100,19 @@ public class Expression {
 
         }
 
-        if (negative) {
-            expression = "-(" + expression + ")";
-        }
+        // if (negative) {
+        //     expression = "-(" + expression + ")";
+        // }
 
         if(exponent != null) {
 
-            expression = "(" + expression + ")^";
+            if (denominator == null && numerator.getContent().length <= 1 && numerator.getContent()[0] instanceof Term) {
+                expression = expression + "^";
+            }
+            else {
+                expression = "(" + expression + ")^";
+            }
+
             if (exponent.getDenominator() == null && exponent.getExponent() == null && exponent.getNumerator().getContent().length <= 1) {
                 expression += exponent.toString();
             }
@@ -100,11 +127,27 @@ public class Expression {
     }
 
     public void print() {
-        Style.print(toString());
+        // try {
+            Style.print(toString());
+        // }
+        // catch (Exception e) {
+        //     Style.printColor(Style.RED, "Print Error: Cannot print invalid expression\n");
+        // }
+
     }
     
-
     public static Expression parse(String input) {
+        // try {
+            return parseImpl(input);
+        // }
+        // catch (Exception e) {
+        //     Style.printColor(Style.RED, "Parse Error: " + e.getMessage() + "\n");
+        //     return new Expression();
+        // }
+
+    }
+
+    public static Expression parseImpl(String input) {
         Style.printColor(Style.RED, "PARSING: " + input + "\n");
         String buffer = Component.trimGroupings(Str.removeSpaces(input));
         Component numeratorObjects;
@@ -112,25 +155,27 @@ public class Expression {
         Expression exponent;
         Boolean negative = false;
         Boolean inverted = false;
+
+        
       
-        if (buffer.toCharArray()[0] == '-') {
+        if ((buffer.toCharArray()[0] == '-' && buffer.length() > 1 && buffer.toCharArray()[1] == '(')) {
             buffer = buffer.substring(1);
             negative = true;
         }
 
-            if (getExponentOperator(buffer) != -1) {
-                String exponent_string = buffer.substring(getExponentOperator(buffer)+1, buffer.length()).trim();
-                // Style.printColor(Style.GREEN, exponent_string + "\n");
-                exponent = new Expression(exponent_string);
-            }
-            else {
-                // Style.printColor(Style.YELLOW, exponent_string);
-                exponent = null;
-            }
+        if (getExponentOperator(buffer) != -1) {
+            Style.printColor(Style.RED, "THERES AN EXPONEnT OPERATOR");
+            String exponent_string = buffer.substring(getExponentOperator(buffer)+1, buffer.length()).trim();
+            Style.printColor(Style.GREEN, "Setting exponent to: " + exponent_string + "\n");
+            exponent = new Expression(exponent_string);
+        }
+        else {
+            // Style.printColor(Style.YELLOW, exponent_string);
+            exponent = null;
+        }
 
-
-            if (getFractionBar(buffer) != -1) {
-
+        if (getFractionBar(buffer) != -1) {
+            Style.printColor(Style.RED, "THERES A FRACTION BAR");
 
             String numeratorString = buffer.substring(0, getFractionBar(buffer)).trim();
 
@@ -139,8 +184,8 @@ public class Expression {
                 denominator_end = getExponentOperator(buffer);
             }
             String denominatorString = buffer.substring(getFractionBar(buffer)+1, denominator_end).trim();
-            Style.println(numeratorString);
-            Style.println(denominatorString);
+            Style.println(numeratorString + "WTF");
+            Style.println(denominatorString + "WTF");
             numeratorObjects = Component.parse(numeratorString);
             denominatorObjects = Component.parse(denominatorString);
 
@@ -162,12 +207,18 @@ public class Expression {
 
         // exponent = new Expression("4z");
 
-        // Style.line();
-        // exponent.print();
-        // Style.nl();
-        // Style.line();
+        Style.println("NEGATIVE: " + negative + "\n");
+        Style.println("INVERTED: " + inverted + "\n");
 
         Expression expression = new Expression(numeratorObjects, denominatorObjects, negative, inverted, exponent);
+
+        if (exponent != null) {
+            Style.line();
+            String expr_string = expression.toString();
+            Style.printColor(Style.RED, "EXPR STRING TEST: " + expr_string);
+            Style.nl();
+            Style.line();
+        }
 
         return expression;
 
@@ -191,6 +242,10 @@ public class Expression {
         int depth = 0;
         int i = start_index;
 
+        if(start_index > input.length()-2) {
+            return -1;
+        }
+
         if (input.length() <= 1) {
             return -1;
         }
@@ -204,11 +259,19 @@ public class Expression {
             if (input.charAt(i) == ')') {
                 depth--;
             }
-            if (input.charAt(i+1) == operation && depth == 0) {
-                i++;
-                index = i;
+            try {
+                if (depth == 0 && input.charAt(i+1) == operation) {
+                    i++;
+                    index = i;
+                    Style.println("FOUND AT: " + index);
+                    break;
+                }
+            }
+            catch (IndexOutOfBoundsException e) {
                 break;
             }
+
+
             if (depth == 0 && !multiple) {
                 return -1;
             }
@@ -227,7 +290,9 @@ public class Expression {
             if (i == input.length() - 1 && depth == 0) {
                 break;
             }
-            if (depth == 0 && !multiple) {
+            if (depth == 0 && !multiple && 
+            valid_operators.contains(String.valueOf(input.charAt(i)))
+            ) {
                 return -1;
             }
 

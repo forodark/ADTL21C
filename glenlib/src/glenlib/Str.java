@@ -265,6 +265,30 @@ public class Str {
         // Return the index of the Nth occurrence
         return index;
     }
+
+    public static int findNthOccurrences(String input, String[] targets, int occurrence) {
+        int index = -1;
+    
+        for (int i = 0; i < occurrence; i++) {
+            // Start the search from the index right after the last occurrence
+            for (String target : targets) {
+                index = input.indexOf(target, index + 1);
+    
+                if (index != -1) {
+                    // If found, break the loop
+                    break;
+                }
+            }
+    
+            if (index == -1) {
+                // Couldn't find the Nth occurrence
+                return -1;
+            }
+        }
+    
+        // Return the index of the Nth occurrence
+        return index;
+    }
     
     public static String removeSpaces(String input) {
         if (input == null) {
@@ -287,5 +311,18 @@ public class Str {
         return result.toString();
     }
     
-    
+    public static String insertChar(String str, char c, int index) {
+        StringBuilder result = new StringBuilder(str);
+        result.insert(index, c);
+        return result.toString();
+    }
+
+    public static boolean containsAny(String input, String targets) {
+        for (char c : input.toCharArray()) {
+            if (targets.contains(String.valueOf(c))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

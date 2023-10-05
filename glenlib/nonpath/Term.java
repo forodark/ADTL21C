@@ -26,11 +26,18 @@ public class Term {
 
     public String toString() {
         String buffer = "";
-        if (coefficient != 1)
-            buffer += Str.convertString(coefficient);
+        if (coefficient != 1 || variables.length == 0) {
+            if (coefficient < 0) {
+                buffer += Str.convertString(coefficient).substring(1);
+            }
+            else
+                buffer += Str.convertString(coefficient);
+        }
+
         for (Variable variable : variables) {
             buffer += variable.toString();
         }
+        Style.printColor(Style.GREEN, "Term: " + buffer + "\n");
         return buffer;
     }
 
@@ -56,7 +63,7 @@ public class Term {
 
     public static int parseCoefficient(String term) {
         int signMultiplier = 1;
-    
+        Style.println("parsing coefficient: " + term);
         if (term.startsWith("-")) {
             signMultiplier = -1;  // Set the multiplier to -1 if the term starts with a negative sign.
             term = term.substring(1);  // Trim off that negative sign.
@@ -69,9 +76,10 @@ public class Term {
             coefficient = Integer.parseInt(buffer) * signMultiplier;  // Apply the sign multiplier.
         }
         catch (Exception e) {
-            return 1;
+            Style.println(signMultiplier);
+            return 1 * signMultiplier;
         }
-        // Style.println("coefficient: " + coefficient);
+        Style.println("coefficient: " + coefficient);
         return coefficient;
     }
     

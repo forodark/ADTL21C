@@ -47,7 +47,14 @@ public class ExprTest {
         // String test = Str.removeSpaces("1 1 2 3x3 324 51 sd asd d");
         // Style.println(test);
 
-        Expression test1 = Expression.parse("2x^3 + 4y^2");
+        // String test = Component.regroupExponents("(3x + 2y)^(2^3)^5x");
+        // Style.println(test);
+
+        // int test = Expression.getExponentOperator("(2^3)^5x");
+        // Style.println(test);
+        
+        
+        Expression test1 = Expression.parse("-y + 1");
         // Expression test1 = Expression.parse("(3z) / (2x) ^ (4z)");
         test1.print();
         // Style.printColor(Style.RED, ((Expression) test1.getNumerator().getContent()[0]).getExponent().toString());
