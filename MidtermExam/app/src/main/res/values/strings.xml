@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MidtermExam</string>
+    <string name="menu_item_1">Item1</string>
+    <string name="menu_item_2">Item2</string>
+    <string name="menu_item_3">Item3</string>
+    <string name="menu_item_4">Item4</string>
+    <string name="submenu_item_1">SubItem1</string>
+    <string name="submenu_item_2">SubItem1</string>
+</resources>

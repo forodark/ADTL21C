@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MidtermExam2</string>
+    <string name="menu_item_1">Game</string>
+    <string name="menu_item_2">Shop</string>
+    <string name="menu_item_3">Stats</string>
+    <string name="menu_item_4">Other</string>
+    <string name="submenu_item_1">Dark/Light Mode</string>
+    <string name="submenu_item_2">About</string>
+</resources>

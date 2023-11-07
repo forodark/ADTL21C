@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">TestMenu</string>
-    <string name="action_settings">Settings</string>
+    <string name="menu_item_1">Item1</string>
+    <string name="menu_item_2">Item2</string>
+    <string name="menu_item_3">Item3</string>
+    <string name="menu_item_4">Item4</string>
+    <string name="submenu_item_1">SubItem1</string>
+    <string name="submenu_item_2">SubItem1</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
