@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.glen.testmenu.MainActivity">
+    tools:context="com.glen.midtermexam2.MainActivity">
     <item
         android:id="@+id/action_game"
         android:orderInCategory="100"
         android:title="@string/menu_item_1"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_shop"
