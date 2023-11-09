@@ -3,33 +3,47 @@ package com.glen.cookieclicker
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.SystemClock
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
-    lateinit var timer : TextView
     var cookies = 0;
-    val max_time: Long = 2147483647;
+
+    private var handler: Handler? = null
+    private var timer: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        timer = findViewById(R.id.timer)
+        // Create a handler to post the toast message
+        handler = Handler()
 
-        object : CountDownTimer(max_time*1000, 1000) {
-            // Callback function, fired on regular interval
-            override fun onTick(millisUntilFinished: Long) {
-                timer.setText("Timer: " + millisUntilFinished / 1000)
-                addCookie()
+        // Create a runnable to update the timer
+        timer = Runnable {
+            // Get the current time in milliseconds
+            val time = SystemClock.elapsedRealtime()
+
+            // Update the timer text
+            // ...
+
+            // Display the toast message every 4500 milliseconds
+            if (time % 2000 == 0L) {
+                addCookie(10)
+                Toast.makeText(this, "+10", Toast.LENGTH_SHORT).show()
             }
 
-            // Callback function, fired
-            // when the time is up
-            override fun onFinish() {
-                timer.setText("done!")
-            }
-        }.start()
+            // Schedule the next timer update
+            handler?.postDelayed(timer!!, 1)
+        }
+
+        // Start the timer
+        handler?.post(timer!!)
+
+
 
         val main_cookie: ImageButton = findViewById(R.id.cookie)
 
