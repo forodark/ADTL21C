@@ -14,6 +14,16 @@ class TodoAdapter(
 
     class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
+    fun getTodos(): List<Todo> {
+        return todos
+    }
+
+    fun setTodos(todoList: MutableList<Todo>) {
+        todos.clear()
+        todos.addAll(todoList)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder(
             LayoutInflater.from(parent.context).inflate(

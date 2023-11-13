@@ -4,22 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_medium"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/pink_light"
-        android:padding="8dp"
-        android:text="Cookie Clicker"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ListActivity">
 
     <ImageButton
         android:id="@+id/cookie"
@@ -29,8 +14,10 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.407"
         app:srcCompat="@drawable/cookie" />
 
     <TextView
@@ -39,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:text="Cookies: 0"
-        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +38,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="136dp"
         android:text="0"
-        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bakery_button" />
@@ -75,7 +60,8 @@
         android:layout_marginBottom="124dp"
         android:text="Upgrade"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/button_text_color"/>
 
     <TextView
         android:id="@+id/level"
@@ -84,7 +70,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="100dp"
         android:text="Lvl:0 Cost: 100"
-        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -95,7 +80,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:text="Cost: 100"
-        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bakery_button" />
 

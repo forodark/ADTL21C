@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_todo"
@@ -30,7 +30,8 @@
         android:layout_height="wrap_content"
         android:text="Add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bt_clear" />
+        app:layout_constraintEnd_toStartOf="@+id/bt_clear"
+        android:textColor="@color/button_text_color"/>
 
     <Button
         android:id="@+id/bt_clear"
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Clear"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/button_text_color"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

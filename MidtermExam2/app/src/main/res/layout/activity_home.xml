@@ -1,0 +1,88 @@
+<!-- res/layout/activity_home.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".HomeActivity">
+
+    <TextView
+        android:id="@+id/welcomeMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_message"
+        android:textSize="28sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
+    <TextView
+        android:id="@+id/welcomeSubmessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_submessage"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <Button
+            android:id="@+id/ListButton"
+            android:layout_width="0dp"
+            android:layout_height="200sp"
+            android:layout_weight="1"
+            android:text="@string/menu_item_2"
+            android:background="@drawable/button_background"
+            android:padding="8dp"
+            android:textSize="20sp"
+            android:textColor="@color/button_text_color"
+            android:layout_marginRight="8dp"/>
+
+        <Button
+            android:id="@+id/TimerButton"
+            android:layout_width="0dp"
+            android:layout_height="200sp"
+            android:layout_weight="1"
+            android:text="@string/menu_item_3"
+            android:background="@drawable/button_background"
+            android:padding="8dp"
+            android:textSize="20sp"
+            android:textColor="@color/button_text_color"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/DrawButton"
+            android:layout_width="0dp"
+            android:layout_height="200sp"
+            android:layout_weight="1"
+            android:text="@string/menu_item_4"
+            android:background="@drawable/button_background"
+            android:padding="8dp"
+            android:textSize="20sp"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/button_text_color"/>
+
+        <Button
+            android:id="@+id/CookieButton"
+            android:layout_width="0dp"
+            android:layout_height="200sp"
+            android:layout_weight="1"
+            android:text="@string/menu_item_5"
+            android:background="@drawable/button_background"
+            android:padding="8dp"
+            android:textSize="20sp"
+            android:textColor="@color/button_text_color"/>
+    </LinearLayout>
+
+</LinearLayout>

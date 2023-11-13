@@ -1,9 +1,15 @@
 <resources>
-    <string name="app_name">MidtermExam2</string>
-    <string name="menu_item_1">Game</string>
-    <string name="menu_item_2">Shop</string>
-    <string name="menu_item_3">Stats</string>
-    <string name="menu_item_4">Other</string>
+    <string name="app_name">Prod-Activity</string>
+    <string name="menu_item_1">Home</string>
+    <string name="menu_item_2">Task Lister</string>
+    <string name="menu_item_3">Timer</string>
+    <string name="menu_item_4">Doodler</string>
+    <string name="menu_item_5">Cookie Clicker</string>
+    <string name="menu_item_6">Other</string>
     <string name="submenu_item_1">Dark/Light Mode</string>
     <string name="submenu_item_2">About</string>
+    <string name="submenu_item_3">Reset Data</string>
+    <string name="timer_format">%d seconds</string>
+    <string name="welcome_message">Welcome to Prod-activity!</string>
+    <string name="welcome_submessage">Choose one of the activities to get started.</string>
 </resources>

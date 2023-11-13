@@ -1,20 +1,21 @@
-package com.glen.cookieclicker
+package com.glen.midtermexam2
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import android.view.animation.AnimationUtils
-
 import java.lang.Math.pow
 
-class MainActivity : AppCompatActivity() {
+class CookieActivity : BaseActivity() {
     private var cookies = 0
     private var bakery_count = 0
     private var upgrade_count = 0
@@ -23,18 +24,28 @@ class MainActivity : AppCompatActivity() {
 
     private var handler: Handler? = null
     private var timer: Runnable? = null
+    private lateinit var cookieSound: MediaPlayer
+    private lateinit var buySound: MediaPlayer
 
-    private val PREFS_FILENAME = "com.glen.cookieclicker.prefs"
-
+//    private val PREFS_FILENAME = "com.glen.midtermexam2.prefs"
+//    private var prefs: PreferencesUtil? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_cookie)
+
+
+
+        supportActionBar?.title = "Cookie Clicker"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        cookieSound = MediaPlayer.create(this, R.raw.pop)
+        buySound = MediaPlayer.create(this, R.raw.buy)
 
         // Load saved cookies
-        val prefs: SharedPreferences = getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
-        cookies = prefs.getInt("cookies", 0)
-        bakery_count = prefs.getInt("bakery_count", 0)
-        upgrade_count = prefs.getInt("upgrade_count", 0)
+        PreferencesUtil.getInstance(this);
+
+        cookies = PreferencesUtil.loadInt("cookies", 0)
+        bakery_count = PreferencesUtil.loadInt("bakery_count", 0)
+        upgrade_count = PreferencesUtil.loadInt("upgrade_count", 0)
         updateUI()
         // create a looper that adds 10 cookies every 2000 milliseconds
         handler = Handler()
@@ -56,6 +67,9 @@ class MainActivity : AppCompatActivity() {
             animateBop(main_cookie)
             addCookie((1 * pow(2.0, upgrade_count.toDouble())).toInt())
         }
+
+        bakery_cost = 100 * (bakery_count + 1)
+        upgrade_cost = 100 * pow(4.0,upgrade_count.toDouble()).toInt()
 
         add_bakery.setOnClickListener {
             if (cookies >= bakery_cost) {
@@ -86,9 +100,12 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
+        // Pause the timer by removing the callback
+        handler?.removeCallbacks(timer!!)
+
         // Save cookies
-        val prefs: SharedPreferences = getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
-        val editor = prefs.edit()
+        PreferencesUtil.getInstance(this);
+        val editor = PreferencesUtil.getEditor()
         editor.putInt("cookies", cookies)
         editor.putInt("bakery_count", bakery_count)
         editor.putInt("upgrade_count", upgrade_count)
@@ -118,17 +135,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addCookie(count: Int = 1) {
+        playSoundCookie()
         cookies += count
         updateUI()
     }
 
     fun addBakery(count: Int = 1) {
+        playSoundBuy()
         bakery_count += count
         updateUI()
     }
 
     fun addUpgrade(count: Int = 1) {
+        playSoundBuy()
         upgrade_count += count
         updateUI()
     }
+
+    private fun playSoundCookie() {
+        if (cookieSound.isPlaying) {
+            cookieSound.seekTo(0)  // Rewind to the beginning
+        } else {
+            cookieSound.start()
+        }
+    }
+
+    private fun playSoundBuy() {
+        if (buySound.isPlaying) {
+            buySound.seekTo(0)  // Rewind to the beginning
+        } else {
+            buySound.start()
+        }
+    }
+
+//    private fun handleIntent(intent: Intent) {
+//        Log.d("CookieActivity", "Handling intent with action: ${intent.action}")
+//        val action = intent.action
+//        if (action == "resetPrefs") {
+//            resetPrefs()
+//        }
+//    }
+//    fun resetPrefs() {
+//        PreferencesUtil.getInstance(this)
+//        PreferencesUtil.resetPrefs()
+//    }
 }

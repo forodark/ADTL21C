@@ -1,9 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MidtermExam2" parent="Theme.Material3.DayNight">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+        <item name="colorPrimary">@color/your_primary_color</item>
+        <item name="backgroundColor">@color/background_color</item>
 
+<!--        <item name="android:textColorPrimary">@color/text_color_primary</item>-->
+<!--        <item name="android:textColorSecondary">@color/text_color_secondary</item>-->
+        <item name="android:textColor">@color/text_color_default</item>
+    </style>
+    <!-- Style for your app -->
     <style name="Theme.MidtermExam2" parent="Base.Theme.MidtermExam2" />
 </resources>
