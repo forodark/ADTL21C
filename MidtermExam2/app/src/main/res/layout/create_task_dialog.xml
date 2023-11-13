@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_task_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Task"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/et_task_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task Title"
+        android:layout_marginTop="16sp"
+        android:layout_marginBottom="16sp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_due_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Due Date">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_due_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:focusable="false"
+            android:drawableRight="@drawable/ic_calendar" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/bt_create_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:text="Create Task"
+        android:textColor="@color/button_text_color"
+        android:layout_gravity="center"/>
+</LinearLayout>

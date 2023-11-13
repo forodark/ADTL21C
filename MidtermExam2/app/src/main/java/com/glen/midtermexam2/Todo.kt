@@ -1,6 +1,7 @@
 package com.glen.midtermexam2
 
-class Todo (
-    val title: String,
-    var isDone: Boolean = false
+class Todo(
+    var  title: String,
+    var isDone: Boolean = false,
+    var dueDate: String = ""
 )

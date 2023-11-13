@@ -9,7 +9,7 @@
     <string name="submenu_item_1">Dark/Light Mode</string>
     <string name="submenu_item_2">About</string>
     <string name="submenu_item_3">Reset Data</string>
-    <string name="timer_format">%d seconds</string>
+    <string name="timer_format"> %1$02d:%2$02d:%3$02d </string>
     <string name="welcome_message">Welcome to Prod-activity!</string>
     <string name="welcome_submessage">Choose one of the activities to get started.</string>
 </resources>

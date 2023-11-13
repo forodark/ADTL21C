@@ -1,5 +1,6 @@
 package com.glen.midtermexam2
 
+import android.graphics.Paint
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class TodoAdapter(
-    private val todos: MutableList<Todo>
+    private val todos: MutableList<Todo>,
+    private val showCreateTaskDialog: (Todo?) -> Unit
 ) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -24,15 +26,24 @@ class TodoAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
-        return TodoViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_todo,
-                parent,
-                false
-            )
-        )
+    fun replaceTodo(oldTodo: Todo, newTodo: Todo) {
+        val index = todos.indexOf(oldTodo)
+        if (index != -1) {
+            todos[index] = newTodo
+            notifyItemChanged(index)
+        }
     }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.item_todo,
+            parent,
+            false
+        )
+        return TodoViewHolder(view)
+    }
+
 
     fun addTodo(todo: Todo) {
         todos.add(todo)
@@ -58,21 +69,60 @@ class TodoAdapter(
         val current = todos[position]
         holder.itemView.apply {
             val tvTitle = findViewById<TextView>(R.id.tv_title)
-            tvTitle.text = current.title
-
+            val tvDueDate = findViewById<TextView>(R.id.tv_due_date)
             val cbDone = findViewById<CheckBox>(R.id.cb_done)
-            cbDone.isChecked = current.isDone
 
-            toggleStrikeThrough(tvTitle, cbDone)
-            cbDone.setOnCheckedChangeListener() { _, isChecked ->
-                toggleStrikeThrough(tvTitle, cbDone)
-                current.isDone = !current.isDone
+            tvTitle.text = current.title
+            tvDueDate.text = current.dueDate // Set the due date text
+
+            // Handle the strike-through logic
+            tvTitle.paintFlags = if (current.isDone) {
+                tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            } else {
+                tvTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
             }
 
+            // Set up the click listener for the text
+            tvTitle.setOnClickListener {
+                current.isDone = !current.isDone
+                tvTitle.paintFlags = if (current.isDone) {
+                    tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                } else {
+                    tvTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                }
+                notifyItemChanged(holder.adapterPosition)
+            }
+
+            // Set up the long click listener for editing
+            tvTitle.setOnLongClickListener {
+                showCreateTaskDialog(current)
+                true
+            }
+
+            // Set up the check box listener
+            cbDone.isChecked = current.isDone
+            cbDone.setOnCheckedChangeListener { _, isChecked ->
+                current.isDone = isChecked
+                tvTitle.paintFlags = if (isChecked) {
+                    tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                } else {
+                    tvTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                }
+            }
         }
     }
+
+
+
 
     override fun getItemCount(): Int {
         return todos.size
     }
+
+    fun sortTodos() {
+        todos.sortWith(compareBy({ it.dueDate.isEmpty() }, { it.dueDate }))
+        notifyDataSetChanged()
+    }
+
+
 }

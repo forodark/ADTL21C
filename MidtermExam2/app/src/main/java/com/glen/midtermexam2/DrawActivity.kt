@@ -6,26 +6,56 @@ import android.content.Context
 import android.graphics.*
 import android.os.Bundle
 import android.util.AttributeSet
+import android.view.Menu
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.graphics.PathParser
 
 class DrawActivity : BaseActivity() {
 
+    lateinit var drawView: DrawView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(DrawView(this))
+        drawView = DrawView(this)
+
+
+        setContentView(drawView)
 
         supportActionBar?.title = "Doodler"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.draw_clear -> {
+                drawView.clearDrawing()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        val clearMenuItem = menu.findItem(R.id.draw_clear)
+
+        if (clearMenuItem != null) {
+            clearMenuItem.isVisible = true
+        }
+        // You may need to call invalidateOptionsMenu() if your changes don't reflect immediately.
+        // invalidateOptionsMenu()
+
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+
     // Custom View for drawing
     class DrawView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
         private val path = Path()
         private val paint = Paint()
-        private var isEraserMode = false
 
         init {
             setupPaint()
@@ -46,26 +76,19 @@ class DrawActivity : BaseActivity() {
             paint.color = textColor
         }
 
-        // Method to toggle between pencil and eraser modes
-        fun toggleEraserMode() {
-            isEraserMode = !isEraserMode
-
-            if (isEraserMode) {
-                paint.color = Color.WHITE // Set color to white for eraser
-            } else {
-                // Set the paint color based on the theme for pencil mode
-                val textColor = if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                    Color.WHITE
-                } else {
-                    Color.BLACK
-                }
-                paint.color = textColor
-            }
-        }
-
         override fun onDraw(canvas: Canvas) {
             super.onDraw(canvas)
             canvas.drawPath(path, paint)
+        }
+
+        fun clearDrawing() {
+            path.reset()
+            // Invalidate the whole view to redraw it
+            invalidate()
+        }
+
+        fun getPathData(): String {
+            return path.toString()
         }
 
         override fun onTouchEvent(event: MotionEvent): Boolean {

@@ -46,6 +46,27 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/task_clear"
+        android:orderInCategory="100"
+        android:title="Clear"
+        app:showAsAction="always"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/draw_clear"
+        android:orderInCategory="100"
+        android:title="Clear"
+        app:showAsAction="always"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/draw_toggle"
+        android:orderInCategory="100"
+        android:title="Eraser"
+        app:showAsAction="always"
+        android:visible="false"/>
+
 
 
 

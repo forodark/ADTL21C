@@ -2,6 +2,7 @@ package com.glen.midtermexam2
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -12,6 +13,13 @@ import androidx.appcompat.app.AppCompatDelegate.*
 
 open class BaseActivity : AppCompatActivity() {
 
+    var dark_mode : Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        PreferencesUtil.getInstance(this)
+        loadDarkModeSetting()
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -20,33 +28,27 @@ open class BaseActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_home -> {
-                Toast.makeText(this, "@strings/menu_item_1", Toast.LENGTH_SHORT).show()
                 openHome()
                 return true
             }
             R.id.action_list -> {
-                Toast.makeText(this, "@strings/menu_item_2", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, ListActivity::class.java)
                 openList()
                 return true
             }
             R.id.action_timer -> {
-                Toast.makeText(this, "@strings/menu_item_3", Toast.LENGTH_SHORT).show()
                 openTimer()
                 return true
             }
             R.id.action_draw -> {
-                Toast.makeText(this, "@strings/menu_item_4", Toast.LENGTH_SHORT).show()
                 openDraw()
                 return true
             }
             R.id.action_cookie -> {
-                Toast.makeText(this, "@strings/menu_item_5", Toast.LENGTH_SHORT).show()
                 openCookie()
                 return true
             }
             R.id.action_mode -> {
-                Toast.makeText(this, "Switching Theme", Toast.LENGTH_SHORT).show()
                 toggleTheme()
                 return true
             }
@@ -54,6 +56,7 @@ open class BaseActivity : AppCompatActivity() {
                 showAbout()
                 return true
             }
+
 //            R.id.action_reset -> {
 //                Toast.makeText(this, "Reset", Toast.LENGTH_SHORT).show()
 //                resetData()
@@ -91,11 +94,28 @@ open class BaseActivity : AppCompatActivity() {
     private fun toggleTheme() {
         if (getDefaultNightMode() == MODE_NIGHT_YES) {
             setDefaultNightMode(MODE_NIGHT_NO)
+            dark_mode = 0
         } else {
             setDefaultNightMode(MODE_NIGHT_YES)
+            dark_mode = 1
         }
+        saveDarkModeSetting()
         this.recreate()
     }
+
+    private fun saveDarkModeSetting() {
+        PreferencesUtil.saveInt("dark_mode", dark_mode)
+    }
+
+    private fun loadDarkModeSetting() {
+        val selected = PreferencesUtil.loadInt("dark_mode", 0)
+        if (selected == 1) {
+            setDefaultNightMode(MODE_NIGHT_YES)
+        } else {
+            setDefaultNightMode(MODE_NIGHT_NO)
+        }
+    }
+
     private fun showAbout() {
         val alertDialogBuilder = AlertDialog.Builder(this)
 
@@ -103,7 +123,7 @@ open class BaseActivity : AppCompatActivity() {
 
         val message =
                 "App: Prod-Activity\n" +
-                "Version: 1.0\n" +
+                "Version: 1.1\n" +
                 "Author: Glen Angelo Bautista\n" +
                 "Section: C231\n" +
                 "Description: An app with several functions to boost your productivity.\n"
