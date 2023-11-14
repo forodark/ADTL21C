@@ -19,6 +19,6 @@
     <color name="text_color_default_dark">#FFFFFF</color>
     <color name="button_text_color_dark">#DDDDDD</color>
 
-
+    <color name="button_color2">#888888</color>
 
 </resources>

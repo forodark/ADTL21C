@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class TodoAdapter(
     private val todos: MutableList<Todo>,
-    private val showCreateTaskDialog: (Todo?) -> Unit
+    private val showCreateTaskDialog: (Todo?) -> Unit,
+    private val todoCheckedChangeListener: TodoCheckedChangeListener
 ) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -57,11 +59,11 @@ class TodoAdapter(
         notifyDataSetChanged()
     }
 
-    private fun toggleStrikeThrough(tvTitle: TextView, cbDone: CheckBox) {
-        if (cbDone.isChecked) {
-            tvTitle.paintFlags = tvTitle.paintFlags or STRIKE_THRU_TEXT_FLAG
+    private fun setStrikeThrough(tvTitle: TextView, cbDone: CheckBox) {
+        tvTitle.paintFlags = if (cbDone.isChecked) {
+            tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
-            tvTitle.paintFlags = tvTitle.paintFlags and STRIKE_THRU_TEXT_FLAG.inv()
+            tvTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
     }
 
@@ -75,6 +77,8 @@ class TodoAdapter(
             tvTitle.text = current.title
             tvDueDate.text = current.dueDate // Set the due date text
 
+
+
             // Handle the strike-through logic
             tvTitle.paintFlags = if (current.isDone) {
                 tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -85,11 +89,14 @@ class TodoAdapter(
             // Set up the click listener for the text
             tvTitle.setOnClickListener {
                 current.isDone = !current.isDone
-                tvTitle.paintFlags = if (current.isDone) {
-                    tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                } else {
-                    tvTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-                }
+                setStrikeThrough(tvTitle, cbDone)
+                todoCheckedChangeListener.onTodoCheckedChanged(current)
+                notifyItemChanged(holder.adapterPosition)
+            }
+            tvDueDate.setOnClickListener {
+                current.isDone = !current.isDone
+                setStrikeThrough(tvTitle, cbDone)
+                todoCheckedChangeListener.onTodoCheckedChanged(current)
                 notifyItemChanged(holder.adapterPosition)
             }
 
@@ -103,11 +110,10 @@ class TodoAdapter(
             cbDone.isChecked = current.isDone
             cbDone.setOnCheckedChangeListener { _, isChecked ->
                 current.isDone = isChecked
-                tvTitle.paintFlags = if (isChecked) {
-                    tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                } else {
-                    tvTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-                }
+
+                // Notify the listener (ListActivity) about the change
+                setStrikeThrough(tvTitle, cbDone)
+                todoCheckedChangeListener.onTodoCheckedChanged(current)
             }
         }
     }
@@ -125,4 +131,10 @@ class TodoAdapter(
     }
 
 
+    interface TodoCheckedChangeListener {
+        fun onTodoCheckedChanged(todo: Todo)
+    }
+
+
 }
+

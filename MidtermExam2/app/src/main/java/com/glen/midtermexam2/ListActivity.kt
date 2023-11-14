@@ -11,13 +11,14 @@ import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.view.MenuItem
 import android.view.Menu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class ListActivity : BaseActivity() {
+class ListActivity : BaseActivity(), TodoAdapter.TodoCheckedChangeListener {
 
     private lateinit var todoAdapter: TodoAdapter
 //    private lateinit var prefs: SharedPreferences
@@ -32,7 +33,8 @@ class ListActivity : BaseActivity() {
 
         val rvTodo = findViewById<RecyclerView>(R.id.rv_todo)
 
-        todoAdapter = TodoAdapter(mutableListOf(), this::showCreateTaskDialog)
+        todoAdapter = TodoAdapter(mutableListOf(), this::showCreateTaskDialog, this)
+
 
         rvTodo.adapter = todoAdapter
 
@@ -78,12 +80,15 @@ class ListActivity : BaseActivity() {
 
     private fun showCreateTaskDialog(editingTask: Todo? = null) {
         val dialogView = layoutInflater.inflate(R.layout.create_task_dialog, null)
+        val tvTaskTitle = dialogView.findViewById<TextView>(R.id.tv_task_title)
         val etTaskTitle = dialogView.findViewById<EditText>(R.id.et_task_title)
         val etDueDate = dialogView.findViewById<TextInputEditText>(R.id.et_due_date)
         val tilDueDate = dialogView.findViewById<TextInputLayout>(R.id.til_due_date)
         val btCreateTask = dialogView.findViewById<Button>(R.id.bt_create_task)
 
         if (editingTask != null) {
+            tvTaskTitle.setText("Edit Task")
+            btCreateTask.setText("Update")
             etTaskTitle.setText(editingTask.title)
             etDueDate.setText(editingTask.dueDate)
         }
@@ -141,7 +146,7 @@ class ListActivity : BaseActivity() {
     private fun saveTodos() {
         val editor = PreferencesUtil.getEditor()
         val todos = todoAdapter.getTodos()
-        val todoStrings = todos.map { "${it.title},${it.dueDate}" } // Save both title and due date
+        val todoStrings = todos.map { "${it.title},${it.dueDate},${it.isDone}" }
         editor.putStringSet("todos", todoStrings.toSet())
         editor.apply()
     }
@@ -151,8 +156,8 @@ class ListActivity : BaseActivity() {
         val todosSet = PreferencesUtil.getPrefs().getStringSet("todos", setOf())
         val todos = todosSet?.map {
             val parts = it.split(",")
-            if (parts.size == 2) {
-                Todo(parts[0], dueDate = parts[1])
+            if (parts.size == 3) {
+                Todo(parts[0], dueDate = parts[1], isDone = parts[2].toBoolean())
             } else {
                 Todo(it)
             }
@@ -172,5 +177,10 @@ class ListActivity : BaseActivity() {
         // invalidateOptionsMenu()
 
         return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onTodoCheckedChanged(todo: Todo) {
+        // Handle the checkbox state change here
+        saveTodos()
     }
 }
