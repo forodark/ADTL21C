@@ -59,12 +59,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
         android:background="@drawable/button_background_circle"
-        android:textColor="@color/button_text_color"
         app:icon="@drawable/ic_start"
         app:iconGravity="textTop"
         app:iconPadding="0dp"
-        app:iconSize="30dp"
-        app:iconTint="@color/button_text_color" />
+        app:iconSize="30dp" />
 
     <Button
         android:id="@+id/pauseButton"
@@ -74,8 +72,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
         android:background="@drawable/button_background_circle"
-        app:iconTint="@color/button_text_color"
-        android:textColor="@color/button_text_color"
         app:icon="@drawable/ic_pause"
         app:iconGravity="textTop"
         app:iconPadding="0dp"
@@ -91,8 +87,6 @@
         android:layout_marginStart="50dp"
         android:layout_marginBottom="60dp"
         android:background="@drawable/button_background_circle"
-        android:textColor="@color/button_text_color"
-        app:iconTint="@color/button_text_color"
         android:visibility="invisible"
         app:icon="@drawable/ic_stop"
         app:iconGravity="textTop"

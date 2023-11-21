@@ -11,14 +11,14 @@
         android:layout_height="match_parent" />
 
     <!-- Floating button to toggle between eraser and brush modes -->
-    <ImageButton
-        android:id="@+id/toggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_brush"
-        android:background="?android:selectableItemBackgroundBorderless" />
+<!--    <ImageButton-->
+<!--        android:id="@+id/toggleButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:src="@drawable/ic_brush"-->
+<!--        android:background="?android:selectableItemBackgroundBorderless" />-->
 
 </RelativeLayout>
