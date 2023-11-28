@@ -22,6 +22,7 @@
         android:text=""
         android:textColor="#777777"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/displayContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,10 +32,10 @@
         android:id="@+id/displayContainer"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ongoingEquationDisplay">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/display"
@@ -43,8 +44,8 @@
             android:gravity="end"
             android:padding="16dp"
             android:text="0"
-            android:textSize="36sp"
-            android:textColor= "?colorOnBackground"/>
+            android:textColor="?colorOnBackground"
+            android:textSize="36sp" />
 
     </FrameLayout>
 
@@ -54,135 +55,131 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="4"
-        app:layout_constraintTop_toBottomOf="@id/displayContainer"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
-
-
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <Button
             android:id="@+id/btnClear"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorPrimaryContainer"
-            android:text="C" />
+            android:text="C"
+            app:backgroundTint="?colorPrimaryContainer" />
 
         <Button
             android:id="@+id/btnDelete"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorPrimaryContainer"
-            android:text="⌫" />
+            android:text="⌫"
+            app:backgroundTint="?colorPrimaryContainer" />
 
         <Button
             android:id="@+id/btnPercent"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorPrimaryContainer"
-            android:text="%" />
+            android:text="%"
+            app:backgroundTint="?colorPrimaryContainer" />
 
         <Button
             android:id="@+id/btnDivide"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorPrimaryContainer"
-            android:text="/" />
+            android:text="/"
+            app:backgroundTint="?colorPrimaryContainer" />
         <!-- Digits -->
         <Button
             android:id="@+id/btn7"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="7" />
+            android:text="7"
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btn8"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="8" />
+            android:text="8"
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btn9"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="9" />
+            android:text="9"
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btnMultiply"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorPrimaryContainer"
-            android:text="*" />
+            android:text="*"
+            app:backgroundTint="?colorPrimaryContainer" />
 
         <Button
             android:id="@+id/btn4"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="4" />
+            android:text="4"
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btn5"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="5" />
+            android:text="5"
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btn6"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="6" />
+            android:text="6"
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btnSubtract"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorPrimaryContainer"
-            android:text="-" />
+            android:text="-"
+            app:backgroundTint="?colorPrimaryContainer" />
 
         <Button
             android:id="@+id/btn1"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="1" />
+            android:text="1"
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btn2"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="2" />
+            android:text="2"
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btn3"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="3" />
+            android:text="3"
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btnAdd"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorPrimaryContainer"
-            android:text="+" />
+            android:text="+"
+            app:backgroundTint="?colorPrimaryContainer" />
+
         <Button
             android:id="@+id/btnToggleSign"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorPrimaryContainer"
-            android:text="±" />
+            android:text="±"
+            app:backgroundTint="?colorPrimaryContainer" />
+
         <Button
             android:id="@+id/btn0"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="0" />
+            android:text="0"
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btnDecimal"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorTertiaryContainer"
-            android:text="." />
+            android:text="."
+            app:backgroundTint="?colorTertiaryContainer" />
 
         <Button
             android:id="@+id/btnEquals"
             style="@style/CalculatorButton"
-            app:backgroundTint="?colorPrimary"
+            android:text="="
             android:textColor="?colorOnPrimary"
-            android:text="=" />
-
-
-
+            app:backgroundTint="?colorPrimary" />
 
 
     </GridLayout>
