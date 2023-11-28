@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".MainActivity">
+
+    <!-- Add this TextView above the existing one -->
+    <TextView
+        android:id="@+id/ongoingEquationDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="28sp"
+        android:layout_marginTop="16dp"
+        android:gravity="end"
+        android:paddingRight="16dp"
+        android:text=""
+        android:textColor="#777777"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/displayContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <FrameLayout
+        android:id="@+id/displayContainer"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="16dp"
+            android:text="0"
+            android:textColor="?colorOnBackground"
+            android:textSize="36sp" />
+
+    </FrameLayout>
+
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <Button
+            android:id="@+id/btnClear"
+            style="@style/CalculatorButton"
+            android:text="C"
+            app:backgroundTint="?colorPrimaryContainer" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            style="@style/CalculatorButton"
+            android:text="⌫"
+            app:backgroundTint="?colorPrimaryContainer" />
+
+        <Button
+            android:id="@+id/btnPercent"
+            style="@style/CalculatorButton"
+            android:text="%"
+            app:backgroundTint="?colorPrimaryContainer" />
+
+        <Button
+            android:id="@+id/btnDivide"
+            style="@style/CalculatorButton"
+            android:text="/"
+            app:backgroundTint="?colorPrimaryContainer" />
+        <!-- Digits -->
+        <Button
+            android:id="@+id/btn7"
+            style="@style/CalculatorButton"
+            android:text="7"
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btn8"
+            style="@style/CalculatorButton"
+            android:text="8"
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btn9"
+            style="@style/CalculatorButton"
+            android:text="9"
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btnMultiply"
+            style="@style/CalculatorButton"
+            android:text="*"
+            app:backgroundTint="?colorPrimaryContainer" />
+
+        <Button
+            android:id="@+id/btn4"
+            style="@style/CalculatorButton"
+            android:text="4"
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btn5"
+            style="@style/CalculatorButton"
+            android:text="5"
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btn6"
+            style="@style/CalculatorButton"
+            android:text="6"
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btnSubtract"
+            style="@style/CalculatorButton"
+            android:text="-"
+            app:backgroundTint="?colorPrimaryContainer" />
+
+        <Button
+            android:id="@+id/btn1"
+            style="@style/CalculatorButton"
+            android:text="1"
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btn2"
+            style="@style/CalculatorButton"
+            android:text="2"
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btn3"
+            style="@style/CalculatorButton"
+            android:text="3"
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            style="@style/CalculatorButton"
+            android:text="+"
+            app:backgroundTint="?colorPrimaryContainer" />
+
+        <Button
+            android:id="@+id/btnToggleSign"
+            style="@style/CalculatorButton"
+            android:text="±"
+            app:backgroundTint="?colorPrimaryContainer" />
+
+        <Button
+            android:id="@+id/btn0"
+            style="@style/CalculatorButton"
+            android:text="0"
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btnDecimal"
+            style="@style/CalculatorButton"
+            android:text="."
+            app:backgroundTint="?colorTertiaryContainer" />
+
+        <Button
+            android:id="@+id/btnEquals"
+            style="@style/CalculatorButton"
+            android:text="="
+            android:textColor="?colorOnPrimary"
+            app:backgroundTint="?colorPrimary" />
+
+
+    </GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
