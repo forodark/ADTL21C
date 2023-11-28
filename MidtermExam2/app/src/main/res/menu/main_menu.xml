@@ -30,6 +30,16 @@
         android:title="@string/menu_item_5"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_calculator"
+        android:orderInCategory="100"
+        android:title="@string/menu_item_7"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_lightsout"
+        android:orderInCategory="100"
+        android:title="@string/menu_item_8"
+        app:showAsAction="never" />
+    <item
         android:orderInCategory="100"
         android:title="@string/menu_item_6"
         app:showAsAction="never">

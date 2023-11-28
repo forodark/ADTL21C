@@ -38,7 +38,7 @@ class ListActivity : BaseActivity(), TodoAdapter.TodoCheckedChangeListener {
         rvTodo.layoutManager = LinearLayoutManager(this)
 
         loadTodos()
-
+        todoAdapter.sortTodos()
 //        val btAdd = findViewById<Button>(R.id.bt_add)
 //        btAdd.setOnClickListener {
 //            val todoTitle = findViewById<EditText>(R.id.et_todo).text.toString()

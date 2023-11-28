@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LightsOutActivity">
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:columnCount="5"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Row 1 -->
+        <Button
+            android:id="@+id/cell00"
+            style="@style/LightCell"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell01"
+            style="@style/LightCell"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell02"
+            style="@style/LightCell"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell03"
+            style="@style/LightCell"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell04"
+            style="@style/LightCell"
+            android:layout_row="0"
+            android:layout_column="4"
+            android:onClick="onCellClick" />
+
+        <!-- Row 2 -->
+        <Button
+            android:id="@+id/cell10"
+            style="@style/LightCell"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell11"
+            style="@style/LightCell"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell12"
+            style="@style/LightCell"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell13"
+            style="@style/LightCell"
+            android:layout_row="1"
+            android:layout_column="3"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell14"
+            style="@style/LightCell"
+            android:layout_row="1"
+            android:layout_column="4"
+            android:onClick="onCellClick" />
+
+        <!-- Row 3 -->
+        <Button
+            android:id="@+id/cell20"
+            style="@style/LightCell"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell21"
+            style="@style/LightCell"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell22"
+            style="@style/LightCell"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:onClick="onCellClick" />
+        <Button
+            android:id="@+id/cell23"
+            style="@style/LightCell"
+            android:onClick="onCellClick"
+            tools:layout_editor_absoluteX="214dp"
+            tools:layout_editor_absoluteY="142dp" />
+        <Button
+            android:id="@+id/cell24"
+            style="@style/LightCell"
+            android:layout_row="2"
+            android:layout_column="4"
+            android:onClick="onCellClick" />
+
+        <!-- Row 4 -->
+        <Button
+            android:id="@+id/cell30"
+            style="@style/LightCell"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell31"
+            style="@style/LightCell"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell32"
+            style="@style/LightCell"
+            android:layout_row="3"
+            android:layout_column="2"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell33"
+            style="@style/LightCell"
+            android:layout_row="3"
+            android:layout_column="3"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell34"
+            style="@style/LightCell"
+            android:layout_row="3"
+            android:layout_column="4"
+            android:onClick="onCellClick" />
+
+        <!-- Row 5 -->
+        <Button
+            android:id="@+id/cell40"
+            style="@style/LightCell"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell41"
+            style="@style/LightCell"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell42"
+            style="@style/LightCell"
+            android:layout_row="4"
+            android:layout_column="2"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell43"
+            style="@style/LightCell"
+            android:layout_row="4"
+            android:layout_column="3"
+            android:onClick="onCellClick" />
+
+        <Button
+            android:id="@+id/cell44"
+            style="@style/LightCell"
+            android:layout_row="4"
+            android:layout_column="4"
+            android:onClick="onCellClick" />
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/moveCounterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Target: 12  Moves: 0"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moveCounterTextView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

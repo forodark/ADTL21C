@@ -38,6 +38,7 @@ class TodoAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
+
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.item_todo,
             parent,
@@ -116,6 +117,7 @@ class TodoAdapter(
                 todoCheckedChangeListener.onTodoCheckedChanged(current)
             }
         }
+
     }
 
 

@@ -35,7 +35,7 @@
             style="@style/Widget.Material3.Button.TonalButton"
             android:id="@+id/ListButton"
             android:layout_width="0dp"
-            android:layout_height="200sp"
+            android:layout_height="130sp"
             android:layout_weight="1"
             android:text="@string/menu_item_2"
             android:background="@drawable/button_background"
@@ -47,7 +47,7 @@
             style="@style/Widget.Material3.Button.TonalButton"
             android:id="@+id/TimerButton"
             android:layout_width="0dp"
-            android:layout_height="200sp"
+            android:layout_height="130sp"
             android:layout_weight="1"
             android:text="@string/menu_item_3"
             android:background="@drawable/button_background"
@@ -59,13 +59,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
 
         <Button
             style="@style/Widget.Material3.Button.TonalButton"
             android:id="@+id/DrawButton"
             android:layout_width="0dp"
-            android:layout_height="200sp"
+            android:layout_height="130sp"
             android:layout_weight="1"
             android:text="@string/menu_item_4"
             android:background="@drawable/button_background"
@@ -77,9 +78,38 @@
             style="@style/Widget.Material3.Button.TonalButton"
             android:id="@+id/CookieButton"
             android:layout_width="0dp"
-            android:layout_height="200sp"
+            android:layout_height="130sp"
             android:layout_weight="1"
             android:text="@string/menu_item_5"
+            android:background="@drawable/button_background"
+            android:padding="8dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:id="@+id/CalculatorButton"
+            android:layout_width="0dp"
+            android:layout_height="130sp"
+            android:layout_weight="1"
+            android:text="@string/menu_item_7"
+            android:background="@drawable/button_background"
+            android:padding="8dp"
+            android:textSize="20sp"
+            android:layout_marginRight="8dp" />
+
+        <Button
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:id="@+id/LightsOutButton"
+            android:layout_width="0dp"
+            android:layout_height="130sp"
+            android:layout_weight="1"
+            android:text="@string/menu_item_8"
             android:background="@drawable/button_background"
             android:padding="8dp"
             android:textSize="20sp" />

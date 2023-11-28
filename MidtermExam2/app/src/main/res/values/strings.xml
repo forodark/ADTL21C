@@ -6,6 +6,8 @@
     <string name="menu_item_4">Doodler</string>
     <string name="menu_item_5">Cookie Clicker</string>
     <string name="menu_item_6">Other</string>
+    <string name="menu_item_7">Calculator</string>
+    <string name="menu_item_8">Lights Out</string>
     <string name="submenu_item_1">Dark/Light Mode</string>
     <string name="submenu_item_2">About</string>
     <string name="submenu_item_3">Reset Data</string>

@@ -42,6 +42,16 @@
             android:parentActivityName=".HomeActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".CalculatorActivity"
+            android:parentActivityName=".HomeActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".LightsOutActivity"
+            android:parentActivityName=".HomeActivity"
+            android:exported="true">
+        </activity>
 
 
     </application>

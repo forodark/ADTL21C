@@ -44,6 +44,14 @@ open class BaseActivity : AppCompatActivity() {
                 openDraw()
                 return true
             }
+            R.id.action_calculator -> {
+                openCalculator()
+                return true
+            }
+            R.id.action_lightsout -> {
+                openLightsOut()
+                return true
+            }
             R.id.action_cookie -> {
                 openCookie()
                 return true
@@ -88,6 +96,16 @@ open class BaseActivity : AppCompatActivity() {
 
     fun openCookie() {
         val intent = Intent(this, CookieActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun openCalculator() {
+        val intent = Intent(this, CalculatorActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun openLightsOut() {
+        val intent = Intent(this, LightsOutActivity::class.java)
         startActivity(intent)
     }
 

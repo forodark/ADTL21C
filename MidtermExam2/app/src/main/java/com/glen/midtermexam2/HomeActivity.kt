@@ -13,25 +13,36 @@ class HomeActivity : BaseActivity() {
         setContentView(R.layout.activity_home)
         supportActionBar?.title = "Home"
 
-        val drawButton = findViewById<Button>(R.id.ListButton)
-        val showAlertButton = findViewById<Button>(R.id.TimerButton)
-        val activity3Button = findViewById<Button>(R.id.DrawButton)
-        val activity4Button = findViewById<Button>(R.id.CookieButton)
+        val listButton = findViewById<Button>(R.id.ListButton)
+        val timerButton = findViewById<Button>(R.id.TimerButton)
+        val drawButton = findViewById<Button>(R.id.DrawButton)
+        val cookieButton = findViewById<Button>(R.id.CookieButton)
+        val calculatorButton = findViewById<Button>(R.id.CalculatorButton)
+        val lightsOutButton = findViewById<Button>(R.id.LightsOutButton)
 
-        drawButton.setOnClickListener {
+        listButton.setOnClickListener {
             openList()
         }
 
-        showAlertButton.setOnClickListener {
+        timerButton.setOnClickListener {
             openTimer()
         }
 
-        activity3Button.setOnClickListener {
+        drawButton.setOnClickListener {
             openDraw()
         }
 
-        activity4Button.setOnClickListener {
+        cookieButton.setOnClickListener {
             openCookie()
         }
+
+        calculatorButton.setOnClickListener {
+            openCalculator()
+        }
+
+        lightsOutButton.setOnClickListener {
+            openLightsOut()
+        }
+
     }
 }
