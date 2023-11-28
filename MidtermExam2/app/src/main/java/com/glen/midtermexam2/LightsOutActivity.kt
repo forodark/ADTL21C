@@ -20,6 +20,8 @@ class LightsOutActivity : BaseActivity() {
     private lateinit var moveCounterTextView: TextView
     private var moveCount = 0
 
+    private var originalCellStates: Array<Array<Boolean>> = Array(5) { Array(5) { false } }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lightsout)
@@ -37,6 +39,11 @@ class LightsOutActivity : BaseActivity() {
         resetButton.setOnClickListener {
             resetGame()
         }
+
+        val newGameButton: Button = findViewById(R.id.newGameButton)
+        newGameButton.setOnClickListener {
+            newGame()
+        }
     }
 
     private fun initializeGame() {
@@ -47,17 +54,22 @@ class LightsOutActivity : BaseActivity() {
         }
         moveCount = 0
         updateMoveCounter()
+
     }
 
     private fun randomizeCells() {
         for (row in cells.indices) {
             for (col in cells[row].indices) {
-                if (Random.nextBoolean()) {
+                val randomState = Random.nextBoolean()
+
+                if (randomState) {
                     toggleCellState(row, col)
                     updateAdjacentCells(row, col)
                 }
+
             }
         }
+        saveCells()
     }
 
     private fun createCell(row: Int, col: Int): Button {
@@ -140,19 +152,49 @@ class LightsOutActivity : BaseActivity() {
             val alertDialogBuilder = AlertDialog.Builder(this)
             alertDialogBuilder.setTitle("Congratulations!")
             alertDialogBuilder.setMessage("You've won the game in $moveCount moves.")
-            alertDialogBuilder.setPositiveButton("Back") { dialog, _ ->
+            alertDialogBuilder.setNeutralButton("Back") { dialog, _ ->
                 dialog.dismiss()
             }
-            alertDialogBuilder.setNegativeButton("Reset Game") { _, _ ->
+            alertDialogBuilder.setPositiveButton("Reset") { _, _ ->
                 resetGame()
             }
-
+            alertDialogBuilder.setNegativeButton("New Game") { _, _ ->
+                newGame()
+            }
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
         }
     }
 
+
     private fun resetGame() {
+        clearCells()
+        initializeGame()
+        loadCells()
+    }
+
+    private fun loadCells() {
+        for (row in cells.indices) {
+            for (col in cells[row].indices) {
+                val originalState = originalCellStates[row][col]
+                if (originalState) {
+                    toggleCellState(row, col)
+                }
+            }
+        }
+    }
+
+    private fun saveCells() {
+        for (row in cells.indices) {
+            for (col in cells[row].indices) {
+                val currentState = cells[row][col].background.constantState
+                originalCellStates[row][col] = currentState == ContextCompat.getDrawable(this, R.drawable.cell_background_off)?.constantState
+
+            }
+        }
+    }
+
+    private fun newGame() {
         clearCells()
         initializeGame()
         randomizeCells()
