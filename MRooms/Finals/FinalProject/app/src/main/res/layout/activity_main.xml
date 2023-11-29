@@ -178,11 +178,6 @@
                 android:layout_height="wrap_content"
                 android:text="BSE-EM"/>
 
-            <RadioButton
-                android:id="@+id/radioButtonBSEGDD2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BSE-GDD"/>
         </RadioGroup>
 
 
