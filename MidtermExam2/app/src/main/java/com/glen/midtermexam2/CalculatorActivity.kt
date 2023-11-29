@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.math.BigDecimal
+
 
 class CalculatorActivity : BaseActivity() {
 
@@ -149,7 +151,7 @@ class CalculatorActivity : BaseActivity() {
                 else -> 0.0
             }
 
-            val formattedResult = String.format("%.5f", result)
+            val formattedResult = BigDecimal(result.toString()).stripTrailingZeros().toPlainString()
 
             currentInput.clear()
             currentInput.append(formattedResult)
@@ -158,6 +160,7 @@ class CalculatorActivity : BaseActivity() {
             currentOperator = null
         }
     }
+
 
 
     private fun onClearClick() {
