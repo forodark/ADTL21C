@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="af59ccef-0540-4ccd-b541-47dc1b5708ed" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/androidTest/java/com/glen/helloandroid/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/java/com/glen/helloandroid/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/values-night/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/values/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/app/src/test/java/com/glen/helloandroid/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M1/HelloAndroid/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/.idea/render.experimental.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/androidTest/java/com/glen/addtwonumbers/ExampleInstrumentedTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/java/com/glen/addtwonumbers/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/values-night/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/values/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/app/src/test/java/com/glen/addtwonumbers/ExampleUnitTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M2/AddTwoNumbers/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/androidTest/java/com/glen/calculator/ExampleInstrumentedTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/java/com/glen/calculator/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/drawable/calculator_button_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/values-night/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/values/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/app/src/test/java/com/glen/calculator/ExampleUnitTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/M3/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/P2/PrelimExam.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/P2/PrelimExam.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/P2/PrelimExam.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2YoXGi6j5uyYU3NH5CDEchBr9J7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "M:/GitHub/ADTL21C/MRooms/Finals/AndroidRadioButton"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="af59ccef-0540-4ccd-b541-47dc1b5708ed" name="Changes" comment="" />
+      <created>1701192811569</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701192811569</updated>
+    </task>
+    <servers />
+  </component>
+</project>

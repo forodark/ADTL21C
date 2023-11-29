@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewFormTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Form Details"
+            android:textSize="24sp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="32dp"/>
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="20sp"
+            android:layout_below="@id/textViewFormTitle"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewEmail"
+            android:hint="Ex. johndoe@example.com"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="20sp"
+            android:layout_below="@id/editTextEmail"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/textViewName"
+            android:hint="Ex. John Doe"
+            android:inputType="text"/>
+
+        <TextView
+            android:id="@+id/textViewAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age"
+            android:textSize="20sp"
+            android:layout_below="@id/editTextName"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/editTextAge"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/textViewAge"
+            android:hint="Ex. 20"
+            android:inputType="number"/>
+
+        <TextView
+            android:id="@+id/textViewSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sex"
+            android:textSize="20sp"
+            android:layout_below="@id/editTextAge"
+            android:layout_marginTop="16dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupSex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewSex">
+
+            <RadioButton
+                android:id="@+id/radioButtonMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"/>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textViewYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year Level"
+            android:textSize="20sp"
+            android:layout_below="@id/radioGroupSex"
+            android:layout_marginTop="16dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupYearLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewYear">
+
+            <RadioButton
+                android:id="@+id/radioButtonYear1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1st Year"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonYear2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2nd Year"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonYear3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3rd Year"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonYear4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4th Year"/>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textViewCourse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course"
+            android:textSize="20sp"
+            android:layout_below="@id/radioGroupYearLevel"
+            android:layout_marginTop="16dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupCourse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCourse">
+
+            <RadioButton
+                android:id="@+id/radioButtonBSCS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BSCS"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonBSIT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BSIT"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonBSEGDD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BSE-GDD"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonBSEEM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BSE-EM"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonBSEGDD2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BSE-GDD"/>
+        </RadioGroup>
+
+
+
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGroupCourse"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:text="Submit"/>
+    </RelativeLayout>
+</ScrollView>

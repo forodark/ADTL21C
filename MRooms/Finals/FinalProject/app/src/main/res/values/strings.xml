@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+    <string name="welcome_message">Welcome to my forms activity!</string>
+    <string name="welcome_sub">By answering this form you agree that the creator of this app,
+        Glen, is the greatest of all time.</string>
+    <string name="thank_you_message">Thank you for your submission!</string>
+    <string name="thank_you_sub">You may view your answers, or submit another form.
+        You may also view all submitted forms, as well as read about the app by pressing
+        the menu icon on the top right corner of the page</string>
+</resources>
