@@ -15,6 +15,7 @@ class CalculatorActivity : BaseActivity() {
 
     private lateinit var display: TextView
     private var currentInput: StringBuilder = StringBuilder()
+    private var formattedInput: String = ""
     private var currentOperator: String? = null
     private var operand1: Double? = null
     private var currentDisplay: StringBuilder = StringBuilder()
@@ -96,7 +97,6 @@ class CalculatorActivity : BaseActivity() {
     }
 
     private fun onOperationClick(view: View) {
-
         if(clearIfMathError()) {
             return
         }
@@ -104,11 +104,12 @@ class CalculatorActivity : BaseActivity() {
             equate()
         }
 
-        if (currentInput.isEmpty()) {
-            return
-        }
+//        if (currentInput.isEmpty()) {
+//            return
+//        }
 
         if (operand1 == null) {
+            formattedInput = BigDecimal(currentInput.toString()).stripTrailingZeros().toPlainString()
             operand1 = currentInput.toString().toDouble()
             currentInput.clear()
         }
@@ -117,7 +118,7 @@ class CalculatorActivity : BaseActivity() {
 
         // Update the ongoing equation display
         currentDisplay.clear()
-        currentDisplay.append("$operand1 $currentOperator ")
+        currentDisplay.append("$formattedInput $currentOperator ")
         updateDisplay()
     }
 
@@ -129,8 +130,13 @@ class CalculatorActivity : BaseActivity() {
     }
 
     private fun equate() {
-        currentDisplay.append(" =")
         if (operand1 != null && currentOperator != null && currentInput.isNotEmpty()) {
+            currentDisplay.clear()
+            currentDisplay.append("$formattedInput $currentOperator ")
+
+            formattedInput = BigDecimal(currentInput.toString()).stripTrailingZeros().toPlainString()
+
+            currentDisplay.append("$formattedInput =")
             val operand2 = currentInput.toString().toDouble()
 
             if (currentOperator == "/" && operand2 == 0.0) {
