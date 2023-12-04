@@ -20,6 +20,7 @@ class CalculatorActivity : BaseActivity() {
     private var operand1: Double? = null
     private var currentDisplay: StringBuilder = StringBuilder()
     private lateinit var ongoingEquationDisplay: TextView
+    private var resultExists: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +56,21 @@ class CalculatorActivity : BaseActivity() {
         findViewById<Button>(R.id.btnDelete).setOnClickListener { onDeleteClick() }
         findViewById<Button>(R.id.btnPercent).setOnClickListener { onPercentClick() }
         findViewById<Button>(R.id.btnToggleSign).setOnClickListener { onToggleSignClick() }
+
+        clear()
+    }
+
+    private fun newEquation() {
+        if (resultExists) {
+            resultExists = false
+            clear()
+        }
+    }
+
+    private fun clear() {
+        currentInput.clear()
+        currentDisplay.clear()
+        updateDisplay()
     }
 
     private fun clearIfMathError(): Boolean {
@@ -67,6 +83,9 @@ class CalculatorActivity : BaseActivity() {
         }
         return false
     }
+
+
+
     private fun updateIfNoOperand() {
         if (operand1 == null) {
             currentDisplay.clear()
@@ -75,6 +94,9 @@ class CalculatorActivity : BaseActivity() {
     }
 
     private fun onDigitClick(view: View) {
+
+        newEquation()
+
         clearIfMathError()
         val digit = (view as Button).text
         currentInput.append(digit)
@@ -84,8 +106,18 @@ class CalculatorActivity : BaseActivity() {
     }
 
     private fun onDecimalClick() {
+
+        newEquation()
+
         if(clearIfMathError()) {
             return
+        }
+
+        if (currentInput.isEmpty()) {
+            currentInput.append("0.")
+            currentDisplay.append("0.")
+            updateIfNoOperand()
+            updateDisplay()
         }
 
         if (!currentInput.contains(".")) {
@@ -97,16 +129,21 @@ class CalculatorActivity : BaseActivity() {
     }
 
     private fun onOperationClick(view: View) {
+        if (currentInput.isEmpty() && currentOperator == null) {
+            return
+        }
         if(clearIfMathError()) {
             return
         }
         if (operand1 != null && currentInput.isNotEmpty()) {
             equate()
+            resultExists = false
         }
 
-//        if (currentInput.isEmpty()) {
-//            return
-//        }
+        if(clearIfMathError()) {
+            return
+        }
+
 
         if (operand1 == null) {
             formattedInput = BigDecimal(currentInput.toString()).stripTrailingZeros().toPlainString()
@@ -130,6 +167,9 @@ class CalculatorActivity : BaseActivity() {
     }
 
     private fun equate() {
+        if(clearIfMathError()) {
+            return
+        }
         if (operand1 != null && currentOperator != null && currentInput.isNotEmpty()) {
             currentDisplay.clear()
             currentDisplay.append("$formattedInput $currentOperator ")
@@ -158,6 +198,8 @@ class CalculatorActivity : BaseActivity() {
             }
 
             val formattedResult = BigDecimal(result.toString()).stripTrailingZeros().toPlainString()
+
+            resultExists = true
 
             currentInput.clear()
             currentInput.append(formattedResult)
@@ -197,9 +239,22 @@ class CalculatorActivity : BaseActivity() {
         if (currentInput.isNotEmpty()) {
             val input = currentInput.toString().toDouble()
             val result = input / 100
+
+            val formattedResult = BigDecimal(result.toString()).stripTrailingZeros().toPlainString()
+
             currentInput.clear()
-            currentInput.append(result)
+            currentInput.append(formattedResult)
             updateIfNoOperand()
+
+
+
+            currentDisplay.clear()
+            if (currentOperator != null) {
+                currentDisplay.append("$formattedInput $currentOperator $formattedResult")
+            } else {
+                currentDisplay.append("$formattedResult")
+            }
+
             updateDisplay()
         }
     }
@@ -211,8 +266,19 @@ class CalculatorActivity : BaseActivity() {
         if (currentInput.isNotEmpty() && currentInput.toString().toDouble() != 0.0) {
             val input = currentInput.toString().toDouble()
             val result = -input
+
+            val formattedResult = BigDecimal(result.toString()).stripTrailingZeros().toPlainString()
+
             currentInput.clear()
-            currentInput.append(result)
+            currentInput.append(formattedResult)
+
+            currentDisplay.clear()
+            if (currentOperator != null) {
+                currentDisplay.append("$formattedInput $currentOperator $formattedResult")
+            } else {
+                currentDisplay.append("$formattedResult")
+            }
+
 
             updateIfNoOperand()
             updateDisplay()
